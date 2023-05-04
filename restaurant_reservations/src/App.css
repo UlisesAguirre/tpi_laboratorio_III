@@ -1,9 +1,12 @@
+:root {
+  --primary-color: #D3756B;
+  --secondary-color: #FFC3A1;
+  --light-mode: #FFF;
+  --dark-mode: #000;
+}
+
 body {
-  background-color: rgb(40, 214, 40);
-  display: flex;
-  justify-content: center;
-  align-items:  center;
-  height: 100vh;
+  font-family: 'Asap Condensed';
 }
 
 .App h1 {

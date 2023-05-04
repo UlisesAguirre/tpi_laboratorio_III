@@ -1,10 +1,13 @@
 import './App.css';
 
+import Header from "./components/Header/Header"
+import Main from './components/Main/Main';
+
 function App() {
   return (
     <div className="App">
-      <h1>Esta es la pagina de un bar cariñoso</h1>
-      <p>Y como estas? me llego un privado al instagram. Era el amor que alguna vez, estuvo a mi lado pero fueeeee.</p>
+      <Header/>
+      <Main/>
     </div>
   );
 }
