@@ -1,0 +1,18 @@
+:root {
+  --primary-color: #D3756B;
+  --secondary-color: #FFC3A1;
+  --light-mode: #FFF;
+  --dark-mode: #000;
+}
+
+body {
+  font-family: 'Asap Condensed';
+}
+
+.App h1 {
+  color: pink;
+}
+
+.App p {
+  color: white;
+}

@@ -1,0 +1,26 @@
+.navBar-container {
+    padding: 0;
+    margin: 0;
+
+}
+.navBar-list {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    padding: 0;
+}
+
+.navBar-list li {
+    font-size: 1.4em;
+    text-align: center;
+    background-color: rgba(256, 256, 256, .6) ;
+    border: 1px solid #000;
+    width: 100%;
+    padding: .3em 0;
+}   
+
+.navBar-list li:hover {
+    color: var(--light-mode);
+    background-color: rgba(0, 0, 0, .1);
+    border: 1px solid var(--primary-color);
+}
