@@ -1,0 +1,36 @@
+.comments-container {
+    background-color: var(--light-mode);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;    
+}
+
+.comments-container h1 {
+    width: 80%;
+    text-align: initial;
+    padding: 1.2em 0 .7em;
+}
+
+.select-comments {
+    margin-bottom: 2em;
+    padding: .5em 4em .5em 2em;
+    width: 80%;
+    display: flex;
+    justify-content: space-between  ;
+    border-radius: 1em;
+    background-color: var(--primary-color);
+}
+
+.select-comments label {
+    font-size: 1.5em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.select-comments select {
+    border-radius: 1em;
+    padding: .3em 1em;
+}
+

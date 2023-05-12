@@ -10,7 +10,7 @@
     padding-bottom: .2em;
 }
 
-.userButton-container button {
+.button {
     font-size: 1em;
     font-weight: bold;
     margin: .8em .7em;
@@ -22,7 +22,7 @@
     border: .1px solid gray;
 }
 
-.userButton-container button:hover {
+.button:hover {
     color: var(--dark-mode);
     border:1px solid var(--secondary-color);
 }

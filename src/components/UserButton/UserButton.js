@@ -5,8 +5,8 @@ const UserButton = () => {
   return (
     <div className='userButton-container'>
         <div className='userButton-button-container'>
-            <button>Ingresar</button>
-            <button>Registrarme</button>
+            <button className="button">Ingresar</button>
+            <button className="button">Registrarme</button>
         </div>
     </div>
   )
