@@ -1,0 +1,38 @@
+.starRating-container {
+    
+}
+
+.stars-container {
+    /* Esto hace que al usar label:hover ~ label, funcione en direccion opuesta, marcando los labels de izquierda a derecha*/
+    direction: rtl;
+    unicode-bidi: bidi-override;
+}
+
+.starRating-container label {
+    margin: .05em;
+}
+
+.starRating-container label:hover {
+    color: var(--primary-color);
+}
+
+.starRating-container label:hover ~ label {
+    color: var(--primary-color);
+}
+
+.starRating-container input:checked ~ label {
+    /* cuando los inputs estan "checked" se mantiene el color en las estrellas */
+    color: var(--primary-color);
+}
+
+.starRating-container input{
+    display: none;
+}
+
+.stars {
+    color: var(--dark-mode);
+}
+
+.colored-stars {
+    color: var(--primary-color);
+}

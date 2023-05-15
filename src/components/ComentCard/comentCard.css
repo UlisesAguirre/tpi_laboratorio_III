@@ -6,7 +6,7 @@
     padding:  1em;
     margin: 2em 0 4em;
     width: 30%;
-
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
 }
 
 .comentCard-container img {
@@ -14,11 +14,7 @@
     margin: 1em 0;
     border-radius: 4em;
     margin-left: 1em;
-}
-
-.coment {
-    padding: .9em;
-    font-style: italic;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
 }
 
 .title-user-coment {
@@ -27,7 +23,15 @@
     margin: 0 1.5em;
     padding-left: .5em;
     font-weight: bold;
+    border-bottom: 1px solid var(--dark-mode);
 }
+
+.coment {
+    padding: .9em;
+    font-style: italic;
+}
+
+
 
 
 .date {

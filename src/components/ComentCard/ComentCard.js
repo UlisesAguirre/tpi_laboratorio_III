@@ -1,4 +1,6 @@
 
+import StarRating from "../StarRating/StarRating"
+
 import "./comentCard.css"
 
 const ComentCard = ({icon, name, coment, rate, date}) => {
@@ -10,7 +12,7 @@ const ComentCard = ({icon, name, coment, rate, date}) => {
       <img src={icon} alt="" />
       <div className="title-user-coment">
         <p>{name}</p>
-        <p>{rate}</p>
+        <p><StarRating rate = {rate} mode = {true}/></p>
       </div>
       <p className="coment">"{coment}"</p>
       <p className="date">{date}</p>
