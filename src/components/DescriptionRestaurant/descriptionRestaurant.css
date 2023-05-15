@@ -1,17 +1,18 @@
 .description-container {
     height: 75vh;
     padding: 1em;
+    color: var(--light-mode);
 }
 
 .description-container h1 {
-    color: var(--light-mode);
-    font-size: 3.5em;
+    font-size: 4em;
     padding: 1em 0 .7em 0 ;
     text-align: center;
+    filter: drop-shadow( 5px 5px 5px rgba(0, 0, 0, 0.25));
 }
 
 .description-container p {
-    font-size: 1.2em;
+    font-size: 1.8em;
     text-align: center;
     padding: 2em;
 }
