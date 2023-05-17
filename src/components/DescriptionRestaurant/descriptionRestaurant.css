@@ -4,7 +4,7 @@
     color: var(--light-mode);
 }
 
-.description-container h1 {
+.description-container h2 {
     font-size: 4em;
     padding: 1em 0 .7em 0 ;
     text-align: center;
@@ -16,3 +16,4 @@
     text-align: center;
     padding: 2em;
 }
+

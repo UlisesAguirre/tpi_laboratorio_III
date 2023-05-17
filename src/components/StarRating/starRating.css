@@ -1,5 +1,5 @@
 .starRating-container {
-    
+
 }
 
 .stars-container {
@@ -30,7 +30,7 @@
 }
 
 .stars {
-    color: var(--dark-mode);
+    color: gray;
 }
 
 .colored-stars {

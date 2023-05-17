@@ -17,13 +17,32 @@ const Comments = ({ icon, name, coment, rate, date }) => {
                     <option value="worse">Mas baja</option>
                 </select>
             </div>
-            <ComentCard
-                icon={icon}
-                name={name}
-                coment={coment}
-                rate={rate}
-                date={date}
-            />
+            <div className="comment-box">
+                <button className="circle-button">&lt;</button>
+                <ComentCard
+                    icon={icon}
+                    name={name}
+                    coment={coment}
+                    rate={rate}
+                    date={date}
+                />
+                <ComentCard
+                    icon={icon}
+                    name={name}
+                    coment={coment}
+                    rate={rate}
+                    date={date}
+                />
+                <ComentCard
+                    icon={icon}
+                    name={name}
+                    coment={coment}
+                    rate={rate}
+                    date={date}
+                />
+                <button className="circle-button">&gt;</button>
+            </div>
+
         </div>
     )
 }
