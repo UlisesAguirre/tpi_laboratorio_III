@@ -1,5 +1,8 @@
 .comments-container {
-    background-color: var(--light-mode);
+    background-color: var(--third-color);
+}
+
+.comments {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -7,7 +10,7 @@
     width: 100%;
 }
 
-.comments-container h1 {
+.comments h1 {
     width: 80%;
     text-align: initial;
     padding: 1.2em 0 .7em;

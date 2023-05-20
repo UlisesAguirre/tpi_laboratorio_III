@@ -1,9 +1,13 @@
+.formLogIn-container {
+    background-color: var(--third-color);
+}
+
 .LogIn{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: var(--secondary-color);
+    background-color: var(--third-color);
     color: white;
     height: 80vh;  
 }
