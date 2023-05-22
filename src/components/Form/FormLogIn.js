@@ -4,7 +4,7 @@ import NavBar from "../NavBar/NavBar";
 
 const FormLogIn = () => {
   return (
-    <div>
+    <div class="login-register-background">
       <NavBar />
       <div class="LogIn">
         <div class="form">

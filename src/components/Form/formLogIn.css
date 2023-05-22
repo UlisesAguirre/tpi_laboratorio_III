@@ -1,3 +1,7 @@
+.login-register-background{
+    background-color: var(--secondary-color);
+}
+
 .LogIn{
     display: flex;
     flex-direction: column;
@@ -5,7 +9,7 @@
     align-items: center;
     background-color: var(--secondary-color);
     color: white;
-    height: 80vh;  
+    height: 80vh;
 }
 
 .form{
