@@ -1,0 +1,67 @@
+.comments-container {
+    background-color: var(--third-color);
+}
+
+.comments {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.comments h1 {
+    width: 80%;
+    text-align: initial;
+    padding: 1.2em 0 .7em;
+}
+
+.select-comments {
+    margin-bottom: 2em;
+    padding: .5em 4em .5em 2em;
+    width: 85%;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 1em;
+    background-color: var(--primary-color);
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
+}
+
+.select-comments label {
+    font-size: 1.5em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.select-comments select {
+    border-radius: 1em;
+    padding: .3em 1em;
+    font-weight: normal;
+}
+
+.comment-box {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.circle-button{
+    display: block;
+    font-weight: bold;
+    font-size: 1.2em;
+    color: var(--primary-color);
+    width: 50px;
+    height: 50px;
+    border: 1px solid var(--primary-color);
+    background-color: var(--secondary-color);
+    border-radius: 50%;
+  }
+
+  .circle-button:hover {
+    color: var(--secondary-color);
+    background-color: var(--primary-color);
+    cursor: pointer;
+    transition: .3s;
+  }

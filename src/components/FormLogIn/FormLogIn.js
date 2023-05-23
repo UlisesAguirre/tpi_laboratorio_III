@@ -1,10 +1,11 @@
 import React from "react";
 import "./formLogIn.css";
+
 import NavBar from "../NavBar/NavBar";
 
 const FormLogIn = () => {
   return (
-    <div class="login-register-background">
+    <div className="formLogIn-container">
       <NavBar />
       <div class="LogIn">
         <div class="form">

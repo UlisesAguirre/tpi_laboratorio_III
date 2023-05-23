@@ -3,9 +3,13 @@ import "./descriptionRestaurant.css"
 
 const DescriptionRestaurant = () => {
   return (
-    <div className = "description-container">
-        <h1>Somos autenticos en sabor</h1>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rem hic quas fuga expedita ducimus facere ipsa veritatis tenetur nostrum, omnis in sapiente pariatur libero animi, earum deserunt debitis? Beatae hic porro, cum fuga aspernatur assumenda suscipit labore. Ea, minima odit.</p>
+    <div className="description-container">
+      <h2>Somos autenticos en sabor</h2>
+      <p>Deliciosas pizzas hechas a mano con ingredientes frescos y recetas caseras. Reserva tu mesa de forma
+        rápida y fácil en nuestra página web.</p>
+      <div className="button-menu">
+        <button className="button"><a href="">¡Conocé nuestro menú!</a></button>
+      </div>
     </div>
   )
 }

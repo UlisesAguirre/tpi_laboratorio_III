@@ -10,7 +10,7 @@
     padding-bottom: .2em;
 }
 
-.userButton-container button {
+.button {
     font-size: 1em;
     font-weight: bold;
     margin: .8em .7em;
@@ -20,9 +20,17 @@
     -webkit-text-stroke: .7px ;
     background-color: var(--secondary-color);
     border: .1px solid gray;
+    transition: .5s;
+    cursor: pointer;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
 }
 
-.userButton-container button:hover {
+.button:hover {
     color: var(--dark-mode);
     border:1px solid var(--secondary-color);
+}
+
+.button:hover .link{
+    color: var(--dark-mode);
+    transition: .5s;
 }
