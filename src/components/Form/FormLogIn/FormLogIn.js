@@ -1,7 +1,7 @@
 import React from "react";
 import "./formLogIn.css";
 
-import NavBar from "../NavBar/NavBar";
+import NavBar from "../../NavBar/NavBar";
 
 const FormLogIn = () => {
   return (
