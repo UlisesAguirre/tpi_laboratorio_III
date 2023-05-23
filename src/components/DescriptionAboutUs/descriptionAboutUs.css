@@ -1,0 +1,28 @@
+.about-us {
+    display: flex;
+    justify-content: space-around;
+    padding: 2em;
+}
+
+.about-us-description {
+    width: 50%;
+    padding-top: 1em;
+}
+
+.about-us-description h3 {
+    display: flex;
+    width: max-content;
+    padding: .3em 0;
+    margin: .3em 0;
+    border-bottom: 1px solid var(--primary-color);
+    font-style: italic;
+}
+
+.about-us-description p {
+    font-style: italic;
+}
+
+.about-us-img {
+    width: 25%;
+    border-radius: 1.5em;
+}

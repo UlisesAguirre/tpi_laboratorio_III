@@ -25,7 +25,7 @@ const Footer = () => {
         </div>
       </div>
       <div className='copyright'>
-        <p>Daguiga Reservation System - &copy; 20 23 All rights reserved. </p>
+        <p>Daguiga Reservation System - &copy; 2023 All rights reserved. </p>
       </div>
     </div>
   )

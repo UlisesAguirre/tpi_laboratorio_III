@@ -1,7 +1,7 @@
 .footer-container {
     color: var(--light-mode);
     padding: 2em 2em 0;
-    background-color: var(--dark-mode);
+    background-color: var(--primary-color);
     width: 100%;
 }
 
