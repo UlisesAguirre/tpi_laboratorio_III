@@ -1,6 +1,5 @@
 .userButton-container {
     display: flex;
-    flex-direction: column;
     padding:  .5em 0;
     margin: .5em;
 }

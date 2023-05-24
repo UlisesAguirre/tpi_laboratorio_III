@@ -1,5 +1,4 @@
 import ComentCard from "../ComentCard/ComentCard"
-import NavBar from "../NavBar/NavBar"
 
 import "./comments.css"
 
@@ -16,7 +15,6 @@ const Comments = () => {
 
     return (
         <div className="comments-container">
-            <NavBar/>
             <div className="comments">
                 <h1>Nuestros clientes</h1>
                 <div className="select-comments">

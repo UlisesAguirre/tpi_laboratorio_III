@@ -1,12 +1,11 @@
 import React from "react";
 import "./formRegister.css";
-import NavBar from "../../NavBar/NavBar";
+
 import InputRegister from "./InputRegister";
 
 const FormRegister = () => {
   return (
     <div className="form-register-container">
-      <NavBar />
       <div class="register">
         <div class="register-background">
           <h3 class="register-title">Registrarse</h3>

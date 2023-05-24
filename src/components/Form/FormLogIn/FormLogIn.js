@@ -1,13 +1,13 @@
 import React from "react";
+
+import InputLogin from "./InputLogin";
+
 import "./formLogIn.css";
 
-import NavBar from "../../NavBar/NavBar";
-import InputLogin from "./InputLogin";
 
 const FormLogIn = () => {
   return (
     <div className="formLogIn-container">
-      <NavBar />
       <div class="LogIn">
         <div class="form">
           <h3 class="form-tittle form-all">Iniciar Sesión</h3>
