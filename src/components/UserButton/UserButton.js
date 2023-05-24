@@ -1,16 +1,14 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import "../UserButton/userButton.css"
 
-import "./userButton.css"
-
-const UserButton = () => {
+const UserButton = ({ to, buttonName }) => {
   return (
-    <div className='userButton-container'>
-        <div className='userButton-button-container'>
-            <Link to="/login"><button className="button">Ingresar</button></Link>
-            <Link to="/register"><button className="button">Registrarme</button></Link>
-        </div>
+    <div>
+      <Link to={to}>
+        <button className="button">{buttonName}</button>
+      </Link>
     </div>
-  )
-}
+  );
+};
 
-export default UserButton
+export default UserButton;

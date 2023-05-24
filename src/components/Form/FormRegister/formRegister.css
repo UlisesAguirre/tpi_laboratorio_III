@@ -7,7 +7,7 @@
     justify-content: center;
     align-items: center;
     color: white;
-    height: 80vh;
+    height: 100vh;
 }
 
 .register-background{
@@ -64,7 +64,7 @@
     width: 180px;
     height: 50px;
     font-size: 1.5em;
-    background-color: var(--primary-color);
+    background-color: var(--secondary-color);
     color: #fff;
     border-radius: 10px;
     border: 1px solid var(--primary-color);

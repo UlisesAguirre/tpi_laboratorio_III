@@ -5,7 +5,7 @@ import FormLogIn from "./components/Form/FormLogIn/FormLogIn"
 import Comments from "./components/Comments/Comments"
 import AboutUs from "./components/AboutUs/AboutUs"
 import FormRegister from "./components/Form/FormRegister/FormRegister"
-
+import NavBar from "./components/NavBar/NavBar"
 import { Route, Routes } from 'react-router-dom';
 
 import './App.css';
@@ -16,6 +16,7 @@ function App() {
   return (
     <div className="App">
       <Header/>
+      <NavBar/>
       <Routes>
         <Route path='/' element= {<Main/>} />
         <Route path='/login' element= {<FormLogIn/>} />

@@ -7,7 +7,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: var(--third-color);
+    background-color: var(--secondary-color);
     color: white;
     height: 80vh;
 }
@@ -62,6 +62,7 @@
     height: 38px;
     border-radius: 10px;
     background-color: var(--secondary-color);
+    color: #fff;
     border: 0px solid;
 }
 
