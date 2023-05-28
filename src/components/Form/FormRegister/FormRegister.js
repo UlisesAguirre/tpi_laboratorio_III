@@ -2,6 +2,7 @@ import React from "react";
 import "./formRegister.css";
 
 import InputRegister from "./InputRegister";
+import { Link } from "react-router-dom";
 
 const FormRegister = () => {
   return (
@@ -48,7 +49,7 @@ const FormRegister = () => {
           <div class="register-button">
             <button class="register-button-registrar">Registrarse</button>
             <p>
-              Poseés una cuenta? <a href="/login">Inicia sesión</a>
+              Poseés una cuenta? <Link to="/login"> Inicia sesión</Link>
             </p>
           </div>
         </div>
