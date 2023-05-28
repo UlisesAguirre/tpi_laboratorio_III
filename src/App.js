@@ -6,6 +6,7 @@ import Comments from "./components/Comments/Comments"
 import AboutUs from "./components/AboutUs/AboutUs"
 import FormRegister from "./components/Form/FormRegister/FormRegister"
 import NavBar from "./components/NavBar/NavBar"
+import ClientMain from "./components/ClientMain/ClientMain"
 import { Route, Routes } from 'react-router-dom';
 
 import './App.css';
@@ -23,6 +24,7 @@ function App() {
         <Route path='/register' element= {<FormRegister/>} />
         <Route path="/comments" element = {<Comments/>} />
         <Route path="/about-us" element = {<AboutUs/>} />
+        <Route path="/client" element = {<ClientMain/>} />
       </Routes>
       <Footer/>
     </div>

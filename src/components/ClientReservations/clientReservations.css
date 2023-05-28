@@ -1,0 +1,29 @@
+.clientReservations-container {
+    height: 70vh;
+    padding: 2em;
+    flex-grow: 6;
+}
+
+.clientReservations-list {
+    background-color: var(--third-color);
+    width: max-content;
+    border-radius: 1em;
+    padding: .5em 2em;
+}
+
+.clientReservations-table {
+    text-align: center;
+}
+
+.clientReservations-table th {
+    text-decoration: underline;
+}
+
+.clientReservations-table td {
+    padding: 0.5em 2em;
+}
+
+.reservation-buttons {
+    display: flex;
+    justify-content: space-between;
+}
