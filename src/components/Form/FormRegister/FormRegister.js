@@ -49,7 +49,7 @@ const FormRegister = () => {
           <div class="register-button">
             <button class="register-button-registrar">Registrarse</button>
             <p>
-              Poseés una cuenta? <Link to="/login"> Inicia sesión</Link>
+              ¿Poseés una cuenta? <Link to="/login" className="button-login"> Inicia sesión</Link>
             </p>
           </div>
         </div>
