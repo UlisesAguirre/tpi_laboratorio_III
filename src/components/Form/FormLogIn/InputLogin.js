@@ -3,12 +3,12 @@ import React from 'react'
 const InputLogin = ({type, inputName, placeholder}) => {
   return (
     <div>
-       <div class="form-input">
-            <label class="form-input-label" for="usuario">
+       <div className="form-input">
+            <label className="form-input-label">
               {inputName}
             </label>
             <input
-              class="form-input-input"
+              className="form-input-input"
               type={type}
               name={inputName}
               placeholder={placeholder}
