@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import InputLogin from "./InputLogin";
 
@@ -8,9 +9,9 @@ import "./formLogIn.css";
 const FormLogIn = () => {
   return (
     <div className="formLogIn-container">
-      <div class="LogIn">
-        <div class="form">
-          <h3 class="form-tittle form-all">Iniciar Sesión</h3>
+      <div className="LogIn">
+        <div className="form">
+          <h3 className="form-tittle form-all">Iniciar Sesión</h3>
           <InputLogin
             inputName={"Email"}
             type={"email"}
@@ -21,11 +22,11 @@ const FormLogIn = () => {
             type={"password"}
             placeholder={"*********"}
           />
-          <a href="#" class="form-input-link">
-            Olvidaste tu contraseña?
-          </a>
+          <Link to="/register">
+            <button className="form-input-link">Olvidaste tu contraseña?</button>
+          </Link>
           <div>
-            <button class="form-button">Iniciar sesión</button>
+            <button className="form-button">Iniciar sesión</button>
           </div>
         </div>
       </div>

@@ -1,12 +1,12 @@
-import Header from "./components/Header/Header"
-import Main from "./components/Main/Main"
-import Footer from "./components/Footer/Footer"
-import FormLogIn from "./components/Form/FormLogIn/FormLogIn"
-import Comments from "./components/Comments/Comments"
-import AboutUs from "./components/AboutUs/AboutUs"
-import FormRegister from "./components/Form/FormRegister/FormRegister"
-import NavBar from "./components/NavBar/NavBar"
 import { Route, Routes } from 'react-router-dom';
+import Header from "./components/Header/Header"
+import NavBar from "./components/NavBar/NavBar"
+import Main from "./components/Main/Main"
+import FormLogIn from "./components/Form/FormLogIn/FormLogIn"
+import FormRegister from "./components/Form/FormRegister/FormRegister"
+import AboutUs from "./components/AboutUs/AboutUs"
+import Comments from "./components/Comments/Comments"
+import Footer from "./components/Footer/Footer"
 
 import './App.css';
 
