@@ -5,9 +5,6 @@ import { Link } from "react-router-dom";
 import InputRegister from "./InputRegister/InputRegister";
 import "./formRegister.css";
 
-import InputRegister from "./InputRegister";
-import { Link } from "react-router-dom";
-
 const FormRegister = () => {
   const [input, setInput] = useState({
     name: "",
