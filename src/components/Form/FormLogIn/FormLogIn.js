@@ -21,9 +21,9 @@ const FormLogIn = () => {
             type={"password"}
             placeholder={"*********"}
           />
-          <Link to="/register">
-            <button className="form-input-link">Olvidaste tu contraseña?</button>
-          </Link>
+          
+            <p><Link to="/register" className="button-register">Olvidaste tu contraseña?</Link></p>
+          
           <div>
             <button className="form-button">Iniciar sesión</button>
           </div>
