@@ -88,3 +88,11 @@
 .register-button a:hover{
     color: var(--secondary-color);
 }
+
+a.button-login {
+    color: var(--secondary-color);
+}
+
+a.button-login:hover {
+    text-decoration: underline;
+}

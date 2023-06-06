@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 import InputLogin from "./InputLogin";
@@ -28,6 +27,7 @@ const FormLogIn = () => {
           <div>
             <button className="form-button">Iniciar sesión</button>
           </div>
+          <p>¿No tienes cuenta? <Link to="/register" className="button-register">Registrarse</Link></p>
         </div>
       </div>
     </div>

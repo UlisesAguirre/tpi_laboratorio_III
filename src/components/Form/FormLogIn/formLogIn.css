@@ -71,3 +71,13 @@
     color: #fff;
     background-color: var(--primary-color);
 }
+
+a.button-register {
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+
+a.button-register:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}

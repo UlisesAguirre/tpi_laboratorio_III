@@ -4,14 +4,30 @@ import "./comments.css"
 
 const Comments = () => {
 
-    const userComent = {
-        icon: "https://static.vecteezy.com/system/resources/thumbnails/005/545/335/small/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg",
-        name: "Usuario",
-        coment: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, quasi.",
-        rate: 4,
-        date: "14/4/22"
+    const userComent = [
+        {
+            icon: "https://static.vecteezy.com/system/resources/thumbnails/005/545/335/small/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg",
+            name: "Usuario",
+            coment: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, quasi.",
+            rate: 4,
+            date: "14/4/22"
+        },
+        {
+            icon: "https://static.vecteezy.com/system/resources/thumbnails/005/545/335/small/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg",
+            name: "Usuario",
+            coment: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, quasi.",
+            rate: 4,
+            date: "14/4/22"
+        },
+        {
+            icon: "https://static.vecteezy.com/system/resources/thumbnails/005/545/335/small/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg",
+            name: "Usuario",
+            coment: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, quasi.",
+            rate: 4,
+            date: "14/4/22"
+        }
 
-    }
+    ]
 
     return (
         <div className="comments-container">
@@ -29,27 +45,13 @@ const Comments = () => {
                 </div>
                 <div className="comment-box">
                     <button className="circle-button">&lt;</button>
-                    <ComentCard
-                        icon={userComent.icon}
-                        name={userComent.name}
-                        coment={userComent.coment}
-                        rate={userComent.rate}
-                        date={userComent.date}
-                    />
-                    <ComentCard
-                        icon={userComent.icon}
-                        name={userComent.name}
-                        coment={userComent.coment}
-                        rate={userComent.rate}
-                        date={userComent.date}
-                    />
-                    <ComentCard
-                        icon={userComent.icon}
-                        name={userComent.name}
-                        coment={userComent.coment}
-                        rate={userComent.rate}
-                        date={userComent.date}
-                    />
+                    {userComent.map(u => <ComentCard 
+                        icon={u.icon}
+                        name={u.name}
+                        coment={u.coment}
+                        rate={u.rate}
+                        date={u.date}
+                    />)}    
                     <button className="circle-button">&gt;</button>
                 </div>
 

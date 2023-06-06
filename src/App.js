@@ -7,6 +7,10 @@ import FormRegister from "./components/Form/FormRegister/FormRegister"
 import AboutUs from "./components/AboutUs/AboutUs"
 import Comments from "./components/Comments/Comments"
 import Footer from "./components/Footer/Footer"
+import ClientMain from "./components/ClientMain/ClientMain"
+import ClientReservations from "./components/ClientReservations/ClientReservations"
+import EditProfile from "./components/EditProfile/EditProfile"
+
 
 import './App.css';
 
@@ -23,7 +27,10 @@ function App() {
         <Route path='/register' element= {<FormRegister/>} />
         <Route path="/comments" element = {<Comments/>} />
         <Route path="/about-us" element = {<AboutUs/>} />
-      </Routes>
+        <Route path="/client" element = {<ClientMain/>} />
+        <Route path="/client/reservations" element={<ClientReservations/>} />
+        <Route path="/client/edit-profile" element={<EditProfile/>} />
+      </Routes> 
       <Footer/>
     </div>
   );

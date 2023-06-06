@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 import InputRegister from "./InputRegister/InputRegister";
 import "./formRegister.css";
 
+import InputRegister from "./InputRegister";
+import { Link } from "react-router-dom";
+
 const FormRegister = () => {
   const [input, setInput] = useState({
     name: "",
@@ -138,7 +141,7 @@ const FormRegister = () => {
           <div className="register-button">
             <button className="register-button-registrar" onClick={handleSubmit}>Registrarse</button>
             <p>
-              Poseés una cuenta? <Link to="/login">Inicia sesión</Link>
+              ¿Poseés una cuenta? <Link to="/login" className="button-login"> Inicia sesión</Link>
             </p>
           </div>
         </div>
