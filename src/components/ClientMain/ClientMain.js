@@ -1,10 +1,7 @@
 import ClientMenu from "../ClientMenu/ClientMenu"
-import ClientReservations from "../ClientReservations/ClientReservations"
-import EditProfile from "../EditProfile/EditProfile"
 import { Routes, Route } from "react-router-dom"
 
 import "./clientMain.css"
-import ClientStart from "../ClientStart/ClientStart"
 
 const ClientMain = () => {
 
@@ -22,13 +19,8 @@ const ClientMain = () => {
 
 
   return (
-    <div className="clientMain-container">
+    <div className="client-container">
         <ClientMenu client = {client} />
-        <Routes>
-            <Route path="/client/" element={<ClientStart/>} />
-            <Route path="/client/reservations" element={<ClientReservations/>} />
-            <Route path="/client/edit-profile" element={<EditProfile/>} />
-        </Routes>
     </div>
   )
 }

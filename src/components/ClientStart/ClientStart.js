@@ -9,3 +9,13 @@ const ClientStart = () => {
 }
 
 export default ClientStart
+
+//Ejemplo estilos:
+/*import styles from "./clientStart.module.css"
+const ClientStart = () => {
+  return (
+    <div className={styles.client-container}>
+        
+    </div>
+  )
+}*/

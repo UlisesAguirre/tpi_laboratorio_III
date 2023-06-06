@@ -9,7 +9,7 @@ const ClientMenu = ({client}) => {
         <p>{client.name} {client.lastName}</p>
         <Link to="/client/reservations">Mis reservas</Link>
         <Link to="/client/edit-profile">Editar perfil</Link>
-        <Link to="/client">Cerrar sesion</Link>
+        <Link to="/">Cerrar sesion</Link>
     </div>
   )
 }
