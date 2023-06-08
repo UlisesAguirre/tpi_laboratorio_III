@@ -29,7 +29,7 @@ function App() {
         <Route path="/about-us" element = {<AboutUs/>} />
         <Route path="/client" element = {<ClientMain/>} />
         <Route path="/client/reservations" element={<ClientReservations/>} />
-        <Route path="/client/edit-profile" element={<EditProfile/>} />
+        <Route path="/client/edit-profile" element={<EditProfile edit={false}/>} />
       </Routes> 
       <Footer/>
     </div>

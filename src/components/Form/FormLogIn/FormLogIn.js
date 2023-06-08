@@ -9,7 +9,7 @@ const FormLogIn = () => {
   return (
     <div className="formLogIn-container">
       <div className="LogIn">
-        <div className="form">
+        <div className="form-logIn">
           <h3 className="form-tittle form-all">Iniciar Sesión</h3>
           <InputLogin
             inputName={"Email"}
@@ -24,8 +24,8 @@ const FormLogIn = () => {
           
             <p><Link to="/register" className="button-register">Olvidaste tu contraseña?</Link></p>
           
-          <div>
-            <button className="form-button">Iniciar sesión</button>
+          <div className="form-button">
+            <button className="button">Iniciar sesión</button>
           </div>
           <p>¿No tienes cuenta? <Link to="/register" className="button-register">Registrarse</Link></p>
         </div>
