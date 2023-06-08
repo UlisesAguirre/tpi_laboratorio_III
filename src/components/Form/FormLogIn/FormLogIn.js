@@ -25,7 +25,7 @@ const FormLogIn = () => {
             <p><Link to="/register" className="button-register">Olvidaste tu contraseña?</Link></p>
           
           <div className="form-button">
-            <button className="button">Iniciar sesión</button>
+          <Link to={"/client"}><button className="button">Iniciar sesión</button></Link>
           </div>
           <p>¿No tienes cuenta? <Link to="/register" className="button-register">Registrarse</Link></p>
         </div>
