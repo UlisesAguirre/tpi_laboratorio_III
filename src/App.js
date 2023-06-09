@@ -27,7 +27,7 @@ function App() {
         <Route path='/register' element= {<FormRegister/>} />
         <Route path="/comments" element = {<Comments/>} />
         <Route path="/about-us" element = {<AboutUs/>} />
-        <Route path="/client" element = {<ClientMain/>} />
+        <Route  exact path="/client" element = {<ClientMain/>} />
         <Route path="/client/reservations" element={<ClientReservations/>} />
         <Route path="/client/edit-profile" element={<EditProfile edit={false}/>} />
       </Routes> 
