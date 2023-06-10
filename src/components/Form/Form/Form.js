@@ -1,4 +1,4 @@
-import InputRegister from "../FormRegister/InputRegister/InputRegister";
+import Input from "../../shared/Input/Input";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { db } from "../../../firebase";
@@ -35,7 +35,8 @@ const Form = ({ title, buttonTitle, link, data, register }) => {
   });
   const sendFirebase = async () => {
     const { confirmPassword, ...data } = input;
-    await db.collection("clients").doc().set(data);
+    const dataWithRole = { ...data, role: "clients" };
+    await db.collection("users").doc().set(dataWithRole);
   };
 
   const handlerChangeInput = (e) => {
@@ -85,7 +86,7 @@ const Form = ({ title, buttonTitle, link, data, register }) => {
         <h3 className="form-title">{title}</h3>
         <form className="form">
           <div className="form-input">
-            <InputRegister
+            <Input
               inputName={"Nombre"}
               name={"name"}
               placeholder={register ? "Juan" : data.name}
@@ -98,7 +99,7 @@ const Form = ({ title, buttonTitle, link, data, register }) => {
                 "El nombre debe contener solo letras y un minimo de 3 caracteres"
               }
             />
-            <InputRegister
+            <Input
               inputName={"Apellido"}
               name={"lastName"}
               placeholder={register ? "Perez" : data.lastName}
@@ -111,7 +112,7 @@ const Form = ({ title, buttonTitle, link, data, register }) => {
                 "El apellido debe contener solo letras y un minimo de 3 caracteres"
               }
             />
-            <InputRegister
+            <Input
               inputName={"Numero de telefono"}
               name={"phone"}
               placeholder={register ? "3413755012" : data.phone}
@@ -126,7 +127,7 @@ const Form = ({ title, buttonTitle, link, data, register }) => {
             />
           </div>
           <div className="form-input">
-            <InputRegister
+            <Input
               inputName={"Email"}
               name={"email"}
               placeholder={register ? "example@gmail.com" : data.email}
@@ -139,7 +140,7 @@ const Form = ({ title, buttonTitle, link, data, register }) => {
                 "Email invalido: respete el formato(example@gmail.com)"
               }
             />
-            <InputRegister
+            <Input
               inputName={"Contraseña"}
               name={"password"}
               placeholder={"*************"}
@@ -152,7 +153,7 @@ const Form = ({ title, buttonTitle, link, data, register }) => {
                 "La contraseña debe contener al menos una minuscula,una mayuscula, un digito y una lonigtud minima de 8 caracteres"
               }
             />
-            <InputRegister
+            <Input
               inputName={"Repetir contraseña"}
               name={"confirmPassword"}
               placeholder={"*************"}

@@ -8,7 +8,7 @@ const ListUser = ({ typeUser }) => {
   const [clients, setClients] = useState([]);
 
   const getClients = async () => {
-    await db.collection("clients").onSnapshot((querySnapshot) => {
+    await db.collection("users").onSnapshot((querySnapshot) => {
       const data = [];
       querySnapshot.forEach((doc) => {
         data.push({ ...doc.data(), id: doc.id });
@@ -34,7 +34,6 @@ const ListUser = ({ typeUser }) => {
     },
   ];
 
-  // Simulación de array vacío
   const emptyUsers = false;
 
   return (
@@ -61,13 +60,7 @@ const ListUser = ({ typeUser }) => {
                     {e.name} {e.lastName}
                   </td>
                   <td>{e.email}</td>
-                  <td>
-                    {typeUser === "clients" ? (
-                      e.phone
-                    ) : (
-                      e.role
-                    )}
-                  </td>
+                  <td>{typeUser === "clients" ? e.phone : e.role}</td>
                   {typeUser === "clients" ? null : (
                     <td>
                       <div className="reservation-buttons">
