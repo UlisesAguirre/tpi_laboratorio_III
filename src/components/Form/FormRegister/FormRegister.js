@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import InputRegister from "./InputRegister/InputRegister";
 import "./formRegister.css";
+import { db } from "../../../firebase";
 
 const FormRegister = () => {
   const [input, setInput] = useState({
@@ -30,6 +31,10 @@ const FormRegister = () => {
     email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
     password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
   };
+  const sendFirebase = async() =>{
+    const { confirmPassword, ...data } = input;
+    await db.collection('cleints').doc().set(data);
+  }
 
   const handlerChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -51,8 +56,17 @@ const FormRegister = () => {
     const validationInputs = Object.values(validInput).some((valid) => !valid);
 
     if (validationInputs) {
-      alert("Por favor, complete correctamente todos los campos.");
+      alert("Por favor, complete correctamente todos los campos correctamente");
     } else {
+      sendFirebase();
+      setInput({
+        name: "",
+        lastName: "",
+        phone: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
       alert("Se ha registrado exitosamente!");
     }
   };
