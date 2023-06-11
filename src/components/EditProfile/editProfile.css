@@ -1,0 +1,10 @@
+.editProfile-container {
+    display: flex;
+    justify-content: initial;
+    width: 90%;
+    padding: 1em 3em; 
+}
+
+.editProfile-container h3, label {
+    color: var(--third-color);
+}

@@ -3,7 +3,7 @@ import React from 'react'
 const InputLogin = ({type, inputName, placeholder}) => {
   return (
     <div>
-       <div className="form-input">
+       <div className="form-logIn-input">
             <label className="form-input-label">
               {inputName}
             </label>
