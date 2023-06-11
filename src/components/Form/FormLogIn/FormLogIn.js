@@ -9,7 +9,7 @@ const FormLogIn = () => {
   return (
     <div className="formLogIn-container">
       <div className="LogIn">
-        <div className="form">
+        <div className="form-logIn">
           <h3 className="form-tittle form-all">Iniciar Sesión</h3>
           <InputLogin
             inputName={"Email"}
@@ -21,11 +21,11 @@ const FormLogIn = () => {
             type={"password"}
             placeholder={"*********"}
           />
-          <Link to="/register">
-            <button className="form-input-link">Olvidaste tu contraseña?</button>
-          </Link>
-          <div>
-            <button className="form-button">Iniciar sesión</button>
+          
+            <p><Link to="/register" className="button-register">Olvidaste tu contraseña?</Link></p>
+          
+          <div className="form-button">
+          <Link to={"/client"}><button className="button">Iniciar sesión</button></Link>
           </div>
           <p>¿No tienes cuenta? <Link to="/register" className="button-register">Registrarse</Link></p>
         </div>

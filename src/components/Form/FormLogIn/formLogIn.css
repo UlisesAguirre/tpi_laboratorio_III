@@ -12,7 +12,7 @@
     height: 80vh;
 }
 
-.form{
+.form-logIn{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -24,7 +24,7 @@
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
 }
 
-.form-input{
+.form-logIn-input{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -55,21 +55,6 @@
 
 .form-input-link:hover{
     color: rgb(214, 216, 218);
-}
-
-.form-button{
-    width: 105px;
-    height: 38px;
-    border-radius: 10px;
-    background-color: var(--secondary-color);
-    color: #fff;
-    border: 0px solid;
-}
-
-.form-button:hover{
-    border: 1px solid #fff;
-    color: #fff;
-    background-color: var(--primary-color);
 }
 
 a.button-register {

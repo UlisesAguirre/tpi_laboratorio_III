@@ -1,6 +1,6 @@
 .clientReservations-container {
     height: 70vh;
-    padding: 2em;
+    padding: 1em 4em;
     flex-grow: 6;
 }
 
@@ -11,18 +11,30 @@
 
 .clientReservations-list {
     background-color: var(--third-color);
-    width: max-content;
+    width: 70%;
     border-radius: 1em;
     padding: .5em 2em;
 }
 
+
 .clientReservations-table {
     text-align: center;
+    width: 100%;
+    margin-bottom: 3em;
 }
 
-.clientReservations-table th {
-    text-decoration: underline;
+.clientReservations-table p {
+    font-size: 1.4em;
+    text-align: initial;
+    width: 100%;
+    padding: 1em 0 .5em;
 }
+
+.clientReservations-table thead, .clientReservations-table tr {
+    border-bottom: 1px solid var(--secondary-color);
+}
+
+
 
 .clientReservations-table td {
     padding: 0.5em 2em;
@@ -31,4 +43,10 @@
 .reservation-buttons {
     display: flex;
     justify-content: space-between;
+}
+
+.clientReservations-list div {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
 }

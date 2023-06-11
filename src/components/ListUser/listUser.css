@@ -1,0 +1,7 @@
+.listUser-container {
+    background-color: var(--third-color); 
+    height: max-content;
+    border-radius: 1.5em;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25); 
+    padding: 1em;
+}
