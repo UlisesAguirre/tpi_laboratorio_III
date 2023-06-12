@@ -1,12 +1,8 @@
-import { useContext } from "react"
 import ComentCard from "../ComentCard/ComentCard"
 
 import "./comments.css"
-import { ThemeContext } from "../Context/ThemeContext"
 
 const Comments = () => {
-
-    const {theme} = useContext(ThemeContext)
 
     const userComent = [
         {
@@ -34,7 +30,7 @@ const Comments = () => {
     ]
 
     return (
-        <div className={theme}>
+        <div className="comments-container">
             <div className="comments">
                 <h1>Nuestros clientes</h1>
                 <div className="select-comments">

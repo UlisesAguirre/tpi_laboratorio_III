@@ -1,6 +1,4 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { ThemeContext } from "../../Context/ThemeContext";
 
 import InputLogin from "./InputLogin";
 
@@ -8,11 +6,8 @@ import "./formLogIn.css";
 
 
 const FormLogIn = () => {
-
-  const {theme} = useContext(ThemeContext);
-
   return (
-    <div className={theme}>
+    <div className="formLogIn-container">
       <div className="LogIn">
         <div className="form-logIn">
           <h3 className="form-tittle form-all">Iniciar Sesión</h3>

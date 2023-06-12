@@ -1,14 +1,8 @@
 import UserButton from "../UserButton/UserButton"
 import ClientMenu from "../ClientMenu/ClientMenu"
-import { useContext } from "react"
-import UserContext from "../Context/UserContext"
-
-
 import "./clientReservations.css"
 
 const ClientReservations = () => {
-
-    const user = useContext(UserContext);
 
     //Ejemplo datos de reservas.
     const reservations = [
@@ -28,15 +22,29 @@ const ClientReservations = () => {
             time: "10:30"
         }
     ]
+
+
+    //Ejemplo de cliente.
+    const client = {
+        id: 1,
+        icon: "https://static.vecteezy.com/system/resources/thumbnails/005/545/335/small/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg",
+        name: "Tito",
+        lastName: "Fuentes",
+        phone: "3416476578",
+        email: "tugrp@example.com",
+        password: "123456",
+        role: "client", //Ir variando entre los roles de admin, client y superAdmin para ver las diferencias. (userContext)
+    }
+
     //Simulacion lista vacia:
     const emptyReservations = false
 
 
     return (
         <div className="client-container">
-            <ClientMenu />
+            <ClientMenu client={client} />
             <div className="clientReservations-container">
-                <h2>{user.role === "client" ? "Mis reservas:" : "Reservas:"}</h2>
+                <h2>{client.role === "client" ? "Mis reservas:" : "Reservas:"}</h2>
                 <div className="clientReservations-list">
                     <table className="clientReservations-table">
                         {/*Logica para response sin reservas segun id-client --CAMBIAR--*/}
@@ -45,7 +53,7 @@ const ClientReservations = () => {
                                 <thead>
                                     <tr>
                                         <th>N° Mesa:</th>
-                                        {user.role === "client"? null : <th>Nombre</th>}
+                                        {client.role === "client"? null : <th>Nombre</th>}
                                         <th>Día:</th>
                                         <th>Hora:</th>
                                     </tr>
@@ -54,10 +62,10 @@ const ClientReservations = () => {
                                     {reservations.map(r =>
                                         <tr key={r.id}>
                                             <td>{r.id}</td>
-                                            {user.role === "client"? null : <td>{user.name} {user.lastName}</td>}
+                                            {client.role === "client"? null : <td>{client.name} {client.lastName}</td>}
                                             <td>{r.date}</td>
                                             <td>{r.time}hs</td>
-                                            {user.role === "admin" ? null : (
+                                            {client.role === "admin" ? null : (
                                                 <div className="reservation-buttons">
                                                     <UserButton to="" buttonName="Modificar" />
                                                     <UserButton to="" buttonName="Eliminar" />
@@ -70,7 +78,7 @@ const ClientReservations = () => {
                         )}
                     </table>
                     <div>
-                        {user.role === "client"? <button className="button">Hacer reserva</button>: null }     
+                        {client.role === "client"? <button className="button">Hacer reserva</button>: null }     
                     </div>
                 </div>
             </div>

@@ -1,15 +1,10 @@
-import { useContext } from "react"
 import DescriptionAboutUs from "../DescriptionAboutUs/DescriptionAboutUs"
 
 import "./aboutUs.css"
-import { ThemeContext } from "../Context/ThemeContext"
 
 const AboutUs = () => {
-
-    const {theme} = useContext(ThemeContext)
-
     return (
-        <div className={theme}>
+        <div className='aboutUs-container'>
             <DescriptionAboutUs/>
         </div>
     )

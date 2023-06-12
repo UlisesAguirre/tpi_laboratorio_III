@@ -1,7 +1,7 @@
 .clientReservations-container {
     height: 70vh;
     padding: 1em 4em;
-    width: 100%;
+    flex-grow: 6;
 }
 
 .clientReservations-container h2 {
@@ -11,7 +11,7 @@
 
 .clientReservations-list {
     background-color: var(--third-color);
-    width: max-content;
+    width: 70%;
     border-radius: 1em;
     padding: .5em 2em;
 }
