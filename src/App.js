@@ -10,7 +10,7 @@ import Footer from "./components/Footer/Footer"
 import ClientMain from "./components/ClientMain/ClientMain"
 import ClientReservations from "./components/ClientReservations/ClientReservations"
 import EditProfile from "./components/EditProfile/EditProfile"
-
+import ListUser from './components/ListUser/ListUser';
 
 import './App.css';
 
@@ -30,6 +30,7 @@ function App() {
         <Route  exact path="/client" element = {<ClientMain/>} />
         <Route path="/client/reservations" element={<ClientReservations/>} />
         <Route path="/client/edit-profile" element={<EditProfile edit={false}/>} />
+        <Route path="/admin/users" element={<ListUser/>} />
       </Routes> 
       <Footer/>
     </div>

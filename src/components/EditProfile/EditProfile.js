@@ -19,7 +19,7 @@ const EditProfile = ({edit}) => {
     phone: "3416476578",
     email: "tugrp@example.com",
     password: "123456",
-    role: "client", //Ir variando entre los roles de admin, client y superAdmin para ver las diferencias. (userContext)
+    role: "admin", //Ir variando entre los roles de admin, client y superAdmin para ver las diferencias. (userContext)
   }
 
   const editProfileHandler = () => {

@@ -1,6 +1,5 @@
 import React from "react";
 import Form from "../Form/Form";
-
 import "./formRegister.css";
 
 const FormRegister = () => {
