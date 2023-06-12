@@ -31,11 +31,8 @@
     font-style: italic;
 }
 
-
-
-
 .date {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     margin-top: 2em;
 }
