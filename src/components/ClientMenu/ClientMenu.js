@@ -1,17 +1,25 @@
 import { Link } from "react-router-dom"
+import { useContext } from "react"
+import UserContext from "../Context/UserContext"
 
 import "./clientMenu.css"
 
-const ClientMenu = ({client}) => {
+const ClientMenu = () => {
+
+  const user = useContext(UserContext);
+
   return (
     <div className="clientMenu-container">
-        <img className="user-icon" src={client.icon} alt="" />
-        <p>{client.name} {client.lastName}</p>
+        <img className="user-icon" src={user.icon} alt="" />
+        <p>{user.name} {user.lastName}</p>
         <Link to="/client/reservations">
-          {client.role === "client"? "Mis reservas" : "Reservas" }
+          {user.role == "client"? "Mis reservas" : "Reservas" }
         </Link>
         <Link to="/client/edit-profile">
-          {client.role === "client"? "Editar perfil" : client.role === "admin"? "Consultar clientes": "Administrar usuarios"}
+          {user.role == "client"? "Editar perfil" : user.role == "admin"? "Consultar clientes": "Administrar usuarios"}
+        </Link>
+        <Link to={"/client/comment"}>
+          {user.role === "client"? "Deja tu comentario" : null}
         </Link>
         <Link to="/">Cerrar sesion</Link>
     </div>

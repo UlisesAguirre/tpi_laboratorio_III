@@ -1,7 +1,3 @@
-.form-register-container{
-    background-color: var(--secondary-color);
-}
-
 .register{
     display: flex;
     justify-content: center;
