@@ -10,29 +10,53 @@ import Footer from "./components/Footer/Footer"
 import ClientMain from "./components/ClientMain/ClientMain"
 import ClientReservations from "./components/ClientReservations/ClientReservations"
 import EditProfile from "./components/EditProfile/EditProfile"
+import ThemeButton from './components/ThemeButton/ThemeButton'
+import CommentInput from './components/CommentInput/CommentInput'
 import ListUser from './components/ListUser/ListUser';
 
 import './App.css';
+import UserContext from './components/Context/UserContext';
+import { ThemeProvider } from './components/Context/ThemeContext';
 
 
 
 function App() {
+
+  const user = {
+    id: 1,
+    icon: "https://static.vecteezy.com/system/resources/thumbnails/005/545/335/small/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg",
+    name: "Tito",
+    lastName: "Fuentes",
+    phone: "3416476578",
+    email: "tugrp@example.com",
+    password: "123456",
+    role: "client", //Ir variando entre los roles de admin, client y superAdmin para ver las diferencias. (userContext)
+  }
+
   return (
+
+
     <div className="App">
-      <Header/>
-      <NavBar/>
-      <Routes>
-        <Route path='/' element= {<Main/>} />
-        <Route path='/login' element= {<FormLogIn/>} />
-        <Route path='/register' element= {<FormRegister/>} />
-        <Route path="/comments" element = {<Comments/>} />
-        <Route path="/about-us" element = {<AboutUs/>} />
-        <Route  exact path="/client" element = {<ClientMain/>} />
-        <Route path="/client/reservations" element={<ClientReservations/>} />
-        <Route path="/client/edit-profile" element={<EditProfile edit={false}/>} />
-        <Route path="/admin/users" element={<ListUser/>} />
-      </Routes> 
-      <Footer/>
+      <UserContext.Provider value={user}>
+        <ThemeProvider>
+          <Header />
+          <NavBar />
+          <Routes>
+            <Route path='/' element={<Main />} />
+            <Route path='/login' element={<FormLogIn />} />
+            <Route path='/register' element={<FormRegister />} />
+            <Route path="/comments" element={<Comments />} />
+            <Route path="/about-us" element={<AboutUs />} />
+            <Route path="/client" element={<ClientMain />} />
+            <Route path="/client/reservations" element={<ClientReservations />} />
+            <Route path="/client/edit-profile" element={<EditProfile edit={false} />} />
+            <Route path='/client/comment' element={<CommentInput />} />
+            <Route path="/admin/users" element={<ListUser />} />
+          </Routes>
+          <ThemeButton />
+          <Footer />
+        </ThemeProvider>
+      </UserContext.Provider>
     </div>
   );
 }

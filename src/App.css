@@ -14,4 +14,16 @@ body {
   font-family: 'Asap Condensed';
 }
 
+/* Estilos dark y light mode*/
+
+.light {
+  background-color: var(--third-color) ;
+  color: #000;
+}
+
+.dark {
+  background-color: rgba(0, 0, 0, .6) ;
+  color: antiquewhite;
+}
+
 

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { db } from "../../../firebase";
 
-import "./form.css";
+import "./form.css"
 
 //data: Es para traer los datos del GET en el EditProfile
 //option: true:register, false:modify
@@ -39,25 +39,25 @@ const Form = ({ title, buttonTitle, link, data, register }) => {
     await db.collection("users").doc().set(dataWithRole);
   };
 
-  const handlerChangeInput = (e) => {
-    setInput({ ...input, [e.target.name]: e.target.value });
-  };
+    const handlerChangeInput = (e) => {
+        setInput({ ...input, [e.target.name]: e.target.value });
+    };
 
-  const handlerBlurInput = (e) => {
-    const eventTarget = e.target.name;
-    setValidInput({
-      ...validInput,
-      [eventTarget]:
-        eventTarget !== "confirmPassword"
-          ? regex[eventTarget].test(input[eventTarget])
-          : input.confirmPassword === input.password,
-    });
-  };
+    const handlerBlurInput = (e) => {
+        const eventTarget = e.target.name;
+        setValidInput({
+            ...validInput,
+            [eventTarget]:
+                eventTarget !== "confirmPassword"
+                    ? regex[eventTarget].test(input[eventTarget])
+                    : input.confirmPassword === input.password,
+        });
+    };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
-    const validationInputs = Object.values(validInput).some((valid) => !valid);
+        const validationInputs = Object.values(validInput).some((valid) => !valid);
 
     if (validationInputs) {
       alert("Por favor, complete correctamente todos los campos.");
@@ -186,4 +186,4 @@ const Form = ({ title, buttonTitle, link, data, register }) => {
   );
 };
 
-export default Form;
+export default Form

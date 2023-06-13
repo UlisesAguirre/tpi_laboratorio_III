@@ -1,11 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
-import { db } from "../../../firebase";
+import { db } from "../../../firebase";import { useContext } from "react";
+import { ThemeContext } from "../../Context/ThemeContext";
+
 import Input from "../../shared/Input/Input";
 import { useState } from "react";
 
 import "./formLogIn.css";
 
 const FormLogIn = () => {
+
+  const {theme} = useContext(ThemeContext);
+
   const navigate = useNavigate();
   const [input, setInput] = useState({
     email: "",
@@ -60,7 +65,7 @@ const FormLogIn = () => {
   };
 
   return (
-    <div className="formLogIn-container">
+    <div className={theme}>
       <div className="LogIn">
         <div className="form-logIn">
           <h3 className="form-tittle form-all">Iniciar Sesión</h3>
