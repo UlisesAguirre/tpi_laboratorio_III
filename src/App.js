@@ -12,7 +12,7 @@ import ClientReservations from "./components/ClientReservations/ClientReservatio
 import EditProfile from "./components/EditProfile/EditProfile"
 import ThemeButton from './components/ThemeButton/ThemeButton'
 import CommentInput from './components/CommentInput/CommentInput'
-
+import ListUser from './components/ListUser/ListUser';
 
 import './App.css';
 import UserContext from './components/Context/UserContext';
@@ -39,7 +39,7 @@ function App() {
     <div className="App">
       <UserContext.Provider value={user}>
         <ThemeProvider>
-        <Header />
+          <Header />
           <NavBar />
           <Routes>
             <Route path='/' element={<Main />} />
@@ -50,9 +50,10 @@ function App() {
             <Route path="/client" element={<ClientMain />} />
             <Route path="/client/reservations" element={<ClientReservations />} />
             <Route path="/client/edit-profile" element={<EditProfile edit={false} />} />
-            <Route path='/client/comment' element={<CommentInput />}/>
+            <Route path='/client/comment' element={<CommentInput />} />
+            <Route path="/admin/users" element={<ListUser />} />
           </Routes>
-          <ThemeButton/>
+          <ThemeButton />
           <Footer />
         </ThemeProvider>
       </UserContext.Provider>

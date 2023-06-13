@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import Form from "../Form/Form";
-
 import "./formRegister.css";
 import { ThemeContext } from "../../Context/ThemeContext";
 

@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faFacebook, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 
 import "./footer.css"
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -14,9 +15,9 @@ const Footer = () => {
         <div className="social-media-container">
           <h2>Seguinos en nuestras redes:</h2>
           <div className="social-media">
-            <a href=""><FontAwesomeIcon icon={faInstagram} /></a>
-            <a href=""><FontAwesomeIcon icon={faFacebook} /></a>
-            <a href=""><FontAwesomeIcon icon={faWhatsapp} /></a>
+            <Link><FontAwesomeIcon icon={faInstagram} /></Link>
+            <Link><FontAwesomeIcon icon={faFacebook} /></Link>
+            <Link><FontAwesomeIcon icon={faWhatsapp} /></Link>
           </div>
         </div>
         <div>
