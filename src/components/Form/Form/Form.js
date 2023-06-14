@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { db } from "../../../firebase";
 
 import "./form.css"
+import Modal from "../../Modal/Modal";
 
 //data: Es para traer los datos del GET en el EditProfile
 //option: true:register, false:modify
@@ -38,7 +39,14 @@ const Form = ({ title, buttonTitle, link, data, register }) => {
     const dataWithRole = { ...data, role: "clients" };
     await db.collection("users").doc().set(dataWithRole);
   };
-
+  const [showModal, setModal] = useState(false);
+  const [messageModal, setMessage] = useState(false)
+  const openModal = () => {
+    setModal(true);
+  }
+  const closeModal = () => {
+    setModal(false);
+  }
     const handlerChangeInput = (e) => {
         setInput({ ...input, [e.target.name]: e.target.value });
     };
@@ -60,7 +68,8 @@ const Form = ({ title, buttonTitle, link, data, register }) => {
         const validationInputs = Object.values(validInput).some((valid) => !valid);
 
     if (validationInputs) {
-      alert("Por favor, complete correctamente todos los campos.");
+      setMessage("Por favor, complete correctamente todos los campos.");
+      openModal();
     } else {
       if (register) {
         sendFirebase();
@@ -72,11 +81,11 @@ const Form = ({ title, buttonTitle, link, data, register }) => {
           password: "",
           confirmPassword: "",
         });
-        alert("Se ha registrado exitosamente!");
+        setMessage("Se ha registrado exitosamente!") 
       } else {
-        alert("Se ha actualizado exitosamente!");
+        setMessage("Se ha actualizado correctamente!")
       }
-      navigate("/client");
+      openModal().then(()=>{validationInputs && navigate("/logIn")})
     }
   };
 
@@ -170,6 +179,12 @@ const Form = ({ title, buttonTitle, link, data, register }) => {
           <button className="button" onClick={handleSubmit}>
             {buttonTitle}
           </button>
+          <Modal estado={showModal} cambiarEstado={closeModal}>
+            <div className="modal-background123">
+                <h3 className="modal-h3-please">{messageModal}</h3>
+                <button onClick={closeModal} className="modal-buttom-please">Aceptar</button>
+            </div>
+          </Modal>
           <p>
             {title === "Registrarse" ? (
               <>

@@ -67,3 +67,23 @@
 .form-button a:hover{
     color: var(--secondary-color);
 }
+
+.modal-background123{
+    color: black;
+    background-color: #fff;
+}
+
+.modal-buttom-please{
+	padding: 10px 30px;
+	border-radius: 100px;
+	color: #fff;
+	border: none;
+	background: var(--secondary-color);
+	cursor: pointer;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+}
+
+.modal-buttom-please:hover {
+    color: var(--primary-color);
+}
