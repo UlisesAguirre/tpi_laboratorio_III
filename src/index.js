@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import './firebase'
 import { BrowserRouter } from 'react-router-dom';
+import { UserProvider } from './components/Context/UserContext';
 
 //import Bootstrap
 import 'bootstrap/dist/css/bootstrap.css';
@@ -15,7 +16,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-    <App />
+    <UserProvider>
+      <App />
+    </UserProvider>
   </BrowserRouter>
 );
 

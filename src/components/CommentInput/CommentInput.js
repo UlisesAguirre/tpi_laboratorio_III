@@ -9,7 +9,7 @@ const CommentInput = () => {
         <div className="client-container">
             <ClientMenu />
             <div className='comment-container'>
-                <h2>Deja tu comentario</h2>
+                <h2>Deja tu comentario:</h2>
                 <div className='comment-background'>
                     <div className='rating-container'>
                         <p>Califica tu experiencia</p>
