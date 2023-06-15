@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import ComentCard from "../ComentCard/ComentCard"
+import ComentCard from "./ComentCard/ComentCard"
 
 import "./comments.css"
 import { ThemeContext } from "../Context/ThemeContext"

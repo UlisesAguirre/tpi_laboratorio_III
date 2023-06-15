@@ -4,12 +4,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { db } from "../../../firebase";
 import UserContext from "../../Context/UserContext";
 
-import "./form.css"
+import "./fullForm.css"
 
 //data: Es para traer los datos del GET en el EditProfile
 //option: true:register, false:modify
 
-const Form = ({ title, buttonTitle, link, data, register }) => {
+const FullForm = ({ title, buttonTitle, link, data, register }) => {
 
   const {login} =useContext(UserContext);
 
@@ -45,7 +45,7 @@ const Form = ({ title, buttonTitle, link, data, register }) => {
 
   const modifiedFirebase = async () => {
     const { confirmPassword, ...data } = input;
-    const dataWithRole = { ...data, role: "client" };
+    const dataWithRole = { ...data };
 
     try {
       const querySnapshot = await db
@@ -100,7 +100,7 @@ const Form = ({ title, buttonTitle, link, data, register }) => {
           modifiedFirebase();
           alert("Se ha actualizado exitosamente!");
         }
-        navigate("/client");
+        navigate("/main");
       }
     };
 
@@ -210,4 +210,4 @@ const Form = ({ title, buttonTitle, link, data, register }) => {
     );
   };
 
-export default Form
+export default FullForm

@@ -1,5 +1,5 @@
-import UserButton from "../UserButton/UserButton"
-import ClientMenu from "../ClientMenu/ClientMenu"
+import UserButton from "../shared/UserButton/UserButton"
+import Main from "../MainContainer/Main/Main"
 import { useContext } from "react"
 import UserContext from "../Context/UserContext"
 
@@ -34,7 +34,7 @@ const ClientReservations = () => {
 
     return (
         <div className="client-container">
-            <ClientMenu />
+            <Main />
             <div className="clientReservations-container">
                 <h2>{user.role === "client" ? "Mis reservas:" : "Reservas:"}</h2>
                 <div className="clientReservations-list">

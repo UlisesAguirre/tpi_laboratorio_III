@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import UserButton from "../UserButton/UserButton";
-import { db } from "../../firebase";
+import UserButton from "../../shared/UserButton/UserButton";
+import { db } from "../../../firebase";
 
 import "./listUser.css";
 

@@ -1,0 +1,6 @@
+.list-user-container {
+    display: flex;
+    justify-content: initial;
+    width: 90%;
+    padding: 1em 3em; 
+}

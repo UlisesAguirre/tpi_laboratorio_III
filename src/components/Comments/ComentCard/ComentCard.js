@@ -1,5 +1,4 @@
-
-import StarRating from "../StarRating/StarRating"
+import StarRating from "../../shared/StarRating/StarRating"
 
 import "./comentCard.css"
 

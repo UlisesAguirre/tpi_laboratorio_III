@@ -1,10 +1,10 @@
 
 import { useContext } from "react"
 import logo from "../../assets/img/logo-restaurant.png"
-import UserButton from "../UserButton/UserButton"
+import UserButton from "../shared/UserButton/UserButton"
+import UserContext from "../Context/UserContext"
 
 import "./header.css"
-import UserContext from "../Context/UserContext"
 
 const Header = () => {
 

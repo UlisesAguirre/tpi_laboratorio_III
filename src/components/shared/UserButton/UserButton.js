@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "../UserButton/userButton.css"
+import "./userButton.css"
 
 const UserButton = ({ to, buttonName }) => {
   return (
