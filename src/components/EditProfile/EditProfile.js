@@ -1,5 +1,4 @@
-import Form from "../Form/Form/Form"
-import ClientMenu from "../ClientMenu/ClientMenu"
+import Main from "../MainContainer/Main/Main"
 
 import "./editProfile.css"
 import ProfileDataView from "../ProfileDataView/ProfileDataView"
@@ -7,6 +6,7 @@ import { useContext, useEffect, useState } from "react"
 import ListUser from "../ListUser/ListUser"
 import UserContext from "../Context/UserContext"
 import { db } from "../../firebase"
+import FullForm from "../Forms/FullForm/FullForm"
 
 
 
@@ -37,17 +37,17 @@ const EditProfile = ({ edit }) => {
 
   useEffect(() => {
     getByEmailFirebase(user.email);
-  }, [])
+  }, [user.email])
 
 
 
   return (
     <div className="client-container">
-      <ClientMenu />
+      <Main />
       <div className="editProfile-container">
         {user.role === "client" ? (
           editProfile ?
-            (<Form title={"Editar perfil"} buttonTitle={"Guardar"} link={"/edit-profile"} data={userLog} register={false} />)
+            (<FullForm title={"Editar perfil"} buttonTitle={"Guardar"} link={"/edit-profile"} data={userLog} register={false} />)
             : (<ProfileDataView user={userLog} editProfile={editProfileHandler} />)
 
         ) : user.role === "admin" ? <ListUser typeUser={"clients"} /> : <ListUser typeUser={"users"} />}

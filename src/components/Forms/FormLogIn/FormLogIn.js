@@ -38,7 +38,7 @@ const FormLogIn = () => {
         const client = querySnapshot.docs[0].data();
         if (client.password === input.password) {
           login(client.email, client.role, client.name, client.lastName, client.icon);
-          navigate("/client");
+          navigate("/main");
         } else {
           alert("Email o contraseña incorrectos");
         }

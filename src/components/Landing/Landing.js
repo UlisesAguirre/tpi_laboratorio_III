@@ -1,13 +1,13 @@
 
-import DescriptionRestaurant from "../DescriptionRestaurant/DescriptionRestaurant"
+import DescriptionRestaurant from "./DescriptionRestaurant/DescriptionRestaurant"
 
-import "./main.css"
+import "./landing.css"
 
 
 //Ejemplo comentario cliente
 
 
-const Main = () => {
+const Landing = () => {
 
   return (
     <div>
@@ -18,4 +18,4 @@ const Main = () => {
   )
 }
 
-export default Main
+export default Landing

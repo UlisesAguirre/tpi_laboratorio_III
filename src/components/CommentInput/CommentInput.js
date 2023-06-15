@@ -1,5 +1,5 @@
 import React from 'react'
-import ClientMenu from '../ClientMenu/ClientMenu'
+import Main from '../MainContainer/Main/Main'
 import StarRating from '../StarRating/StarRating'
 
 import "./commentInput.css"
@@ -7,7 +7,7 @@ import "./commentInput.css"
 const CommentInput = () => {
     return (
         <div className="client-container">
-            <ClientMenu />
+            <Main />
             <div className='comment-container'>
                 <h2>Deja tu comentario:</h2>
                 <div className='comment-background'>
