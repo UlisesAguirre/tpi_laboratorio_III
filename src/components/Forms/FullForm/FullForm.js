@@ -45,7 +45,7 @@ const FullForm = ({ title, buttonTitle, link, data, register }) => {
 
   const modifiedFirebase = async () => {
     const { confirmPassword, ...data } = input;
-    const dataWithRole = { ...data, role: "client" };
+    const dataWithRole = { ...data };
 
     try {
       const querySnapshot = await db

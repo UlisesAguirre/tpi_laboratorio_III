@@ -1,4 +1,3 @@
-
 import "./starRating.css"
 
 //mode = true; para renderizar comentario hecho

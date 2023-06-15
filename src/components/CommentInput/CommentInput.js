@@ -1,6 +1,6 @@
 import React from 'react'
 import Main from '../MainContainer/Main/Main'
-import StarRating from '../StarRating/StarRating'
+import StarRating from '../shared/StarRating/StarRating'
 
 import "./commentInput.css"
 

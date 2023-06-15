@@ -22,8 +22,12 @@ const Main = () => {
             Añadir turnos
           </Link>}
           <Link to="/main/edit-profile">
-            {user.role === "client"? "Editar perfil" : user.role === "admin"? "Consultar clientes": "Administrar usuarios"}
+            Editar perfil
           </Link>
+          {(user.role === "admin" || user.role === "superAdmin") &&
+          <Link to= "/main/list-users">
+            {user.role === "admin" ? "Consultar Clientes" :"Administrar Usuarios"}
+          </Link>}
           {user.role === "client"&&
           <Link to="/main/comment">
           "Deja tu comentario"

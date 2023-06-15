@@ -1,4 +1,4 @@
-import UserButton from "../UserButton/UserButton"
+import UserButton from "../shared/UserButton/UserButton"
 import Main from "../MainContainer/Main/Main"
 import { useContext } from "react"
 import UserContext from "../Context/UserContext"

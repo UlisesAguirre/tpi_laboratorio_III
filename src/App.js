@@ -12,7 +12,7 @@ import ClientReservations from "./components/ClientReservations/ClientReservatio
 import EditProfile from "./components/EditProfile/EditProfile"
 import ThemeButton from './components/ThemeButton/ThemeButton'
 import CommentInput from './components/CommentInput/CommentInput'
-import ListUser from './components/ListUser/ListUser';
+import ListUserContainer from './components/ListUserContainer/ListUserContainer';
 import { ThemeProvider } from './components/Context/ThemeContext';
 // import { useContext } from 'react';
 // import UserContext from './components/Context/UserContext';
@@ -33,16 +33,16 @@ function App() {
           <Header />
           <NavBar />
           <Routes>
-            <Route path='/' element={<Landing />} />
-            <Route path='/login' element={<FormLogIn />} />
-            <Route path='/register' element={<FormRegisterContainer />} />
+            <Route path="/" element={<Landing />} />
+            <Route path="/login" element={<FormLogIn />} />
+            <Route path="/register" element={<FormRegisterContainer />} />
             <Route path="/comments" element={<Comments />} />
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/main" element={<MainContainer />} />
             <Route path="/main/reservations" element={<ClientReservations />} />
+            <Route path="/main/list-users" element={<ListUserContainer />} />
             <Route path="/main/edit-profile" element={<EditProfile edit={false} />} />
-            <Route path='/main/comment' element={<CommentInput />} />
-            <Route path="/admin/users" element={<ListUser />} />
+            <Route path="/main/comment" element={<CommentInput />} />
           </Routes>
           <ThemeButton />
           <Footer />
