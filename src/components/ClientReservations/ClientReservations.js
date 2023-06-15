@@ -8,7 +8,7 @@ import "./clientReservations.css"
 
 const ClientReservations = () => {
 
-    const user = useContext(UserContext);
+    const {user} = useContext(UserContext);
 
     //Ejemplo datos de reservas.
     const reservations = [

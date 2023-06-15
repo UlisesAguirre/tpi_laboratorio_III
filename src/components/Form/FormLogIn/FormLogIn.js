@@ -1,15 +1,19 @@
 import { Link, useNavigate } from "react-router-dom";
-import { db } from "../../../firebase";import { useContext } from "react";
+import { db } from "../../../firebase";
+import { useContext } from "react";
 import { ThemeContext } from "../../Context/ThemeContext";
 
 import Input from "../../shared/Input/Input";
 import { useState } from "react";
+import UserContext from "../../Context/UserContext";
 
 import "./formLogIn.css";
 
 const FormLogIn = () => {
 
   const {theme} = useContext(ThemeContext);
+
+  const {user, login, logout} = useContext(UserContext)
 
   const navigate = useNavigate();
   const [input, setInput] = useState({
@@ -21,6 +25,7 @@ const FormLogIn = () => {
     email: null,
     password: null,
   });
+  
   const loguinFirebase = async () => {
     try {
       const querySnapshot = await db
@@ -32,6 +37,7 @@ const FormLogIn = () => {
       } else {
         const client = querySnapshot.docs[0].data();
         if (client.password === input.password) {
+          login(client.email, client.role, client.name, client.lastName, client.icon);
           navigate("/client");
         } else {
           alert("Email o contraseña incorrectos");

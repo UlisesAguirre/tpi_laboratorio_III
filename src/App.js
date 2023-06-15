@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes} from 'react-router-dom';
 import Header from "./components/Header/Header"
 import NavBar from "./components/NavBar/NavBar"
 import Main from "./components/Main/Main"
@@ -13,16 +13,20 @@ import EditProfile from "./components/EditProfile/EditProfile"
 import ThemeButton from './components/ThemeButton/ThemeButton'
 import CommentInput from './components/CommentInput/CommentInput'
 import ListUser from './components/ListUser/ListUser';
+import { ThemeProvider } from './components/Context/ThemeContext';
+import { useContext } from 'react';
+import UserContext from './components/Context/UserContext';
 
 import './App.css';
-import UserContext from './components/Context/UserContext';
-import { ThemeProvider } from './components/Context/ThemeContext';
 
 
 
 function App() {
 
-  const user = {
+  const {user} = useContext(UserContext);
+
+
+  const userEjemplo = {
     id: 1,
     icon: "https://static.vecteezy.com/system/resources/thumbnails/005/545/335/small/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg",
     name: "Tito",
@@ -34,10 +38,7 @@ function App() {
   }
 
   return (
-
-
     <div className="App">
-      <UserContext.Provider value={user}>
         <ThemeProvider>
           <Header />
           <NavBar />
@@ -56,7 +57,6 @@ function App() {
           <ThemeButton />
           <Footer />
         </ThemeProvider>
-      </UserContext.Provider>
     </div>
   );
 }
