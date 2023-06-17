@@ -30,7 +30,7 @@
     padding: 1em 0 .5em;
 }
 
-.clientReservations-table thead, .clientReservations-table tr {
+.clientReservations-table tr {
     border-bottom: 1px solid var(--secondary-color);
 }
 

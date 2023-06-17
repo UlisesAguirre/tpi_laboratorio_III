@@ -37,7 +37,7 @@ const ListUser = ({ typeUser }) => {
   const emptyUsers = false;
 
   return (
-    <div className="listUser-container">
+    <div className="list-user-table">
       <table className="clientReservations-table">
         {/* Lógica para respuesta sin usuarios registrados */}
         {emptyUsers ? (

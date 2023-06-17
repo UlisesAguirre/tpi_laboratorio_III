@@ -18,6 +18,7 @@ import { ThemeProvider } from './components/Context/ThemeContext';
 // import UserContext from './components/Context/UserContext';
 
 import './App.css';
+import TurnsContainer from './components/TurnsContainer/TurnsContainer';
 
 
 
@@ -40,6 +41,7 @@ function App() {
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/main" element={<MainContainer />} />
             <Route path="/main/reservations" element={<ClientReservations />} />
+            <Route path="/main/add-Turns" element={<TurnsContainer />} />
             <Route path="/main/list-users" element={<ListUserContainer />} />
             <Route path="/main/edit-profile" element={<EditProfile edit={false} />} />
             <Route path="/main/comment" element={<CommentInput />} />

@@ -18,7 +18,7 @@ const Main = () => {
             {user.role === "client"? "Mis reservas" : "Reservas" }
           </Link>
           {user.role === "admin" &&
-          <Link to="/main/addTurns">
+          <Link to="/main/add-turns">
             Añadir turnos
           </Link>}
           <Link to="/main/edit-profile">

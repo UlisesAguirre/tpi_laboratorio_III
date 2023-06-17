@@ -6,7 +6,7 @@ const InputRegister = ({inputName, placeholder, type, name, event, value,onBlur,
   return (
     <>
       <label>{inputName}</label>
-      <input type={type} name={name} placeholder={placeholder} value={value} onChange={event} onBlur={onBlur}></input>
+      <input type={type} name={name} placeholder={placeholder} value={value} onChange={event} onBlur={onBlur} className="inputComponent"></input>
       {validInput[name] === false?(
       <div className="container-span">
         <span className="span-input">{errorMessage}</span>
