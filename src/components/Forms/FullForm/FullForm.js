@@ -96,11 +96,12 @@ const FullForm = ({ title, buttonTitle, link, data, register }) => {
             confirmPassword: "",
           });
           alert("Se ha registrado exitosamente!");
+          navigate("/main");
         } else {
           modifiedFirebase();
           alert("Se ha actualizado exitosamente!");
+        navigate("/login");
         }
-        navigate("/main");
       }
     };
 

@@ -6,41 +6,44 @@ import "./listUser.css";
 
 const ListUser = ({ typeUser }) => {
   const [clients, setClients] = useState([]);
+  const [users, setUsers] = useState([]);
 
-  const getClients = async () => {
+  const getUsers = async () => {
     await db.collection("users").onSnapshot((querySnapshot) => {
       const data = [];
       querySnapshot.forEach((doc) => {
         data.push({ ...doc.data(), id: doc.id });
       });
-      setClients(data);
+      setUsers(data);
     });
   };
 
+  const getClients = async () => {
+    try {
+      const querySnapshot = await db
+        .collection("users")
+        .where("role", "==", "client")
+        .get();
+      const clientsData = querySnapshot.docs.map((doc) => doc.data());
+      setClients(clientsData);
+    } catch (error) {
+      console.error("Error al obtener clientes:", error);
+      alert("Ocurrió un error al obtener los clientes");
+    }
+  };
+
   useEffect(() => {
+    getUsers();
     getClients();
   }, []);
-
-  // Ejemplo de array de respuesta de la API
-  const user = [
-    {
-      id: 3,
-      icon: "https://static.vecteezy.com/system/resources/thumbnails/005/545/335/small/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg",
-      name: "Pedro",
-      lastName: "Alvarez",
-      email: "email22@example.com",
-      password: "1fff456",
-      role: "admin",
-    },
-  ];
-
-  const emptyUsers = false;
 
   return (
     <div className="listUser-container">
       <table className="clientReservations-table">
         {/* Lógica para respuesta sin usuarios registrados */}
-        {emptyUsers ? (
+        {clients == null? (
+          <p>No hay usuarios registrados</p>
+        ):  users == null? (
           <p>No hay usuarios registrados</p>
         ) : (
           <>
@@ -53,7 +56,7 @@ const ListUser = ({ typeUser }) => {
               </tr>
             </thead>
             <tbody>
-              {(typeUser === "clients" ? clients : user).map((e) => (
+              {(typeUser === "clients" ? clients : users).map((e) => (
                 <tr key={e.id}>
                   <td>{e.id}</td>
                   <td>

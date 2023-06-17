@@ -6,6 +6,8 @@ import { useContext, useEffect, useState } from "react";
 import UserContext from "../Context/UserContext";
 import { db } from "../../firebase";
 import FullForm from "../Forms/FullForm/FullForm";
+import ListUser from "../ListUserContainer/ListUser/ListUser";
+
 
 const EditProfile = ({ edit }) => {
   const [editProfile, setEditProfile] = useState(edit);
@@ -24,7 +26,6 @@ const EditProfile = ({ edit }) => {
         .collection("users")
         .where("email", "==", email)
         .get();
-      console.log(email);
       setUserLog(querySnapshot.docs[0].data());
     } catch (error) {
       console.error("Error durante el inicio de sesión:", error);
@@ -48,8 +49,8 @@ const EditProfile = ({ edit }) => {
             data={userLog}
             register={false}
           />
-        ) : (
-          <ProfileDataView user={userLog} editProfile={editProfileHandler} />
+          ) : (
+            user.role === "admin" ? <ListUser typeUser={"clients"} /> : <ListUser typeUser={"users"} />
         )}
       </div>
     </div>
