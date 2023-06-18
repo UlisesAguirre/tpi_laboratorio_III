@@ -10,19 +10,20 @@ const ListUser = () => {
 
   const [clients, setClients] = useState([]);
   const [users, setUsers] = useState([]);
-
-  const [filteredList, setFilteredList] = useState([]);
   const [searchInput, setSearchInput] = useState("");
 
-
   const getUsers = async () => {
-    await db.collection("users").onSnapshot((querySnapshot) => {
-      const data = [];
-      querySnapshot.forEach((doc) => {
-        data.push({ ...doc.data(), id: doc.id });
-      });
+    try {
+      const querySnapshot = await db.collection("users").get();
+      const data = querySnapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id
+      }));
       setUsers(data);
-    });
+    } catch (error) {
+      console.error("Error al obtener usuarios:", error);
+      alert("Ocurrió un error al obtener los usuarios");
+    }
   };
 
   const getClients = async () => {
@@ -31,32 +32,35 @@ const ListUser = () => {
         .collection("users")
         .where("role", "==", "client")
         .get();
-      const clientsData = querySnapshot.docs.map((doc) => doc.data());
-      setClients(clientsData);
+      const data = querySnapshot.docs.map((doc) => doc.data());
+      setClients(data);
     } catch (error) {
       console.error("Error al obtener clientes:", error);
       alert("Ocurrió un error al obtener los clientes");
     }
   };
 
-  const searchHandler =() => {
-    if (user.role === "admin") {
-      const filteredUsers = users.filter(
+  const searchHandler = () => {
+    const input = searchInput.toLowerCase().trim();
+    let filteredList = [];
+
+    if (user.role === "superAdmin") {
+      filteredList = users.filter(
         (user) =>
-          user.name.toLowerCase().includes(searchInput.toLowerCase()) ||
-          user.lastName.toLowerCase().includes(searchInput.toLowerCase()) ||
-          user.email.toLowerCase().includes(searchInput.toLowerCase())
+          user.name.toLowerCase().includes(input) ||
+          user.lastName.toLowerCase().includes(input) ||
+          user.email.toLowerCase().includes(input)
       );
-      setFilteredList(filteredUsers);
     } else {
-      const filteredClients = clients.filter(
+      filteredList = clients.filter(
         (client) =>
-          client.name.toLowerCase().includes(searchInput.toLowerCase()) ||
-          client.lastName.toLowerCase().includes(searchInput.toLowerCase()) ||
-          client.email.toLowerCase().includes(searchInput.toLowerCase())
+          client.name.toLowerCase().includes(input) ||
+          client.lastName.toLowerCase().includes(input) ||
+          client.email.toLowerCase().includes(input)
       );
-      setFilteredList(filteredClients);
     }
+
+    return filteredList;
   };
 
   const searchInputHandler = (event) => {
@@ -64,25 +68,29 @@ const ListUser = () => {
     setSearchInput(value);
   };
 
-
   useEffect(() => {
     getUsers();
     getClients();
-  }, [searchHandler]);
+  }, []);
+
+  const filteredList = searchHandler();
 
   return (
     <div className="list-container">
-      <h2>{users.role == "admin" ? "Clientes:" : "Usuarios:"}</h2>
+      <h2>{user.role === "admin" ? "Clientes:" : "Usuarios:"}</h2>
       <div className="listUser-container">
-          <div className="search-container">
-            <input type="text" value={searchInput} onChange={searchInputHandler}/>
-            <button className="button" onClick={searchHandler}>Buscar</button>
-          </div>
+        <div className="search-container">
+          <input
+            type="text"
+            value={searchInput}
+            onChange={searchInputHandler}
+          />
+          <button className="button" onClick={searchHandler}>
+            Buscar
+          </button>
+        </div>
         <table className="listUser-table">
-          {/* Lógica para respuesta sin usuarios registrados */}
-          {clients == null ? (
-            <p>No hay usuarios registrados</p>
-          ) : users == null ? (
+          {clients.length === 0 || users.length === 0 ? (
             <p>No hay usuarios registrados</p>
           ) : (
             <>
@@ -94,25 +102,29 @@ const ListUser = () => {
                 </tr>
               </thead>
               <tbody>
-                {(filteredList? filteredList : user.role === "admin" ? clients : users).map((e) => (
-                  <tr key={e.id}>
-                    <td>
-                      {e.name} {e.lastName}
-                    </td>
-                    <td>{e.email}</td>
-                    <td>{user.role === "admin" ? e.phone : e.role}</td>
-                    {user.role === "admin" ? null : (
-                      <td>
-                        <div className="reservation-buttons">
-                          {/* EventButton */}
-                          <UserButton to="" buttonName="Modificar" />
-                          <UserButton to="" buttonName="Eliminar" />
-                        </div>
-                      </td>
-                    )}
+                {searchInput !== "" && filteredList.length === 0 ? (
+                  <tr>
+                    <td colSpan={3}>No hay coincidencias</td>
                   </tr>
-                ))}
-                {filteredList == false? <p>No hay conicidencias</p> : null}
+                ) : (
+                  filteredList.map((item) => (
+                    <tr key={item.id}>
+                      <td>{`${item.name} ${item.lastName}`}</td>
+                      <td>{item.email}</td>
+                      <td>
+                        {user.role === "admin" ? item.phone : item.role}
+                      </td>
+                      {user.role === "admin" ? null : (
+                        <td>
+                          <div className="reservation-buttons">
+                            <button className="button">Modificar</button>
+                            <button className="button">Eliminar</button>
+                          </div>
+                        </td>
+                      )}
+                    </tr>
+                  ))
+                )}
               </tbody>
             </>
           )}
@@ -123,3 +135,4 @@ const ListUser = () => {
 };
 
 export default ListUser;
+
