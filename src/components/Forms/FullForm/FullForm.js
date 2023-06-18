@@ -11,7 +11,7 @@ import "./fullForm.css"
 
 const FullForm = ({ title, buttonTitle, link, data, register }) => {
 
-  const {login} =useContext(UserContext);
+  const {user, login} =useContext(UserContext);
 
   const navigate = useNavigate();
   const regex = {
@@ -45,7 +45,7 @@ const FullForm = ({ title, buttonTitle, link, data, register }) => {
 
   const modifiedFirebase = async () => {
     const { confirmPassword, ...data } = input;
-    const dataWithRole = { ...data };
+    const dataWithRole = { ...data, role: user.role };
 
     try {
       const querySnapshot = await db
@@ -96,11 +96,11 @@ const FullForm = ({ title, buttonTitle, link, data, register }) => {
             confirmPassword: "",
           });
           alert("Se ha registrado exitosamente!");
-          navigate("/main");
+          navigate("/login");
         } else {
           modifiedFirebase();
           alert("Se ha actualizado exitosamente!");
-        navigate("/login");
+          navigate("/main");
         }
       }
     };

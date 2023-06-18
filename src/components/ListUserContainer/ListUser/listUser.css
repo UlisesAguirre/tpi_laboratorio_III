@@ -10,6 +10,8 @@
 
 .listUser-container {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     background-color: var(--third-color); 
     height: max-content;
@@ -19,8 +21,22 @@
     padding: 1em;
 }
 
+.search-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 90%;
+    padding: 0 0 1em;
+}
+
+.search-container p {
+    height: 100%;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
 .listUser-table {
-    width: 95%;
+    width: 100%;
     text-align: center;
     margin-bottom: 3em;
 }

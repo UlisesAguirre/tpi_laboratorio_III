@@ -41,17 +41,17 @@ const EditProfile = ({ edit }) => {
     <div className="client-container">
       <Main />
       <div className="editProfile-container">
-        {editProfile ? (
-          <FullForm
-            title={"Editar perfil"}
-            buttonTitle={"Guardar"}
-            link={"/edit-profile"}
-            data={userLog}
-            register={false}
-          />
-          ) : (
-            user.role === "admin" ? <ListUser typeUser={"clients"} /> : <ListUser typeUser={"users"} />
-        )}
+        {
+          editProfile ?
+            (<FullForm
+              title={"Editar perfil"}
+              buttonTitle={"Guardar"}
+              link={"/edit-profile"}
+              data={userLog}
+              register={false} />)
+            : (<ProfileDataView user={userLog} editProfile={editProfileHandler} />)
+
+            }
       </div>
     </div>
   );

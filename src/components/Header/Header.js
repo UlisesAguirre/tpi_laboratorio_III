@@ -3,6 +3,7 @@ import { useContext } from "react"
 import logo from "../../assets/img/logo-restaurant.png"
 import UserButton from "../shared/UserButton/UserButton"
 import UserContext from "../Context/UserContext"
+import { Link } from "react-router-dom"
 
 import "./header.css"
 
@@ -19,8 +20,11 @@ const Header = () => {
             <UserButton to={"/login"} buttonName={"Iniciar sesion"} />
             <UserButton to={"/register"} buttonName={"Registrarme"} />
           </>
-        ) : null}
-
+        ) :
+          <div className="hello-container">
+            <Link to="/main">¡Hola!<h3>{user.name}</h3></Link>
+          </div>
+        }
       </div>
     </div>
   )
