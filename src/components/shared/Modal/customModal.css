@@ -14,19 +14,27 @@
     padding: 20px;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 40%;
   }
   
-  .custom-modal h2 {
+  .custom-modal h3 {
     margin-top: 0;
     color: var(--secondary-color);
+    border-bottom: 1px solid var(--secondary-color);
+    margin-bottom: 1em;
+    text-align: center;
   }
   
   .custom-modal p {
     margin-bottom: 10px;
   }
-  
-  .custom-modal button {
+
+  .button-modal-container {
+    display: flex;
+    justify-content: center;
   }
   
-  .custom-modal button:hover {
-  }  
+  .custom-modal button {
+    margin-top: 2em;
+  }
+  

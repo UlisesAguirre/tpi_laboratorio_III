@@ -41,6 +41,7 @@ const FullForm = ({ title, buttonTitle, link, data, register }) => {
     const { confirmPassword, ...data } = input;
     const dataWithRole = { ...data, role: "client" };
     await db.collection("users").doc().set(dataWithRole);
+    console.error("Usuario enviado");
   };
 
   const modifiedFirebase = async () => {
@@ -56,6 +57,8 @@ const FullForm = ({ title, buttonTitle, link, data, register }) => {
       const user = querySnapshot.docs[0].ref;
       await user.update(dataWithRole);
       login(dataWithRole.email, dataWithRole.role, dataWithRole.name, dataWithRole.lastName, dataWithRole.icon)
+      console.error("Usuario actualizado");
+
     } catch (error) {
       console.error("Error al actualizar el usuario:", error);
       alert("Ocurrió un error al actualizar el usuario");

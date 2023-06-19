@@ -26,6 +26,7 @@ const EditProfile = ({ edit }) => {
         .where("email", "==", email)
         .get();
       setUserLog(querySnapshot.docs[0].data());
+      console.log("Sesion iniciada");
     } catch (error) {
       console.error("Error durante el inicio de sesión:", error);
       alert("Ocurrió un error durante el inicio de sesión");

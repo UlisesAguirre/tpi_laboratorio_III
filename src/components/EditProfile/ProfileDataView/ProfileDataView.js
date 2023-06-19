@@ -1,10 +1,37 @@
+import CustomModal from "../../shared/Modal/CustomModal";
+import { db } from "../../../firebase";
+
 import "./profileDataView.css"
+import { useContext } from "react";
+import UserContext from "../../Context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const ProfileDataView = ({ user, editProfile }) => {
+
+    const {logout} = useContext(UserContext);
+    const navigate = useNavigate(); 
 
     const editProfileHandler = () => {
         editProfile()
     };
+
+    const deleteUser = async (user) => {
+        try {
+          const userRef = db.collection("users").where("email", "==", user.email);
+          const querySnapshot = await userRef.get();
+      
+          querySnapshot.docs.forEach((doc) => {
+            doc.ref.delete();
+          });
+      
+          console.log("Usuario eliminado con éxito");
+          navigate("/");
+          logout();
+        } catch (error) {
+          console.error("Error al eliminar el usuario:", error);
+          alert("Ocurrió un error al eliminar el usuario");
+        }
+      };
 
     return (
         <div className="profileDataView-container">
@@ -28,6 +55,13 @@ const ProfileDataView = ({ user, editProfile }) => {
                 </div>
                 <div className="button-data-container">
                     <button onClick={editProfileHandler} className="button">Editar</button>
+                    <CustomModal
+                        title={"Eliminar"}
+                        titleModalButton={"Eliminar"}
+                        finalMessage={"Usuario eliminado"}
+                        user={user}
+                        deleteUser={deleteUser}
+                    />
                 </div>
             </div>
         </div>

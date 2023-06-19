@@ -24,6 +24,8 @@ const CustomModal = ({ title, titleModalButton, finalMessage, user, modifyRole, 
 
   const eventModal = () => {
     { title === "Modificar rol" && modifyRole(newRole, user) }
+    { title === "Eliminar usuario" && deleteUser(user) }
+    { title === "Eliminar" && deleteUser(user) }
     setIsOpen(false);
     setMessage(true);
   };
@@ -38,7 +40,7 @@ const CustomModal = ({ title, titleModalButton, finalMessage, user, modifyRole, 
       {isOpen && (
         <div className="custom-modal-overlay">
           <div className={`custom-modal ${theme}`}>
-            <h2>{title}</h2>
+            <h3>{title}</h3>
             {title === "Modificar rol" ? (
               <select name="" id="" onChange={roleHandler}>
                 <option value="">Seleccionar</option>
@@ -47,7 +49,7 @@ const CustomModal = ({ title, titleModalButton, finalMessage, user, modifyRole, 
                 <option value="superAdmin">superAdmin</option>
               </select>
             ) : null}
-            <div>
+            <div className="button-modal-container">
               <button onClick={closeModal} className="button">Cancelar</button>
               <button onClick={eventModal} className="button">{titleModalButton}</button>
             </div>
@@ -55,10 +57,12 @@ const CustomModal = ({ title, titleModalButton, finalMessage, user, modifyRole, 
         </div>
       )}
       {message ? (
-        <div className={`custom-modal ${theme}`}>
-          <h2>{finalMessage}</h2>
-          <div>
-            <button onClick={closeMessage} className="button">Cerrar</button>
+        <div className="custom-modal-overlay">
+          <div className={`custom-modal ${theme}`}>
+            <h3>{finalMessage}</h3>
+            <div className="button-modal-container">
+              <button onClick={closeMessage} className="button">Cerrar</button>
+            </div>
           </div>
         </div>
       ) : null}

@@ -20,8 +20,9 @@ const ListUser = () => {
         id: doc.id
       }));
       setUsers(data);
+      console.error("Usuarios encontrados");
     } catch (error) {
-      console.error("Error al obtener usuarios:", error);
+      console.log("Error al obtener usuarios:", error);
       alert("Ocurrió un error al obtener los usuarios");
     }
   };
@@ -34,6 +35,7 @@ const ListUser = () => {
         .get();
       const data = querySnapshot.docs.map((doc) => doc.data());
       setClients(data);
+      console.log("Clientes encontrados");
     } catch (error) {
       console.error("Error al obtener clientes:", error);
       alert("Ocurrió un error al obtener los clientes");
@@ -80,6 +82,7 @@ const ListUser = () => {
       });
   
       console.log("Rol actualizado con éxito");
+      getUsers();
     } catch (error) {
       console.error("Error al actualizar el rol del usuario:", error);
       alert("Ocurrió un error al actualizar el rol del usuario");
@@ -91,6 +94,7 @@ const ListUser = () => {
       const userRef = db.collection("users").doc(user.id);
       await userRef.delete();
       console.log("Usuario eliminado con éxito");
+      getUsers();
     } catch (error) {
       console.error("Error al eliminar el usuario:", error);
       alert("Ocurrió un error al eliminar el usuario");
@@ -100,9 +104,10 @@ const ListUser = () => {
   useEffect(() => {
     getUsers();
     getClients();
-  }, [modifyRole, deleteUser]);
+  }, []);
 
   const filteredList = searchHandler();
+
 
   return (
     <div className="list-container">
@@ -114,9 +119,7 @@ const ListUser = () => {
             value={searchInput}
             onChange={searchInputHandler}
           />
-          <button className="button" onClick={searchHandler}>
-            Buscar
-          </button>
+          <button className="button" onClick={searchHandler}>Buscar</button>
         </div>
         <table className="listUser-table">
           {clients.length === 0 || users.length === 0 ? (
@@ -130,7 +133,7 @@ const ListUser = () => {
                   <th>{user.role === "admin" ? "Teléfono:" : "Rol:"}</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="listUser-scrollbar">
                 {searchInput !== "" && filteredList.length === 0 ? (
                   <tr>
                     <td colSpan={3}>No hay coincidencias</td>
