@@ -11,7 +11,7 @@ import "./fullForm.css"
 
 const FullForm = ({ title, buttonTitle, link, data, register }) => {
 
-  const {user, login} =useContext(UserContext);
+  const { user, login } = useContext(UserContext);
 
   const navigate = useNavigate();
   const regex = {
@@ -40,8 +40,21 @@ const FullForm = ({ title, buttonTitle, link, data, register }) => {
   const sendFirebase = async () => {
     const { confirmPassword, ...data } = input;
     const dataWithRole = { ...data, role: "client" };
-    await db.collection("users").doc().set(dataWithRole);
-    console.error("Usuario enviado");
+    const querySnapshot = await db
+      .collection("users")
+      .where("email", "==", dataWithRole.email)
+      .get();
+
+    if (!querySnapshot.empty) {
+      console.log("El usuario ya esta registrado")
+      alert("Ya existe un usuario con este email");
+    } else {
+      await db.collection("users").doc().set(dataWithRole);
+      console.error("Usuario registrado");
+      alert("Se ha registrado exitosamente!");
+      navigate("/login");
+    };
+
   };
 
   const modifiedFirebase = async () => {
@@ -65,153 +78,155 @@ const FullForm = ({ title, buttonTitle, link, data, register }) => {
     }
   }
 
-    const handlerChangeInput = (e) => {
-      setInput({ ...input, [e.target.name]: e.target.value });
-    };
+  const handlerChangeInput = (e) => {
+    if (e.target.name === "password" || e.target.name === "confirmPassword") {
+      setInput({ ...input, [e.target.name]: (e.target.value) });
+    } else {
+      setInput({ ...input, [e.target.name]: (e.target.value).toLowerCase() });
+    }
+  };
 
-    const handlerBlurInput = (e) => {
-      const eventTarget = e.target.name;
-      setValidInput({
-        ...validInput,
-        [eventTarget]:
-          eventTarget !== "confirmPassword"
-            ? regex[eventTarget].test(input[eventTarget])
-            : input.confirmPassword === input.password,
-      });
-    };
+  const handlerBlurInput = (e) => {
+    const eventTarget = e.target.name;
+    setValidInput({
+      ...validInput,
+      [eventTarget]:
+        eventTarget !== "confirmPassword"
+          ? regex[eventTarget].test(input[eventTarget])
+          : input.confirmPassword === input.password,
+    });
+  };
 
-    const handleSubmit = (e) => {
-      e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-      const validationInputs = Object.values(validInput).some((valid) => !valid);
+    const validationInputs = Object.values(validInput).some((valid) => !valid);
 
-      if (validationInputs) {
-        alert("Por favor, complete correctamente todos los campos.");
+    if (validationInputs) {
+      alert("Por favor, complete correctamente todos los campos.");
+    } else {
+      if (register) {
+        sendFirebase();
+        setInput({
+          name: "",
+          lastName: "",
+          phone: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        });
       } else {
-        if (register) {
-          sendFirebase();
-          setInput({
-            name: "",
-            lastName: "",
-            phone: "",
-            email: "",
-            password: "",
-            confirmPassword: "",
-          });
-          alert("Se ha registrado exitosamente!");
-          navigate("/login");
-        } else {
-          modifiedFirebase();
-          alert("Se ha actualizado exitosamente!");
-          navigate("/main");
-        }
+        modifiedFirebase();
+        alert("Se ha actualizado exitosamente!");
+        navigate("/main");
       }
-    };
+    }
+  };
 
-    return (
-      <div>
-        <div className="form-background">
-          <h3 className="form-title">{title}</h3>
-          <form className="form">
-            <div className="form-input">
-              <Input
-                inputName={"Nombre"}
-                name={"name"}
-                placeholder={register ? "Juan" : data.name}
-                type={"text"}
-                value={input.name}
-                event={handlerChangeInput}
-                onBlur={handlerBlurInput}
-                validInput={validInput}
-                errorMessage={
-                  "El nombre debe contener solo letras y un minimo de 3 caracteres"
-                }
-              />
-              <Input
-                inputName={"Apellido"}
-                name={"lastName"}
-                placeholder={register ? "Perez" : data.lastName}
-                type={"text"}
-                value={input.lastName}
-                event={handlerChangeInput}
-                onBlur={handlerBlurInput}
-                validInput={validInput}
-                errorMessage={
-                  "El apellido debe contener solo letras y un minimo de 3 caracteres"
-                }
-              />
-              <Input
-                inputName={"Numero de telefono"}
-                name={"phone"}
-                placeholder={register ? "3413755012" : data.phone}
-                type={"number"}
-                value={input.phone}
-                event={handlerChangeInput}
-                onBlur={handlerBlurInput}
-                validInput={validInput}
-                errorMessage={
-                  "El numero de telefono debe estar compuesto por 10 numeros"
-                }
-              />
-            </div>
-            <div className="form-input">
-              <Input
-                inputName={"Email"}
-                name={"email"}
-                placeholder={register ? "example@gmail.com" : data.email}
-                type={"email"}
-                value={input.email}
-                event={handlerChangeInput}
-                onBlur={handlerBlurInput}
-                validInput={validInput}
-                errorMessage={
-                  "Email invalido: respete el formato(example@gmail.com)"
-                }
-              />
-              <Input
-                inputName={"Contraseña"}
-                name={"password"}
-                placeholder={"*************"}
-                type={"password"}
-                input={input.password}
-                event={handlerChangeInput}
-                onBlur={handlerBlurInput}
-                validInput={validInput}
-                errorMessage={
-                  "La contraseña debe contener al menos una minuscula,una mayuscula, un digito y una lonigtud minima de 8 caracteres"
-                }
-              />
-              <Input
-                inputName={"Repetir contraseña"}
-                name={"confirmPassword"}
-                placeholder={"*************"}
-                type={"password"}
-                input={input.confirmPassword}
-                event={handlerChangeInput}
-                onBlur={handlerBlurInput}
-                validInput={validInput}
-                errorMessage={"Las contraseñas no coinciden"}
-              />
-            </div>
-          </form>
-          <div className="form-button">
-            <button className="button" onClick={handleSubmit}>
-              {buttonTitle}
-            </button>
-            <p>
-              {title === "Registrarse" ? (
-                <>
-                  ¿Poseés una cuenta?{" "}
-                  <Link to="/login" className="button-login">
-                    Inicia sesión
-                  </Link>
-                </>
-              ) : null}
-            </p>
+  return (
+    <div>
+      <div className="form-background">
+        <h3 className="form-title">{title}</h3>
+        <form className="form">
+          <div className="form-input">
+            <Input
+              inputName={"Nombre"}
+              name={"name"}
+              placeholder={register ? "Juan" : data.name}
+              type={"text"}
+              value={input.name}
+              event={handlerChangeInput}
+              onBlur={handlerBlurInput}
+              validInput={validInput}
+              errorMessage={
+                "El nombre debe contener solo letras y un minimo de 3 caracteres"
+              }
+            />
+            <Input
+              inputName={"Apellido"}
+              name={"lastName"}
+              placeholder={register ? "Perez" : data.lastName}
+              type={"text"}
+              value={input.lastName}
+              event={handlerChangeInput}
+              onBlur={handlerBlurInput}
+              validInput={validInput}
+              errorMessage={
+                "El apellido debe contener solo letras y un minimo de 3 caracteres"
+              }
+            />
+            <Input
+              inputName={"Numero de telefono"}
+              name={"phone"}
+              placeholder={register ? "3413755012" : data.phone}
+              type={"number"}
+              value={input.phone}
+              event={handlerChangeInput}
+              onBlur={handlerBlurInput}
+              validInput={validInput}
+              errorMessage={
+                "El numero de telefono debe estar compuesto por 10 numeros"
+              }
+            />
           </div>
+          <div className="form-input">
+            <Input
+              inputName={"Email"}
+              name={"email"}
+              placeholder={register ? "example@gmail.com" : data.email}
+              type={"email"}
+              value={input.email}
+              event={handlerChangeInput}
+              onBlur={handlerBlurInput}
+              validInput={validInput}
+              errorMessage={
+                "Email invalido: respete el formato(example@gmail.com)"
+              }
+            />
+            <Input
+              inputName={"Contraseña"}
+              name={"password"}
+              placeholder={"*************"}
+              type={"password"}
+              input={input.password}
+              event={handlerChangeInput}
+              onBlur={handlerBlurInput}
+              validInput={validInput}
+              errorMessage={
+                "La contraseña debe contener al menos una minuscula,una mayuscula, un digito y una lonigtud minima de 8 caracteres"
+              }
+            />
+            <Input
+              inputName={"Repetir contraseña"}
+              name={"confirmPassword"}
+              placeholder={"*************"}
+              type={"password"}
+              input={input.confirmPassword}
+              event={handlerChangeInput}
+              onBlur={handlerBlurInput}
+              validInput={validInput}
+              errorMessage={"Las contraseñas no coinciden"}
+            />
+          </div>
+        </form>
+        <div className="form-button">
+          <button className="button" onClick={handleSubmit}>
+            {buttonTitle}
+          </button>
+          <p>
+            {title === "Registrarse" ? (
+              <>
+                ¿Poseés una cuenta?{" "}
+                <Link to="/login" className="button-login">
+                  Inicia sesión
+                </Link>
+              </>
+            ) : null}
+          </p>
         </div>
       </div>
-    );
-  };
+    </div>
+  );
+};
 
 export default FullForm
