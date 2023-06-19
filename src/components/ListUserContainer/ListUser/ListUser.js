@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
-import UserButton from "../../shared/UserButton/UserButton";
 import { db } from "../../../firebase";
 import UserContext from "../../Context/UserContext";
 
 import "./listUser.css";
+import CustomModal from "../../shared/Modal/CustomModal";
 
 const ListUser = () => {
   const { user } = useContext(UserContext);
@@ -68,10 +68,39 @@ const ListUser = () => {
     setSearchInput(value);
   };
 
+  const modifyRole = async (newRole, user) => {
+    console.log(user, newRole);
+  
+    try {
+      const userRef = db.collection("users").where("email", "==", user.email);
+      const querySnapshot = await userRef.get();
+  
+      querySnapshot.docs.forEach((doc) => {
+        doc.ref.update({ role: newRole });
+      });
+  
+      console.log("Rol actualizado con éxito");
+    } catch (error) {
+      console.error("Error al actualizar el rol del usuario:", error);
+      alert("Ocurrió un error al actualizar el rol del usuario");
+    }
+  };
+
+  const deleteUser = async (user) => {
+    try {
+      const userRef = db.collection("users").doc(user.id);
+      await userRef.delete();
+      console.log("Usuario eliminado con éxito");
+    } catch (error) {
+      console.error("Error al eliminar el usuario:", error);
+      alert("Ocurrió un error al eliminar el usuario");
+    }
+  };
+
   useEffect(() => {
     getUsers();
     getClients();
-  }, []);
+  }, [modifyRole, deleteUser]);
 
   const filteredList = searchHandler();
 
@@ -117,8 +146,20 @@ const ListUser = () => {
                       {user.role === "admin" ? null : (
                         <td>
                           <div className="reservation-buttons">
-                            <button className="button">Modificar</button>
-                            <button className="button">Eliminar</button>
+                            <CustomModal
+                              title={"Modificar rol"}
+                              titleModalButton={"Guardar"}
+                              finalMessage={"Rol modificado con éxito"}
+                              user={item}
+                              modifyRole={modifyRole}
+                            />
+                            <CustomModal
+                              title={"Eliminar usuario"}
+                              titleModalButton={"Eliminar"}
+                              finalMessage={"Usuario eliminado con éxito"}
+                              user={item}
+                              deleteUser={deleteUser}
+                            />
                           </div>
                         </td>
                       )}
@@ -135,4 +176,3 @@ const ListUser = () => {
 };
 
 export default ListUser;
-

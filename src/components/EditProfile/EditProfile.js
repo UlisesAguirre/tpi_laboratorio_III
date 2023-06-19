@@ -6,7 +6,6 @@ import { useContext, useEffect, useState } from "react";
 import UserContext from "../Context/UserContext";
 import { db } from "../../firebase";
 import FullForm from "../Forms/FullForm/FullForm";
-import ListUser from "../ListUserContainer/ListUser/ListUser";
 
 
 const EditProfile = ({ edit }) => {
