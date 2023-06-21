@@ -18,23 +18,22 @@ const TurnsContainer = () => {
       setTurns(data);
     });
   };
-  
+
   useEffect(() => {
     getTurns();
   }, []);
 
-  const showForm=()=>{
-    setAddTurnEnable(!addTurnEnable)
-  }
+  const showForm = () => {
+    setAddTurnEnable(!addTurnEnable);
+  };
   return (
     <div className="client-container">
       <Main />
-      <div className="turns-container">
-        <TurnsView listTurns={turns} />
-        <button className="button" onClick={showForm}>{!addTurnEnable?"+ Añadir turno":"Cerrar formulario"}</button>
-        {addTurnEnable&& <TurnsForm/>}
-        
-      </div>
+      <TurnsView listTurns={turns} />
+      <button className="button" onClick={showForm}>
+        {!addTurnEnable ? "+ Añadir turno" : "Cerrar formulario"}
+      </button>
+      {addTurnEnable && <TurnsForm />}
     </div>
   );
 };

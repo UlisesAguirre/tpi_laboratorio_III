@@ -37,3 +37,23 @@
 .turns-table td {
     padding: 0.5em 2em;
 }
+.turns-table {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 3em;
+}
+
+.turns-table p {
+    font-size: 1.4em;
+    text-align: initial;
+    width: 100%;
+    padding: 1em 0 .5em;
+}
+
+.turns-table tr {
+    border-bottom: 1px solid var(--secondary-color);
+}
+
+.turns-table td {
+    padding: 0.5em 2em;
+}

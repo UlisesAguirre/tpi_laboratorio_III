@@ -19,16 +19,60 @@ import { ThemeProvider } from './components/Context/ThemeContext';
 
 import './App.css';
 import TurnsContainer from './components/TurnsContainer/TurnsContainer';
+import { useEffect } from 'react';
+import { db } from './firebase';
 
 
 
 function App() {
 
-  // const {user} = useContext(UserContext);
+  useEffect(() => {
+    /*to avoid wanting to comment this function while you are working
+     on other things*/
+    generateTurns();
+  }, []);
 
-
-
-  return (
+  //do not touch if you dont have authorization
+  const generateTurns = async () => {
+    const currentDate = new Date();
+    const endDate = new Date();
+    endDate.setDate(currentDate.getDate() + 13);
+  
+    const querySnapshot = await db
+      .collection('turns')
+      .where('date', '>=', currentDate.toISOString())
+      .where('date', '<=', endDate.toISOString())
+      .get();
+  
+    if (!querySnapshot.empty) {
+      return;
+    }
+  
+    const daysOfWeek = ['Domingo','Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    const timeSlots = ['12-14', '14-16', '20-22', '22-24'];
+  
+    for (let i = 0; i < 14; i++) {
+      const currentDate = new Date();
+      currentDate.setDate(currentDate.getDate() + i);
+  
+      const dayOfWeek = daysOfWeek[currentDate.getDay()];
+  
+      for (const timeSlot of timeSlots) {
+        const newTurn = {
+          //conversion taken from gpt chat
+          date: currentDate.toISOString().split('T')[0],
+          day: dayOfWeek,
+          hour: timeSlot,
+          clients: [],
+          capacity: 20,
+          available: true
+        };
+  
+        await db.collection('turns').add(newTurn);
+      }
+    }
+  };
+    return (
     <div className="App">
         <ThemeProvider>
           <Header />
