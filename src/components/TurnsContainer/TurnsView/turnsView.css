@@ -1,26 +1,27 @@
 .table-container {
-    max-height: 400px; /* Altura máxima del contenedor */
-    overflow-y: auto; /* Desplazamiento vertical */
-    position: relative; /* Posición relativa para establecer el encabezado */
+    max-height: 400px;
+    overflow-y: auto;
+    position: relative; 
   }
   
   .turns-table {
-    width: max-content; /* Ancho máximo basado en el contenido de la tabla */
-    table-layout: fixed; /* Fijar el ancho de las columnas */
+    width: max-content; 
+    table-layout: fixed;
+    background-color: var(--secondary-color);
   }
   
   .turns-table th,
   .turns-table td {
     padding: 8px;
-    white-space: nowrap; /* Evitar el salto de línea en el texto de las celdas */
+    white-space: nowrap;
   }
   
   .turns-table thead {
-    position: sticky; /* Fijar el encabezado */
-    top: 0; /* Distancia desde la parte superior del contenedor */
-    background-color: #f2f2f2; /* Color de fondo del encabezado */
-    font-weight: bold; /* Estilo de fuente en negrita para el encabezado */
+    position: sticky; 
+    top: 0; 
+    font-weight: bold; 
+    background-color: white;
   }
   
-  /* Resto de estilos según tus necesidades */
+
   

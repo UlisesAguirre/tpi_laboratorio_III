@@ -14,12 +14,14 @@ const Main = () => {
         <>
           <img className="user-icon" src={user.icon} alt="" />
           <p>{user.name}</p>
+          {user.role === "client" &&
           <Link to="/main/reservations">
-            {user.role === "client"? "Mis reservas" : "Reservas" }
+             "Reservas" 
           </Link>
+          }
           {user.role === "admin" &&
-          <Link to="/main/add-turns">
-            Añadir turnos
+          <Link to="/main/view-turns">
+            Reservas
           </Link>}
           <Link to="/main/edit-profile">
             Editar perfil
