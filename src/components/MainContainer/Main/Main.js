@@ -16,7 +16,7 @@ const Main = () => {
           <p>{user.name}</p>
           {user.role === "client" &&
           <Link to="/main/reservations">
-             "Reservas" 
+             Reservas 
           </Link>
           }
           {user.role === "admin" &&
@@ -32,7 +32,7 @@ const Main = () => {
           </Link>}
           {user.role === "client"&&
           <Link to="/main/comment">
-          "Deja tu comentario"
+          Deja tu comentario
           </Link>}
           <Link to="/" onClick={logout}>Cerrar sesion</Link> 
           </>

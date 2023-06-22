@@ -1,25 +1,39 @@
 import React, { useEffect, useState } from "react";
 import editIcon from "../../../assets/img/edit-icon.png";
 import deleteIcon from "../../../assets/img/delete-icon.png";
-import confirmIcon from "../../../assets/img/confirm.png"
-import cancelIcon from "../../../assets/img/cancel.png"
+import confirmIcon from "../../../assets/img/confirm.png";
+import cancelIcon from "../../../assets/img/cancel.png";
 import "./turnsView.css";
 import { db } from "../../../firebase";
 
 const TurnsView = ({ listTurns }) => {
-  const [sortedTurns, setSortedTurns] = useState([]);
+  const [turns, setTurns] = useState([]);
+  const [showAllTurns, setShowAllTurns] = useState(false);
   const [editEnable, setEditEnable] = useState(false);
   const [capacity, setCapacity] = useState(0);
 
   useEffect(() => {
-    const sortedTurns = [...listTurns].sort((a, b) => {
+    let turnsToShow = listTurns;
+
+    if (!showAllTurns) {
+      const currentDate = new Date();
+      turnsToShow = turnsToShow.filter(
+        (turn) => new Date(turn.date) >= currentDate
+      );
+    }
+
+    const sortedTurns = [...turnsToShow].sort((a, b) => {
       const dateA = new Date(a.date);
       const dateB = new Date(b.date);
       return dateA - dateB;
     });
-    setSortedTurns(sortedTurns);
-    console.log("se ejecuto");
-  }, [listTurns]);
+
+    setTurns(sortedTurns);
+  }, [listTurns, showAllTurns]);
+
+  const toggleShowAllTurns = () => {
+    setShowAllTurns(!showAllTurns);
+  };
 
   const deleteTurn = (id) => {
     const confirmDelete = window.confirm(
@@ -38,13 +52,15 @@ const TurnsView = ({ listTurns }) => {
     }
   };
 
-   const handlerEdit = (id,clients) =>{
-    if(capacity<clients.length){
-      alert("la capacidad no puede ser menor a la cantidad de clientes ya inscriptos")
-    }else{
+  const handlerEdit = (id, clients) => {
+    if (capacity < clients.length) {
+      alert(
+        "La capacidad no puede ser menor a la cantidad de clientes ya inscriptos"
+      );
+    } else {
       db.collection("turns")
         .doc(id)
-        .update({ capacity: capacity-clients.length })
+        .update({ capacity: capacity - clients.length })
         .then(() => {
           alert("Turno actualizado con éxito.");
         })
@@ -52,18 +68,22 @@ const TurnsView = ({ listTurns }) => {
           alert("Error al actualizar el turno:", error);
         });
     }
-   }
-
+  };
 
   const handlerChangeCapacity = (event) => {
     setCapacity(event.target.value);
-    console.log(capacity)
+    console.log(capacity);
   };
   return (
     <>
       <div className="table-container">
+        <button onClick={toggleShowAllTurns}>
+          {showAllTurns
+            ? "Mostrar próximos turnos"
+            : "Mostrar todo el historial de reservas"}
+        </button>
         <table className="turns-table">
-          {!sortedTurns.length ? (
+          {!turns.length ? (
             <p>No hay turnos todavía, añade algunos.</p>
           ) : (
             <>
@@ -79,7 +99,7 @@ const TurnsView = ({ listTurns }) => {
                 </tr>
               </thead>
               <tbody>
-                {sortedTurns.map((e) => (
+                {turns.map((e) => (
                   <tr key={e.id}>
                     <td>{e.date}</td>
                     <td>{e.day}</td>
@@ -87,10 +107,23 @@ const TurnsView = ({ listTurns }) => {
                     <td>
                       {editEnable === e.id ? (
                         <div className="input-container">
-                          <input type="number" name="capacity" value={capacity} onChange={handlerChangeCapacity}/>
-                          <img src={confirmIcon} alt="Editar" onClick={() => handlerEdit(e.id,e.clients)}  />
-                          <img src={cancelIcon} alt="Editar" onClick={() => setEditEnable(false)} />
-                       </div>
+                          <input
+                            type="number"
+                            name="capacity"
+                            value={capacity}
+                            onChange={handlerChangeCapacity}
+                          />
+                          <img
+                            src={confirmIcon}
+                            alt="Editar"
+                            onClick={() => handlerEdit(e.id, e.clients)}
+                          />
+                          <img
+                            src={cancelIcon}
+                            alt="Cancelar"
+                            onClick={() => setEditEnable(false)}
+                          />
+                        </div>
                       ) : (
                         <>
                           {e.capacity}

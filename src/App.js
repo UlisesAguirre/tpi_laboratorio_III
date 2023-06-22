@@ -8,11 +8,11 @@ import AboutUs from "./components/AboutUs/AboutUs"
 import MainContainer from './components/MainContainer/MainContainer';
 import Comments from "./components/Comments/Comments"
 import Footer from "./components/Footer/Footer"
-import ClientReservations from "./components/ClientReservations/ClientReservations"
 import EditProfile from "./components/EditProfile/EditProfile"
 import ThemeButton from './components/ThemeButton/ThemeButton'
 import CommentInput from './components/CommentInput/CommentInput'
 import ListUserContainer from './components/ListUserContainer/ListUserContainer';
+import ClientReservationsContainer from './components/ClientReservationsContainer/ClientReservationsContainer';
 import { ThemeProvider } from './components/Context/ThemeContext';
 // import { useContext } from 'react';
 // import UserContext from './components/Context/UserContext';
@@ -84,7 +84,7 @@ function App() {
             <Route path="/comments" element={<Comments />} />
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/main" element={<MainContainer />} />
-            <Route path="/main/reservations" element={<ClientReservations />} />
+            <Route path="/main/reservations" element={<ClientReservationsContainer />} />
             <Route path="/main/view-Turns" element={<TurnsContainer />} />
             <Route path="/main/list-users" element={<ListUserContainer />} />
             <Route path="/main/edit-profile" element={<EditProfile edit={false} />} />
