@@ -1,0 +1,18 @@
+.notFound-container {
+    height: 70vh;
+    display: flex;
+    justify-content: space-between;
+    padding: 2em;
+}
+
+.notFound-container h2 {
+    padding: 1em;
+    width: 100%;
+}
+
+.notFound-logo-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}

@@ -7,6 +7,7 @@ import UserContext from "../Context/UserContext";
 import { db } from "../../firebase";
 import FullForm from "../Forms/FullForm/FullForm";
 
+
 const EditProfile = ({ edit }) => {
   const [editProfile, setEditProfile] = useState(edit);
 
@@ -24,8 +25,8 @@ const EditProfile = ({ edit }) => {
         .collection("users")
         .where("email", "==", email)
         .get();
-      console.log(email);
       setUserLog(querySnapshot.docs[0].data());
+      console.log("Sesion iniciada");
     } catch (error) {
       console.error("Error durante el inicio de sesión:", error);
       alert("Ocurrió un error durante el inicio de sesión");
@@ -40,17 +41,17 @@ const EditProfile = ({ edit }) => {
     <div className="client-container">
       <Main />
       <div className="editProfile-container">
-        {editProfile ? (
-          <FullForm
-            title={"Editar perfil"}
-            buttonTitle={"Guardar"}
-            link={"/edit-profile"}
-            data={userLog}
-            register={false}
-          />
-        ) : (
-          <ProfileDataView user={userLog} editProfile={editProfileHandler} />
-        )}
+        {
+          editProfile ?
+            (<FullForm
+              title={"Editar perfil"}
+              buttonTitle={"Guardar"}
+              link={"/edit-profile"}
+              data={userLog}
+              register={false} />)
+            : (<ProfileDataView user={userLog} editProfile={editProfileHandler} />)
+
+            }
       </div>
     </div>
   );

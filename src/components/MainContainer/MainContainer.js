@@ -6,8 +6,7 @@ import "./mainContainer.css";
 
 const MainContainer = () => {
   const { user } = useContext(UserContext);
-  console.log(user);
-
+  
   return (
     <div className="client-container">
       <Main />
