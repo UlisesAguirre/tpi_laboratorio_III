@@ -1,15 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import editIcon from "../../../assets/img/edit-icon.png";
 import deleteIcon from "../../../assets/img/delete-icon.png";
+import confirmIcon from "../../../assets/img/confirm.png"
+import cancelIcon from "../../../assets/img/cancel.png"
 import "./turnsView.css";
 import { db } from "../../../firebase";
 
 const TurnsView = ({ listTurns }) => {
-  const sortedTurns = [...listTurns].sort((a, b) => {
-    const dateA = new Date(a.date);
-    const dateB = new Date(b.date);
-    return dateA - dateB;
-  });
+  const [sortedTurns, setSortedTurns] = useState([]);
+  const [editEnable, setEditEnable] = useState(false);
+  const [capacity, setCapacity] = useState(0);
+
+  useEffect(() => {
+    const sortedTurns = [...listTurns].sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return dateA - dateB;
+    });
+    setSortedTurns(sortedTurns);
+    console.log("se ejecuto");
+  }, [listTurns]);
 
   const deleteTurn = (id) => {
     const confirmDelete = window.confirm(
@@ -28,6 +38,27 @@ const TurnsView = ({ listTurns }) => {
     }
   };
 
+   const handlerEdit = (id,clients) =>{
+    if(capacity<clients.length){
+      alert("la capacidad no puede ser menor a la cantidad de clientes ya inscriptos")
+    }else{
+      db.collection("turns")
+        .doc(id)
+        .update({ capacity: capacity-clients.length })
+        .then(() => {
+          alert("Turno actualizado con éxito.");
+        })
+        .catch((error) => {
+          alert("Error al actualizar el turno:", error);
+        });
+    }
+   }
+
+
+  const handlerChangeCapacity = (event) => {
+    setCapacity(event.target.value);
+    console.log(capacity)
+  };
   return (
     <>
       <div className="table-container">
@@ -42,6 +73,7 @@ const TurnsView = ({ listTurns }) => {
                   <th>Día</th>
                   <th>Horario</th>
                   <th>Cantidad disponible</th>
+                  <th>Clientes anotados</th>
                   <th>Disponibilidad</th>
                   <th></th>
                 </tr>
@@ -52,7 +84,25 @@ const TurnsView = ({ listTurns }) => {
                     <td>{e.date}</td>
                     <td>{e.day}</td>
                     <td>{e.hour}</td>
-                    <td>{e.capacity}</td>
+                    <td>
+                      {editEnable === e.id ? (
+                        <div className="input-container">
+                          <input type="number" name="capacity" value={capacity} onChange={handlerChangeCapacity}/>
+                          <img src={confirmIcon} alt="Editar" onClick={() => handlerEdit(e.id,e.clients)}  />
+                          <img src={cancelIcon} alt="Editar" onClick={() => setEditEnable(false)} />
+                       </div>
+                      ) : (
+                        <>
+                          {e.capacity}
+                          <img
+                            src={editIcon}
+                            alt="Editar turno"
+                            onClick={() => setEditEnable(e.id)}
+                          />
+                        </>
+                      )}
+                    </td>
+                    <td>{e.clients}</td>
                     <td>
                       {e.available ? "Turno disponible" : "Turno no disponible"}
                     </td>
