@@ -13,18 +13,21 @@ import ThemeButton from './components/ThemeButton/ThemeButton'
 import CommentInput from './components/CommentInput/CommentInput'
 import ListUserContainer from './components/ListUserContainer/ListUserContainer';
 import ClientReservationsContainer from './components/ClientReservationsContainer/ClientReservationsContainer';
+import TurnsContainer from './components/TurnsContainer/TurnsContainer';
 import { ThemeProvider } from './components/Context/ThemeContext';
-// import { useContext } from 'react';
-// import UserContext from './components/Context/UserContext';
+import { useContext } from 'react';
+import UserContext from './components/Context/UserContext';
 
 import './App.css';
-import TurnsContainer from './components/TurnsContainer/TurnsContainer';
 import { useEffect } from 'react';
 import { db } from './firebase';
+import NotFound from './components/NotFound/NotFound';
 
 
 
 function App() {
+
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     /*to avoid wanting to comment this function while you are working
@@ -74,25 +77,33 @@ function App() {
   };
     return (
     <div className="App">
-        <ThemeProvider>
-          <Header />
-          <NavBar />
-          <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/login" element={<FormLogIn />} />
-            <Route path="/register" element={<FormRegisterContainer />} />
-            <Route path="/comments" element={<Comments />} />
-            <Route path="/about-us" element={<AboutUs />} />
-            <Route path="/main" element={<MainContainer />} />
-            <Route path="/main/reservations" element={<ClientReservationsContainer />} />
-            <Route path="/main/view-Turns" element={<TurnsContainer />} />
-            <Route path="/main/list-users" element={<ListUserContainer />} />
-            <Route path="/main/edit-profile" element={<EditProfile edit={false} />} />
-            <Route path="/main/comment" element={<CommentInput />} />
-          </Routes>
-          <ThemeButton />
-          <Footer />
-        </ThemeProvider>
+      <ThemeProvider>
+        <Header />
+        <NavBar />
+        <Routes>
+          {user != null ? (
+            <>
+              <Route path="/main" element={<MainContainer />} />
+              <Route path="/main/reservations" element={<ClientReservationsContainer />} />
+              <Route path="/main/view-Turns" element={<TurnsContainer />} />
+              <Route path="/main/list-users" element={<ListUserContainer />} />
+              <Route path="/main/edit-profile" element={<EditProfile edit={false} />} />
+              <Route path="/main/comment" element={<CommentInput />} />
+            </>
+          ) : (
+            <>
+              <Route path="/login" element={<FormLogIn />} />
+              <Route path="/register" element={<FormRegisterContainer />} />
+            </>
+          )}
+          <Route path="/" element={<Landing />} />
+          <Route path="/comments" element={<Comments />} />
+          <Route path="/about-us" element={<AboutUs />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+        <ThemeButton />
+        <Footer />
+      </ThemeProvider>
     </div>
   );
 }
