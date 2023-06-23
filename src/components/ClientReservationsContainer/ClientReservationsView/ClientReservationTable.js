@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import UserContext from "../../Context/UserContext";
+import { db } from "../../../firebase";
 
 const ClientReservationTable = ({ listTurns }) => {
   const [turns, setTurns] = useState([]);
-  const user = useContext(UserContext);
-  console.log(user)
+  const { user } = useContext(UserContext);
+
   useEffect(() => {
     let turnsToShow = listTurns;
     const currentDate = new Date();
@@ -19,9 +20,26 @@ const ClientReservationTable = ({ listTurns }) => {
     setTurns(sortedTurns);
   }, [listTurns]);
 
-  const handlerReserve= ((idReserve) =>{
-    console.log(idReserve)
-  })
+  const handlerReserve = async (idReserve, capacityReserve, clients) => {
+    if (clients.includes(user.id)) {
+      alert("Ya tienes una reserva para este turno.");
+      return;
+    }
+    const updatedClients = [...clients, user.id];
+    await db
+      .collection("turns")
+      .doc(idReserve)
+      .update({
+        clients: updatedClients,
+        capacity: capacityReserve - 1,
+      })
+      .then(() => {
+        alert("Reserva realizada con exito");
+      })
+      .catch((error) => {
+        alert("Error al actualizar el turno:", error);
+      });
+  };
   return (
     <>
       <div className="table-container">
@@ -52,10 +70,16 @@ const ClientReservationTable = ({ listTurns }) => {
                     </td>
                     <td>
                       <button
-                        disabled={!e.available || e.capacity === 0}
-                        onClick={() => handlerReserve(e.id)}
+                        disabled={
+                          !e.available ||
+                          e.capacity === 0 ||
+                          e.clients.includes(user.id)
+                        }
+                        onClick={() =>
+                          handlerReserve(e.id, e.capacity, e.clients)
+                        }
                       >
-                        Reservar
+                        {e.clients.includes(user.id) ? "Reservado" : "Reservar"}
                       </button>
                     </td>
                   </tr>
