@@ -18,7 +18,6 @@ const ClientReservationsContainer = () => {
   };
   useEffect(() => {
     getTurns();
-    console.log("hola")
   }, []);
 
   return (

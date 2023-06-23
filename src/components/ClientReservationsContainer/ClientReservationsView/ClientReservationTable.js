@@ -21,11 +21,11 @@ const ClientReservationTable = ({ listTurns }) => {
   }, [listTurns]);
 
   const handlerReserve = async (idReserve, capacityReserve, clients) => {
-    if (clients.includes(user.id)) {
+    if (clients.includes(user.email)) {
       alert("Ya tienes una reserva para este turno.");
       return;
     }
-    const updatedClients = [...clients, user.id];
+    const updatedClients = [...clients, user.email];
     await db
       .collection("turns")
       .doc(idReserve)
@@ -40,6 +40,22 @@ const ClientReservationTable = ({ listTurns }) => {
         alert("Error al actualizar el turno:", error);
       });
   };
+  const handlerCancelReserve = async(idReserve, capacityReserve, clients) =>{
+    const updatedClients = clients.filter((client) => client !== user.email);
+    await db
+      .collection("turns")
+      .doc(idReserve)
+      .update({
+        clients: updatedClients,
+        capacity: capacityReserve + 1,
+      })
+      .then(() => {
+        alert("Reserva cancelada con exito");
+      })
+      .catch((error) => {
+        alert("Error al cancelar la reserva:", error);
+      });
+  }
   return (
     <>
       <div className="table-container">
@@ -69,18 +85,17 @@ const ClientReservationTable = ({ listTurns }) => {
                       {e.available ? "Turno disponible" : "Turno no disponible"}
                     </td>
                     <td>
-                      <button
+                      {e.clients.includes(user.email)?<button onClick={() => handlerCancelReserve(e.id,e.capacity,e.clients)}>Cancelar reserva</button>:<button
                         disabled={
                           !e.available ||
-                          e.capacity === 0 ||
-                          e.clients.includes(user.id)
+                          e.capacity === 0
                         }
                         onClick={() =>
                           handlerReserve(e.id, e.capacity, e.clients)
                         }
                       >
-                        {e.clients.includes(user.id) ? "Reservado" : "Reservar"}
-                      </button>
+                        {e.clients.includes(user.email) ? "Reservado" : "Reservar"}
+                      </button>}
                     </td>
                   </tr>
                 ))}

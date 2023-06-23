@@ -52,17 +52,19 @@ const TurnsView = ({ listTurns }) => {
     }
   };
 
-  const handlerEdit = (id, clients) => {
+  const handlerEdit = async (id, clients) => {
     if (capacity < clients.length) {
       alert(
         "La capacidad no puede ser menor a la cantidad de clientes ya inscriptos"
       );
     } else {
-      db.collection("turns")
+      await db
+        .collection("turns")
         .doc(id)
         .update({ capacity: capacity - clients.length })
         .then(() => {
           alert("Turno actualizado con éxito.");
+          setEditEnable(false);
         })
         .catch((error) => {
           alert("Error al actualizar el turno:", error);
@@ -135,7 +137,17 @@ const TurnsView = ({ listTurns }) => {
                         </>
                       )}
                     </td>
-                    <td>{e.clients}</td>
+                    <td>
+                      {" "}
+                      <select>
+                        <option selected>Ver clientes</option>
+                        {e.clients.map((client) => (
+                          <option key={client} value={client}>
+                            {client}
+                          </option>
+                        ))}
+                      </select>
+                    </td>
                     <td>
                       {e.available ? "Turno disponible" : "Turno no disponible"}
                     </td>

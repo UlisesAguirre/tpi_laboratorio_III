@@ -1,27 +1,17 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState } from 'react';
 
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-    
-  useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
 
-  const login = (id ,email, role, name, lastname, icon) => {
+  const login = (email, role, name, lastname, icon) => {
     const fullName = `${name} ${lastname}`;
-    const userData = { id ,email, role, name: fullName, icon };
-    setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
+    setUser({ email, role, name: fullName, icon });
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('user');
   };
 
   return (
