@@ -69,7 +69,7 @@ const FullForm = ({ title, buttonTitle, link, data, register }) => {
 
       const user = querySnapshot.docs[0].ref;
       await user.update(dataWithRole);
-      login(dataWithRole.email, dataWithRole.role, dataWithRole.name, dataWithRole.lastName, dataWithRole.icon)
+      login(dataWithRole.email, dataWithRole.role, dataWithRole.name, dataWithRole.lastName)
       console.error("Usuario actualizado");
 
     } catch (error) {
