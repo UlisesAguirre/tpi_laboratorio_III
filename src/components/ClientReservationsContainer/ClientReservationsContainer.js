@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import Main from '../MainContainer/Main/Main'
 import { db } from '../../firebase';
 import ClientReservationTable from './ClientReservationsView/ClientReservationTable';
-import YourReservations from './YourReservations/YourReservations';
 
 const ClientReservationsContainer = () => {
   const [turns, setTurns] = useState([]);
@@ -24,7 +23,6 @@ const ClientReservationsContainer = () => {
     <div className="client-container">
     <Main />
     <ClientReservationTable listTurns={turns}/>
-    <YourReservations/>  
     </div>
   )
 }

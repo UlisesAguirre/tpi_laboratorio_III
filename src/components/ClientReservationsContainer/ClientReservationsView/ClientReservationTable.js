@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import UserContext from "../../Context/UserContext";
 import { db } from "../../../firebase";
-
+import "./clientReservationTable.css";
 const ClientReservationTable = ({ listTurns }) => {
   const [turns, setTurns] = useState([]);
   const { user } = useContext(UserContext);
@@ -40,7 +40,7 @@ const ClientReservationTable = ({ listTurns }) => {
         alert("Error al actualizar el turno:", error);
       });
   };
-  const handlerCancelReserve = async(idReserve, capacityReserve, clients) =>{
+  const handlerCancelReserve = async (idReserve, capacityReserve, clients) => {
     const updatedClients = clients.filter((client) => client !== user.email);
     await db
       .collection("turns")
@@ -55,7 +55,7 @@ const ClientReservationTable = ({ listTurns }) => {
       .catch((error) => {
         alert("Error al cancelar la reserva:", error);
       });
-  }
+  };
   return (
     <>
       <div className="table-container">
@@ -85,17 +85,26 @@ const ClientReservationTable = ({ listTurns }) => {
                       {e.available ? "Turno disponible" : "Turno no disponible"}
                     </td>
                     <td>
-                      {e.clients.includes(user.email)?<button onClick={() => handlerCancelReserve(e.id,e.capacity,e.clients)}>Cancelar reserva</button>:<button
-                        disabled={
-                          !e.available ||
-                          e.capacity === 0
-                        }
-                        onClick={() =>
-                          handlerReserve(e.id, e.capacity, e.clients)
-                        }
-                      >
-                        {e.clients.includes(user.email) ? "Reservado" : "Reservar"}
-                      </button>}
+                      {e.clients.includes(user.email) ? (
+                        <button className="cancel-button"
+                          onClick={() =>
+                            handlerCancelReserve(e.id, e.capacity, e.clients)
+                          }
+                        >
+                          Cancelar reserva
+                        </button>
+                      ) : (
+                        <button className="reserve-button"
+                          disabled={!e.available || e.capacity === 0}
+                          onClick={() =>
+                            handlerReserve(e.id, e.capacity, e.clients)
+                          }
+                        >
+                          {e.clients.includes(user.email)
+                            ? "Reservado"
+                            : "Reservar"}
+                        </button>
+                      )}
                     </td>
                   </tr>
                 ))}

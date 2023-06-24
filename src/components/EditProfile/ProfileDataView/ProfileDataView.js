@@ -1,4 +1,4 @@
-import CustomModal from "../../shared/Modal/CustomModal";
+import ConfirmModal from "../../shared/ConfirmModal/ConfirmModal";
 import { db } from "../../../firebase";
 
 import "./profileDataView.css"
@@ -55,7 +55,7 @@ const ProfileDataView = ({ user, editProfile }) => {
                 </div>
                 <div className="button-data-container">
                     <button onClick={editProfileHandler} className="button">Editar</button>
-                    <CustomModal
+                    <ConfirmModal
                         title={"Eliminar"}
                         titleModalButton={"Eliminar"}
                         finalMessage={"Usuario eliminado"}

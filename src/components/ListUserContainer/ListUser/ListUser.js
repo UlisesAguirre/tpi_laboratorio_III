@@ -3,7 +3,7 @@ import { db } from "../../../firebase";
 import UserContext from "../../Context/UserContext";
 
 import "./listUser.css";
-import CustomModal from "../../shared/Modal/CustomModal";
+import ConfirmModal from "../../shared/ConfirmModal/ConfirmModal";
 
 const ListUser = () => {
   const { user } = useContext(UserContext);
@@ -149,14 +149,14 @@ const ListUser = () => {
                       {user.role === "admin" ? null : (
                         <td>
                           <div className="reservation-buttons">
-                            <CustomModal
+                            <ConfirmModal
                               title={"Modificar rol"}
                               titleModalButton={"Guardar"}
                               finalMessage={"Rol modificado con éxito"}
                               user={item}
                               modifyRole={modifyRole}
                             />
-                            <CustomModal
+                            <ConfirmModal
                               title={"Eliminar usuario"}
                               titleModalButton={"Eliminar"}
                               finalMessage={"Usuario eliminado con éxito"}

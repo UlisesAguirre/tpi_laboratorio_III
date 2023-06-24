@@ -5,12 +5,16 @@ import confirmIcon from "../../../assets/img/confirm.png";
 import cancelIcon from "../../../assets/img/cancel.png";
 import "./turnsView.css";
 import { db } from "../../../firebase";
+import Modal from "../../shared/Modal/Modal";
 
 const TurnsView = ({ listTurns }) => {
   const [turns, setTurns] = useState([]);
   const [showAllTurns, setShowAllTurns] = useState(false);
   const [editEnable, setEditEnable] = useState(false);
   const [capacity, setCapacity] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalMessage, setModalMessage] = useState("");
 
   useEffect(() => {
     let turnsToShow = listTurns;
@@ -34,6 +38,15 @@ const TurnsView = ({ listTurns }) => {
   const toggleShowAllTurns = () => {
     setShowAllTurns(!showAllTurns);
   };
+  const openModal = (title, message) => {
+    setModalTitle(title);
+    setModalMessage(message);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   const deleteTurn = (id) => {
     const confirmDelete = window.confirm(
@@ -44,17 +57,18 @@ const TurnsView = ({ listTurns }) => {
         .doc(id)
         .update({ available: false })
         .then(() => {
-          alert("Turno eliminado con éxito.");
+          openModal("Turno eliminado", "Turno eliminado con éxito.");
         })
         .catch((error) => {
-          alert("Error al eliminar el turno:", error);
+          openModal("Error", `Error al eliminar el turno: ${error}`);
         });
     }
   };
 
   const handlerEdit = async (id, clients) => {
     if (capacity < clients.length) {
-      alert(
+      openModal(
+        "Error",
         "La capacidad no puede ser menor a la cantidad de clientes ya inscriptos"
       );
     } else {
@@ -63,11 +77,11 @@ const TurnsView = ({ listTurns }) => {
         .doc(id)
         .update({ capacity: capacity - clients.length })
         .then(() => {
-          alert("Turno actualizado con éxito.");
+          openModal("Turno actualizado", "Turno actualizado con éxito.");
           setEditEnable(false);
         })
         .catch((error) => {
-          alert("Error al actualizar el turno:", error);
+          openModal("Error", `Error al actualizar el turno: ${error}`);
         });
     }
   };
@@ -169,6 +183,9 @@ const TurnsView = ({ listTurns }) => {
           )}
         </table>
       </div>
+      {modalOpen && (
+        <Modal title={modalTitle} message={modalMessage} onClose={closeModal} />
+      )}
     </>
   );
 };

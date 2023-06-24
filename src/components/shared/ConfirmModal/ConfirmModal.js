@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import { ThemeContext } from "../../Context/ThemeContext";
-import "./customModal.css";
+import "./confirmModal.css";
 
-const CustomModal = ({ title, titleModalButton, finalMessage, user, modifyRole, deleteUser }) => {
+const ConfirmModal = ({ title, titleModalButton, finalMessage, user, modifyRole, deleteUser }) => {
   const { theme } = useContext(ThemeContext)
 
   const [isOpen, setIsOpen] = useState(false);
@@ -70,4 +70,4 @@ const CustomModal = ({ title, titleModalButton, finalMessage, user, modifyRole, 
   );
 };
 
-export default CustomModal;
+export default ConfirmModal;
