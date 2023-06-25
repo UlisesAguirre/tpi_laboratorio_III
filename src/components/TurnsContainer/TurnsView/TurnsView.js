@@ -12,9 +12,11 @@ const TurnsView = ({ listTurns }) => {
   const [showAllTurns, setShowAllTurns] = useState(false);
   const [editEnable, setEditEnable] = useState(false);
   const [capacity, setCapacity] = useState(0);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalTitle, setModalTitle] = useState("");
-  const [modalMessage, setModalMessage] = useState("");
+  const [modal, setModal] = useState({
+    modalOpen: false,
+    modalTitle: "",
+    modalMessage: "",
+  });
 
   useEffect(() => {
     let turnsToShow = listTurns;
@@ -38,14 +40,9 @@ const TurnsView = ({ listTurns }) => {
   const toggleShowAllTurns = () => {
     setShowAllTurns(!showAllTurns);
   };
-  const openModal = (title, message) => {
-    setModalTitle(title);
-    setModalMessage(message);
-    setModalOpen(true);
-  };
 
   const closeModal = () => {
-    setModalOpen(false);
+    setModal({ modalOpen: false });
   };
 
   const deleteTurn = (id) => {
@@ -57,38 +54,55 @@ const TurnsView = ({ listTurns }) => {
         .doc(id)
         .update({ available: false })
         .then(() => {
-          openModal("Turno eliminado", "Turno eliminado con éxito.");
+          setModal({
+            modalOpen: true,
+            modalTitle: "Turno eliminado",
+            modalMessage: "Turno eliminado con éxito.",
+          });
         })
         .catch((error) => {
-          openModal("Error", `Error al eliminar el turno: ${error}`);
+          setModal({
+            modalOpen: true,
+            modalTitle: "Error",
+            modalMessage: `Error al eliminar el turno:${error} `,
+          });
         });
     }
   };
 
   const handlerEdit = async (id, clients) => {
     if (capacity < clients.length) {
-      openModal(
-        "Error",
-        "La capacidad no puede ser menor a la cantidad de clientes ya inscriptos"
-      );
+      setModal({
+        modalOpen: true,
+        modalTitle: "Aviso",
+        modalMessage:
+          "La capacidad no puede ser menor a la cantidad de clientes ya inscriptos",
+      });
     } else {
       await db
         .collection("turns")
         .doc(id)
         .update({ capacity: capacity - clients.length })
         .then(() => {
-          openModal("Turno actualizado", "Turno actualizado con éxito.");
+          setModal({
+            modalOpen: true,
+            modalTitle: "Turno actualizado",
+            modalMessage: "Turno actualizado con éxito.",
+          });
           setEditEnable(false);
         })
         .catch((error) => {
-          openModal("Error", `Error al actualizar el turno: ${error}`);
+          setModal({
+            modalOpen: true,
+            modalTitle: "Error",
+            modalMessage: `Error al actualizar el turno: ${error}`,
+          });
         });
     }
   };
 
   const handlerChangeCapacity = (event) => {
     setCapacity(event.target.value);
-    console.log(capacity);
   };
   return (
     <>
@@ -183,8 +197,12 @@ const TurnsView = ({ listTurns }) => {
           )}
         </table>
       </div>
-      {modalOpen && (
-        <Modal title={modalTitle} message={modalMessage} onClose={closeModal} />
+      {modal.modalOpen && (
+        <Modal
+          title={modal.modalTitle}
+          message={modal.modalMessage}
+          onClose={closeModal}
+        />
       )}
     </>
   );

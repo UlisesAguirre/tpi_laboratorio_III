@@ -2,10 +2,15 @@ import React, { useContext, useEffect, useState } from "react";
 import UserContext from "../../Context/UserContext";
 import { db } from "../../../firebase";
 import "./clientReservationTable.css";
+import Modal from "../../shared/Modal/Modal";
 const ClientReservationTable = ({ listTurns }) => {
   const [turns, setTurns] = useState([]);
   const { user } = useContext(UserContext);
-
+  const [modal, setModal] = useState({
+    modalOpen: false,
+    modalTitle: "",
+    modalMessage: "",
+  });
   useEffect(() => {
     let turnsToShow = listTurns;
     const currentDate = new Date();
@@ -20,9 +25,17 @@ const ClientReservationTable = ({ listTurns }) => {
     setTurns(sortedTurns);
   }, [listTurns]);
 
+  const closeModal = () => {
+    setModal({ modalOpen: false });
+  };
+
   const handlerReserve = async (idReserve, capacityReserve, clients) => {
     if (clients.includes(user.email)) {
-      alert("Ya tienes una reserva para este turno.");
+      setModal({
+        modalOpen: true,
+        modalTitle: "Aviso",
+        modalMessage: "Ya tienes una reserva para este turno.",
+      });
       return;
     }
     const updatedClients = [...clients, user.email];
@@ -34,10 +47,18 @@ const ClientReservationTable = ({ listTurns }) => {
         capacity: capacityReserve - 1,
       })
       .then(() => {
-        alert("Reserva realizada con exito");
+        setModal({
+          modalOpen: true,
+          modalTitle: "Reserva exitosa",
+          modalMessage: "Reserva realizada con exito",
+        });
       })
       .catch((error) => {
-        alert("Error al actualizar el turno:", error);
+        setModal({
+          modalOpen: true,
+          modalTitle: "Error",
+          modalMessage: `Error al hacer la reserva:${error}`,
+        });
       });
   };
   const handlerCancelReserve = async (idReserve, capacityReserve, clients) => {
@@ -50,10 +71,18 @@ const ClientReservationTable = ({ listTurns }) => {
         capacity: capacityReserve + 1,
       })
       .then(() => {
-        alert("Reserva cancelada con exito");
+        setModal({
+          modalOpen: true,
+          modalTitle: "Cancelacion exitosa",
+          modalMessage: "Reserva cancelada con exito",
+        });
       })
       .catch((error) => {
-        alert("Error al cancelar la reserva:", error);
+        setModal({
+          modalOpen: true,
+          modalTitle: "Error",
+          modalMessage: `Error al cancelar la reserva:${error}`,
+        });
       });
   };
   return (
@@ -86,7 +115,8 @@ const ClientReservationTable = ({ listTurns }) => {
                     </td>
                     <td>
                       {e.clients.includes(user.email) ? (
-                        <button className="cancel-button"
+                        <button
+                          className="cancel-button"
                           onClick={() =>
                             handlerCancelReserve(e.id, e.capacity, e.clients)
                           }
@@ -94,7 +124,8 @@ const ClientReservationTable = ({ listTurns }) => {
                           Cancelar reserva
                         </button>
                       ) : (
-                        <button className="reserve-button"
+                        <button
+                          className="reserve-button"
                           disabled={!e.available || e.capacity === 0}
                           onClick={() =>
                             handlerReserve(e.id, e.capacity, e.clients)
@@ -113,6 +144,13 @@ const ClientReservationTable = ({ listTurns }) => {
           )}
         </table>
       </div>
+      {modal.modalOpen && (
+        <Modal
+          title={modal.modalTitle}
+          message={modal.modalMessage}
+          onClose={closeModal}
+        />
+      )}
     </>
   );
 };

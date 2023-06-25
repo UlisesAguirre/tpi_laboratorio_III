@@ -4,13 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { db } from "../../../firebase";
 import UserContext from "../../Context/UserContext";
 
-import "./fullForm.css"
+import "./fullForm.css";
+import Modal from "../../shared/Modal/Modal";
 
-//data: Es para traer los datos del GET en el EditProfile
-//option: true:register, false:modify
-
-const FullForm = ({ title, buttonTitle, link, data, register }) => {
-
+const FullForm = ({ title, buttonTitle, data, register }) => {
   const { user, login } = useContext(UserContext);
 
   const navigate = useNavigate();
@@ -37,6 +34,17 @@ const FullForm = ({ title, buttonTitle, link, data, register }) => {
     password: null,
     confirmPassword: null,
   });
+
+  const [modal, setModal] = useState({
+    modalOpen: false,
+    modalTitle: "",
+    modalMessage: "",
+  });
+
+  const closeModal = () => {
+    setModal({ modalOpen: false });
+  };
+
   const sendFirebase = async () => {
     const { confirmPassword, ...data } = input;
     const dataWithRole = { ...data, role: "client" };
@@ -46,15 +54,21 @@ const FullForm = ({ title, buttonTitle, link, data, register }) => {
       .get();
 
     if (!querySnapshot.empty) {
-      console.log("El usuario ya esta registrado")
-      alert("Ya existe un usuario con este email");
+      console.log("El usuario ya esta registrado");
+      setModal({
+        modalOpen: true,
+        modalTitle: "Aviso",
+        modalMessage: "Ya existe un usuario con este email",
+      });
     } else {
       await db.collection("users").doc().set(dataWithRole);
-      console.error("Usuario registrado");
-      alert("Se ha registrado exitosamente!");
+      setModal({
+        modalOpen: true,
+        modalTitle: "Registrado",
+        modalMessage: "Se ha registrado exitosamente!",
+      });
       navigate("/login");
-    };
-
+    }
   };
 
   const modifiedFirebase = async () => {
@@ -69,20 +83,32 @@ const FullForm = ({ title, buttonTitle, link, data, register }) => {
 
       const user = querySnapshot.docs[0].ref;
       await user.update(dataWithRole);
-      login(dataWithRole.email, dataWithRole.role, dataWithRole.name, dataWithRole.lastName, dataWithRole.icon)
-      console.error("Usuario actualizado");
-
+      login(
+        dataWithRole.email,
+        dataWithRole.role,
+        dataWithRole.name,
+        dataWithRole.lastName,
+        dataWithRole.icon
+      );
+      setModal({
+        modalOpen: true,
+        modalTitle: "Actualizado",
+        modalMessage: "Usuario actualizado",
+      });
     } catch (error) {
-      console.error("Error al actualizar el usuario:", error);
-      alert("Ocurrió un error al actualizar el usuario");
+      setModal({
+        modalOpen: true,
+        modalTitle: "Error",
+        modalMessage: `Error al actualizar el usuario: ${error}`,
+      });
     }
-  }
+  };
 
   const handlerChangeInput = (e) => {
     if (e.target.name === "password" || e.target.name === "confirmPassword") {
-      setInput({ ...input, [e.target.name]: (e.target.value) });
+      setInput({ ...input, [e.target.name]: e.target.value });
     } else {
-      setInput({ ...input, [e.target.name]: (e.target.value).toLowerCase() });
+      setInput({ ...input, [e.target.name]: e.target.value.toLowerCase() });
     }
   };
 
@@ -103,7 +129,11 @@ const FullForm = ({ title, buttonTitle, link, data, register }) => {
     const validationInputs = Object.values(validInput).some((valid) => !valid);
 
     if (validationInputs) {
-      alert("Por favor, complete correctamente todos los campos.");
+      setModal({
+        modalOpen: true,
+        modalTitle: "Aviso",
+        modalMessage: "Por favor, complete correctamente todos los campos",
+      });
     } else {
       if (register) {
         sendFirebase();
@@ -117,7 +147,11 @@ const FullForm = ({ title, buttonTitle, link, data, register }) => {
         });
       } else {
         modifiedFirebase();
-        alert("Se ha actualizado exitosamente!");
+        setModal({
+          modalOpen: true,
+          modalTitle: "Actualizado",
+          modalMessage: "Se ha actualizado exitosamente el usuario!",
+        });
         navigate("/main");
       }
     }
@@ -225,8 +259,15 @@ const FullForm = ({ title, buttonTitle, link, data, register }) => {
           </p>
         </div>
       </div>
+      {modal.modalOpen && (
+        <Modal
+          title={modal.modalTitle}
+          message={modal.modalMessage}
+          onClose={closeModal}
+        />
+      )}
     </div>
   );
 };
 
-export default FullForm
+export default FullForm;

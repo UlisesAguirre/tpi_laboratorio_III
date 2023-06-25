@@ -4,6 +4,7 @@ import UserContext from "../../Context/UserContext";
 
 import "./listUser.css";
 import ConfirmModal from "../../shared/ConfirmModal/ConfirmModal";
+import Modal from "../../shared/Modal/Modal";
 
 const ListUser = () => {
   const { user } = useContext(UserContext);
@@ -11,6 +12,15 @@ const ListUser = () => {
   const [clients, setClients] = useState([]);
   const [users, setUsers] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+  const [modal, setModal] = useState({
+    modalOpen: false,
+    modalTitle: "",
+    modalMessage: "",
+  });
+
+  const closeModal = () => {
+    setModal({ modalOpen: false });
+  };
 
   const getUsers = async () => {
     try {
@@ -20,10 +30,8 @@ const ListUser = () => {
         id: doc.id
       }));
       setUsers(data);
-      console.error("Usuarios encontrados");
     } catch (error) {
-      console.log("Error al obtener usuarios:", error);
-      alert("Ocurrió un error al obtener los usuarios");
+      setModal({modalOpen:true,modalTitle:"Error",modalMessage:`Error al obtener los usuarios:${error}`});
     }
   };
 
@@ -35,10 +43,8 @@ const ListUser = () => {
         .get();
       const data = querySnapshot.docs.map((doc) => doc.data());
       setClients(data);
-      console.log("Clientes encontrados");
     } catch (error) {
-      console.error("Error al obtener clientes:", error);
-      alert("Ocurrió un error al obtener los clientes");
+      setModal({modalOpen:true,modalTitle:"Error",modalMessage:`Error al obtener los clientes: ${error}`});
     }
   };
 
@@ -80,12 +86,10 @@ const ListUser = () => {
       querySnapshot.docs.forEach((doc) => {
         doc.ref.update({ role: newRole });
       });
-  
-      console.log("Rol actualizado con éxito");
+
       getUsers();
     } catch (error) {
-      console.error("Error al actualizar el rol del usuario:", error);
-      alert("Ocurrió un error al actualizar el rol del usuario");
+      setModal({modalOpen:true,modalTitle:"Error",modalMessage:`Error al actualizar el rol del usuario : ${error}`});
     }
   };
 
@@ -93,11 +97,10 @@ const ListUser = () => {
     try {
       const userRef = db.collection("users").doc(user.id);
       await userRef.delete();
-      console.log("Usuario eliminado con éxito");
+      setModal({modalOpen:true,modalTitle:"Aviso",modalMessage:"Usuario eliminado con exito"});
       getUsers();
     } catch (error) {
-      console.error("Error al eliminar el usuario:", error);
-      alert("Ocurrió un error al eliminar el usuario");
+      setModal({modalOpen:true,modalTitle:"Error",modalMessage:`Error al eliminar el usuario: ${error}`});
     }
   };
 
@@ -174,6 +177,13 @@ const ListUser = () => {
           )}
         </table>
       </div>
+      {modal.modalOpen && (
+        <Modal
+          title={modal.modalTitle}
+          message={modal.modalMessage}
+          onClose={closeModal}
+        />
+      )}
     </div>
   );
 };
