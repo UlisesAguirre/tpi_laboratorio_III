@@ -3,14 +3,15 @@
     padding: 2em 2em 0;
     background-color: var(--primary-color);
     width: 100%;
+    height: 30vh;
 }
 
-.info-container  {
+.info-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     text-align: center;
-    padding-bottom: 1.2em ;
+    padding-bottom: 1.2em;
 }
 
 .info-container h2 {
@@ -38,4 +39,25 @@
     text-align: center;
     border-top: 1px solid var(--light-mode);
     padding: 1em 0 0;
+}
+/* Estilos para dispositivos con ancho máximo de 320px */
+@media screen and (min-width: 320px) and (max-width: 640px) {
+    .info-container {
+        align-items: flex-start;
+    }
+    .info-container div {
+        padding: 0 .3em;
+    }
+    .info-container h2 {
+        font-size: .8em;
+    }
+    .info-container p {
+        font-size: .6em;
+    }
+    .social-media a {
+        font-size: 1em;
+    }
+    .copyright {
+        font-size: .5em;
+    }
 }

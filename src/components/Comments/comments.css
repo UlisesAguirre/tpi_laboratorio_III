@@ -1,4 +1,3 @@
-
 .comments {
     display: flex;
     flex-direction: column;
@@ -41,10 +40,18 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 100%;
+    width: 90%;
 }
 
-.circle-button{
+.comment-card-box {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    margin: 2em 0 4em;
+}
+
+.circle-button {
     display: block;
     font-weight: bold;
     font-size: 1.2em;
@@ -54,11 +61,33 @@
     border: 1px solid var(--primary-color);
     background-color: var(--secondary-color);
     border-radius: 50%;
-  }
+}
 
-  .circle-button:hover {
+.circle-button:hover {
     color: var(--secondary-color);
     background-color: var(--primary-color);
     cursor: pointer;
     transition: .3s;
-  }
+}
+
+/* Estilos para dispositivos con ancho máximo de 320px */
+@media screen and (min-width: 320px) and (max-width: 640px) {
+    .select-comments {
+        padding: .5em 1em;
+    }
+    .select-comments label {
+        font-size: 1em;
+    }
+    .select-comments select {
+        width: 50%;
+        padding-right: 1em;
+        font-size: .7em;
+    }
+    .comment-box {
+        align-items: flex-end;
+        padding-bottom: 1em;
+    }
+    .comment-card-box {
+        flex-direction: column;
+    }
+}

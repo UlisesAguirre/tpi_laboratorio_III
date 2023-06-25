@@ -67,3 +67,31 @@
 .form-button a:hover{
     color: var(--secondary-color);
 }
+/* Estilos para dispositivos con ancho máximo de 320px */
+@media screen and (min-width: 320px) and (max-width: 640px) {
+    .full-form-container {
+        display: flex;
+        justify-content: center;
+    }
+    .form-button button {
+        font-size: 1em;
+        width: max-content;
+        height: max-content;
+    }
+    .form-background {
+        width: 90%;
+        height: 90%;
+    }
+    .form-background h3 {
+        
+        padding-top: .5em;
+        font-size: 1.5em;
+    }
+    .form-input input {
+        width: 70%;
+        
+    }
+    .form-input label {
+        margin: 0;
+    }
+  }

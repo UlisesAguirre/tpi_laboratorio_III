@@ -6,9 +6,8 @@ import "./comentCard.css"
 
 const ComentCard = ({ key, name, comment, rate, date }) => {
 
-  const [formattedDate, setFormattedDate] = useState("");
 
-  useEffect(() => {
+  const formatDate = () => {
     // Convertir el objeto Timestamp a un objeto Date
     const timestamp = new Date(date.seconds * 1000 + date.nanoseconds / 1000000);
 
@@ -18,8 +17,8 @@ const ComentCard = ({ key, name, comment, rate, date }) => {
     const year = timestamp.getFullYear();
     const formattedDate = `${day}/${month}/${year}`;
 
-    setFormattedDate(formattedDate);
-  }, [])
+    return formattedDate;
+  };
 
   return (
     <div className="comentCard-container" key={key}>
@@ -34,7 +33,7 @@ const ComentCard = ({ key, name, comment, rate, date }) => {
       </div>
 
       <p className="coment">"{comment}"</p>
-      <p className="date">{formattedDate}</p>
+      <p className="date">{formatDate()}</p>
     </div>
   )
 }

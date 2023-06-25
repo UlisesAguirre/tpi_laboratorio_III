@@ -124,7 +124,7 @@ const FullForm = ({ title, buttonTitle, link, data, register }) => {
   };
 
   return (
-    <div>
+    <div className="full-form-container">
       <div className="form-background">
         <h3 className="form-title">{title}</h3>
         <form className="form">

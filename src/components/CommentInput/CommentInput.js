@@ -38,11 +38,11 @@ const CommentInput = () => {
 
         try {
             const docRef = await db.collection("comments").add(commentData);
-            console.log("Comment added with ID: ", docRef.id);
+            console.log("Comentario enviado correctamente");
             alert("Comentario enviado correctamente")
             navigate("/main")
         } catch (error) {
-            console.error("Error adding comment: ", error);
+            console.error("Error al enviar comentario ", error);
         }
     };
 
@@ -56,7 +56,7 @@ const CommentInput = () => {
                         <p>Califica tu experiencia</p>
                         <StarRating setRating={setRating} />
                     </div>
-                    <input type="text" onChange={commentHandler} placeholder='Comparte detalles sobre tu estadia en Pizzeria Paradiso :)' />
+                    <textarea cols="30" rows="10" onChange={commentHandler} placeholder='Comparte detalles sobre tu estadia en Pizzeria Paradiso :)' />
                     <div className='button-comment-container'>
                         <button className='button' onClick={sendComment}>Enviar</button>
                     </div>

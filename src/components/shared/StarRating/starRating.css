@@ -2,6 +2,7 @@
     /* Esto hace que al usar label:hover ~ label, funcione en direccion opuesta, marcando los labels de izquierda a derecha*/
     direction: rtl;
     unicode-bidi: bidi-override;
+    white-space: nowrap;
 }
 
 

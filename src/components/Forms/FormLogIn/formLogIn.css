@@ -61,3 +61,17 @@ a.button-register:hover {
     color: var(--secondary-color);
     text-decoration: underline;
 }
+/* Estilos para dispositivos con ancho máximo de 320px */
+@media screen and (min-width: 320px) and (max-width: 640px) {
+    .LogIn {
+        height: 70vh; 
+    }
+    .form-logIn {
+        width: 80%;
+        height: 70%;
+    }
+    .form-tittle {
+        font-size: 1.5em;
+        padding-top: 1em;
+    }
+  }

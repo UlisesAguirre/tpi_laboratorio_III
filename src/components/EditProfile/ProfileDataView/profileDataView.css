@@ -46,3 +46,26 @@
     font-size: 1.2em;
     padding-right: 1em;
 }
+/* Estilos para dispositivos con ancho máximo de 320px */
+@media screen and (min-width: 320px) and (max-width: 640px) {
+    .profileDataView-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 1em;
+    }
+    .data-container {
+        width: 100%;
+    }
+    .data-container h3 {
+        font-size: .8em;
+    }
+    .data-container p {
+        font-size: 1em;
+    }
+    .button-data-container {
+        justify-content: center;
+    }
+  }

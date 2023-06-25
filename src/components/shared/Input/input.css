@@ -1,6 +1,22 @@
-
-
-.span-input{
+.input-base-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+  
+  .container-span {
+    position: absolute;
+    background-color: rgba(0, 0, 0, .6);
+    border-radius: 10px;
+    width: 100%;
+    top: 100%;
+    z-index: 1;
+    padding: .2em;
+  }
+  
+  .span-input {
+    display: inline-block;
     color: red;
     font-size: small;
-}
+  }

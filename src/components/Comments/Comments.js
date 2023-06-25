@@ -83,21 +83,27 @@ const Comments = () => {
           </select>
         </div>
         <div className="comment-box">
-          <button className="circle-button" onClick={handlePrevClick}>
-            &lt;
-          </button>
-          {displayedCards.map((c, index) => (
-            <ComentCard
-              key={index}
-              name={c.name}
-              comment={c.comment}
-              rate={c.rate}
-              date={c.date}
-            />
-          ))}
-          <button className="circle-button" onClick={handleNextClick}>
-            &gt;
-          </button>
+          {activeIndex === 0 ? null : (
+            <button className="circle-button" onClick={handlePrevClick}>
+              &lt;
+            </button>
+          )}
+          <div className="comment-card-box">
+            {displayedCards.map((c, index) => (
+              <ComentCard
+                key={index}
+                name={c.name}
+                comment={c.comment}
+                rate={c.rate}
+                date={c.date}
+              />
+            ))}
+          </div>
+          {activeIndex + 2 == comments.length - 1 ? null : (
+            <button className="circle-button" onClick={handleNextClick}>
+              &gt;
+            </button>
+          )}
         </div>
       </div>
     </div>
