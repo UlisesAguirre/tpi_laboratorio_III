@@ -4,9 +4,9 @@ import "./starRating.css"
 //mode = false; para renderizar a la hora de comentar la calificación
 //rate: valor de la calificacion (1-5) 
 
-const StarRating = ({ rate, mode }) => {
+const StarRating = ({ rate, mode, setRating}) => {
 
-    const rating = () => {
+    const showRating = () => {
 
         const stars = []
 
@@ -22,20 +22,25 @@ const StarRating = ({ rate, mode }) => {
 
     }
 
+    const ratingHandler = (event) => {
+        const value = event.target.value;
+        setRating(value)
+    };
+
     return (
         <div className="starRating-container">
-            {mode ? <p>{rating()}</p> : (
+            {mode ? <p>{showRating()}</p> : (
                 <div className="stars-container">
                     <form action="">
-                        <input type="radio" name="stars" id="radio1" value="1" />
+                        <input type="radio" name="stars" id="radio1" value="5" onChange={ratingHandler} />
                         <label for="radio1">★</label>
-                        <input type="radio" name="stars" id="radio2" value="2" />
+                        <input type="radio" name="stars" id="radio2" value="4" onChange={ratingHandler} />
                         <label for="radio2">★</label>
-                        <input type="radio" name="stars" id="radio3" value="3" />
+                        <input type="radio" name="stars" id="radio3" value="3" onChange={ratingHandler} />
                         <label for="radio3">★</label>
-                        <input type="radio" name="stars" id="radio4" value="4" />
+                        <input type="radio" name="stars" id="radio4" value="2" onChange={ratingHandler} />
                         <label for="radio4">★</label>
-                        <input type="radio" name="stars" id="radio5" value="5" />
+                        <input type="radio" name="stars" id="radio5" value="1" onChange={ratingHandler} />
                         <label for="radio5">★</label>
                     </form>
                 </div>

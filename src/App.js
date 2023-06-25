@@ -1,4 +1,4 @@
-import { Route, Routes, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Header from "./components/Header/Header"
 import NavBar from "./components/NavBar/NavBar"
 import Landing from './components/Landing/Landing';

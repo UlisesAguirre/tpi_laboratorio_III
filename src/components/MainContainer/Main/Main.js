@@ -12,7 +12,9 @@ const Main = () => {
     <div className="clientMenu-container">
       {user == null? null: (
         <>
+          <div className="img-user-container">
           <img className="user-icon" src={user.icon} alt="" />
+          </div>
           <p>{user.name}</p>
           <Link to="/main/reservations">
             {user.role === "client"? "Mis reservas" : "Reservas" }

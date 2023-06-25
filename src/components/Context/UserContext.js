@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-
+import iconUser from "../../assets/img/user.png"
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
@@ -12,9 +12,9 @@ const UserProvider = ({ children }) => {
     }
   }, []);
 
-  const login = (email, role, name, lastname, icon) => {
+  const login = (email, role, name, lastname) => {
     const fullName = `${name} ${lastname}`;
-    const userData = { email, role, name: fullName, icon };
+    const userData = { email, role, name: fullName, icon: iconUser };
     setUser(userData);
     localStorage.setItem('user', JSON.stringify(userData));
   };
