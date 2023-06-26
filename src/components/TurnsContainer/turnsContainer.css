@@ -1,0 +1,59 @@
+.turns-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    padding: 1em 3em; 
+}
+.turns-container .button {
+    background-color: var(--third-color);
+    margin-bottom: 10px;
+}
+
+.turns-container p{
+    background-color: white;
+    text-align: center;
+}
+
+.turns-table {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 3em;
+}
+
+.turns-table p {
+    font-size: 1.4em;
+    text-align: initial;
+    width: 100%;
+    padding: 1em 0 .5em;
+}
+
+.turns-table tr {
+    border-bottom: 1px solid var(--secondary-color);
+}
+
+
+.turns-table td {
+    padding: 0.5em 2em;
+}
+.turns-table {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 3em;
+}
+
+.turns-table p {
+    font-size: 1.4em;
+    text-align: initial;
+    width: 100%;
+    padding: 1em 0 .5em;
+}
+
+.turns-table tr {
+    border-bottom: 1px solid var(--secondary-color);
+}
+
+.turns-table td {
+    padding: 0.5em 2em;
+}

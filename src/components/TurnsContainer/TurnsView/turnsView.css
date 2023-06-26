@@ -1,0 +1,34 @@
+.table-container {
+    max-height: 400px;
+    overflow-y: auto;
+    position: relative; 
+  }
+  
+  .turns-table {
+    width: max-content; 
+    table-layout: fixed;
+    background-color: var(--secondary-color);
+  }
+  
+  .turns-table th,
+  .turns-table td {
+    padding: 8px;
+    white-space: nowrap;
+  }
+  
+  .turns-table thead {
+    position: sticky; 
+    top: 0; 
+    font-weight: bold; 
+    background-color: white;
+  }
+  .turns-table img {
+    margin-left: 4px;
+    width: 15px;
+  }
+ input{
+    width: 100px;
+  }
+  
+
+  
