@@ -87,8 +87,7 @@ const FullForm = ({ title, buttonTitle, data, register }) => {
         dataWithRole.email,
         dataWithRole.role,
         dataWithRole.name,
-        dataWithRole.lastName,
-        dataWithRole.icon
+        dataWithRole.lastName
       );
       setModal({
         modalOpen: true,

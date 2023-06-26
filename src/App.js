@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { Route, Routes} from 'react-router-dom';
+=======
+import { Route, Routes } from 'react-router-dom';
+>>>>>>> bb8c4b32b800376c10506fe4d54d6ba9521540e1
 import Header from "./components/Header/Header"
 import NavBar from "./components/NavBar/NavBar"
 import Landing from './components/Landing/Landing';

@@ -1,67 +1,107 @@
-import { useContext } from "react"
-import ComentCard from "./ComentCard/ComentCard"
+import { useContext, useEffect, useState } from "react";
+import ComentCard from "./ComentCard/ComentCard";
+import { db } from "../../firebase";
+import { ThemeContext } from "../Context/ThemeContext";
 
-import "./comments.css"
-import { ThemeContext } from "../Context/ThemeContext"
+import "./comments.css";
 
 const Comments = () => {
+  const { theme } = useContext(ThemeContext);
 
-    const {theme} = useContext(ThemeContext)
+  const [comments, setComments] = useState([]);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [displayedCards, setDisplayedCards] = useState([]);
 
-    const userComent = [
-        {
-            icon: "https://static.vecteezy.com/system/resources/thumbnails/005/545/335/small/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg",
-            name: "Usuario",
-            coment: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, quasi.",
-            rate: 4,
-            date: "14/4/22"
-        },
-        {
-            icon: "https://static.vecteezy.com/system/resources/thumbnails/005/545/335/small/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg",
-            name: "Usuario",
-            coment: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, quasi.",
-            rate: 4,
-            date: "14/4/22"
-        },
-        {
-            icon: "https://static.vecteezy.com/system/resources/thumbnails/005/545/335/small/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg",
-            name: "Usuario",
-            coment: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, quasi.",
-            rate: 4,
-            date: "14/4/22"
-        }
+  const getComments = async () => {
+    try {
+      const querySnapshot = await db
+        .collection("comments")
+        .orderBy("date", "desc")
+        .get();
+      const data = querySnapshot.docs.map((doc) => doc.data());
+      setComments(data);
+      console.log(data)
+      console.log("Comentarios encontrados");
+    } catch (error) {
+      console.error("Error al obtener comentarios:", error);
+      alert("Ocurrió un error al obtener los comentarios");
+    }
+  };
 
-    ]
+  const handlePrevClick = () => {
+    if (comments.length < 3 || activeIndex === 0) return;
+    setActiveIndex((prevIndex) => prevIndex - 1);
+  };
 
-    return (
-        <div className={theme}>
-            <div className="comments">
-                <h1>Nuestros clientes</h1>
-                <div className="select-comments">
-                    <label for="orderBy">Ordenar por:</label>
-                    <select name="orderBy" id="orderBy" className="button">
-                        <option value="">-- Selecionar --</option>
-                        <option value="new">Mas recientes</option>
-                        <option value="older">Mas antiguas</option>
-                        <option value="better">Mas alta</option>
-                        <option value="worse">Mas baja</option>
-                    </select>
-                </div>
-                <div className="comment-box">
-                    <button className="circle-button">&lt;</button>
-                    {userComent.map(u => <ComentCard 
-                        icon={u.icon}
-                        name={u.name}
-                        coment={u.coment}
-                        rate={u.rate}
-                        date={u.date}
-                    />)}    
-                    <button className="circle-button">&gt;</button>
-                </div>
+  const handleNextClick = () => {
+    if (comments.length < 3 || activeIndex === comments.length - 1) return;
+    setActiveIndex((prevIndex) => prevIndex + 1);
+  };
 
-            </div>
+  const handleSortChange = (event) => {
+    const value = event.target.value;
+    let sortedComments = [...comments];
+
+    if (value === "worse") {
+      sortedComments.sort((a, b) => a.rate - b.rate);
+    } else if (value === "better") {
+      sortedComments.sort((a, b) => b.rate - a.rate);
+    }
+
+    setComments(sortedComments);
+    setActiveIndex(0)
+  };
+
+  useEffect(() => {
+    getComments();
+  }, []);
+
+  useEffect(() => {
+    const startIndex = activeIndex;
+    const endIndex = activeIndex + 2;
+    const newDisplayedCards = comments.slice(startIndex, endIndex + 1);
+
+    if (newDisplayedCards.length <= 2) return;
+    setDisplayedCards(newDisplayedCards);
+  }, [comments, activeIndex]);
+
+  return (
+    <div className={theme}>
+      <div className="comments">
+        <h1>Nuestros clientes</h1>
+        <div className="select-comments">
+          <label htmlFor="orderBy">Ordenar por:</label>
+          <select
+            name="orderBy"
+            id="orderBy"
+            className="button"
+            onChange={handleSortChange}
+          >
+            <option value="">-- Selecionar --</option>
+            <option value="better">Mejor calificacion</option>
+            <option value="worse">Peor calificacion</option>
+          </select>
         </div>
-    )
-}
+        <div className="comment-box">
+          <button className="circle-button" onClick={handlePrevClick}>
+            &lt;
+          </button>
+          {displayedCards.map((c, index) => (
+            <ComentCard
+              key={index}
+              name={c.name}
+              comment={c.comment}
+              rate={c.rate}
+              date={c.date}
+            />
+          ))}
+          <button className="circle-button" onClick={handleNextClick}>
+            &gt;
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-export default Comments
+export default Comments;
