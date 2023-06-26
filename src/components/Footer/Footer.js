@@ -20,9 +20,11 @@ const Footer = () => {
             <Link><FontAwesomeIcon icon={faWhatsapp} /></Link>
           </div>
         </div>
-        <div>
+        <div className='business-hours-container'>
           <h2>Horarios de atención:</h2>
-          <p>Martes a domingos: 9am - 23pm </p>
+          <p>Todos los dias:</p>
+          <p>12 a 16 hs</p>
+          <p>20 a 00 hs</p>
         </div>
       </div>
       <div className='copyright'>

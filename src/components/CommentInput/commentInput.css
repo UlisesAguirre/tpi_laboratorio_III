@@ -29,6 +29,7 @@
     padding: 1em 1em 4em;
     resize: none;
     overflow: hidden;
+    margin: 0 0 1em;
 }
 
 .comment-background textarea::placeholder {
@@ -53,7 +54,7 @@
 .button-comment-container {
     display: flex;
     justify-content: flex-end;
-    width: 90%;
+    width: 95%;
 
 }
 

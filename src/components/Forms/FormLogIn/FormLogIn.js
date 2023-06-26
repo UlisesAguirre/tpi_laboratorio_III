@@ -8,12 +8,12 @@ import { useState } from "react";
 import UserContext from "../../Context/UserContext";
 
 import "./formLogIn.css";
+import Modal from "../../shared/Modal/Modal";
 
 const FormLogIn = () => {
+  const { theme } = useContext(ThemeContext);
 
-  const {theme} = useContext(ThemeContext);
-
-  const {user, login, logout} = useContext(UserContext)
+  const { user, login, logout } = useContext(UserContext);
 
   const navigate = useNavigate();
   const [input, setInput] = useState({
@@ -25,7 +25,16 @@ const FormLogIn = () => {
     email: null,
     password: null,
   });
-  
+  const [modal, setModal] = useState({
+    modalOpen: false,
+    modalTitle: "",
+    modalMessage: "",
+  });
+
+  const closeModal = () => {
+    setModal({ modalOpen: false });
+  };
+
   const loguinFirebase = async () => {
     try {
       const querySnapshot = await db
@@ -33,19 +42,30 @@ const FormLogIn = () => {
         .where("email", "==", input.email)
         .get();
       if (querySnapshot.empty) {
-        alert("Email o contraseña incorrectos");
+        setModal({
+          modalOpen: true,
+          modalTitle: "Error",
+          modalMessage: "Email o contraseña incorrectos",
+        });
       } else {
         const client = querySnapshot.docs[0].data();
         if (client.password === input.password) {
           login(client.email, client.role, client.name, client.lastName);
           navigate("/main");
         } else {
-          alert("Email o contraseña incorrectos");
+          setModal({
+            modalOpen: true,
+            modalTitle: "Error",
+            modalMessage: "Email o contraseña incorrectos",
+          });
         }
       }
     } catch (error) {
-      console.error("Error durante el inicio de sesión:", error);
-      alert("Ocurrió un error durante el inicio de sesión");
+      setModal({
+        modalOpen: true,
+        modalTitle: "Error",
+        modalMessage: `Error durante el inicio de sesion:${error}`,
+      });
     }
   };
   const handlerChangeInput = (e) => {
@@ -64,7 +84,11 @@ const FormLogIn = () => {
     const validationInputs = Object.values(validInput).some((valid) => !valid);
 
     if (validationInputs) {
-      alert("Por favor, complete todos los campos.");
+      setModal({
+        modalOpen: true,
+        modalTitle: "Aviso",
+        modalMessage: "Por Favor complete todos los campos correctamente",
+      });
     } else {
       loguinFirebase();
     }
@@ -113,6 +137,13 @@ const FormLogIn = () => {
           </p>
         </div>
       </div>
+      {modal.modalOpen && (
+        <Modal
+          title={modal.modalTitle}
+          message={modal.modalMessage}
+          onClose={closeModal}
+        />
+      )}
     </div>
   );
 };

@@ -16,26 +16,28 @@ const Main = () => {
             <img className="user-icon" src={user.icon} alt="" />
             <p>{user.name}</p>
           </div>
+          {user.role === "client" &&
           <Link to="/main/reservations">
-            {user.role === "client" ? "Mis reservas" : "Reservas"}
+             Reservas 
           </Link>
+          }
           {user.role === "admin" &&
-            <Link to="/main/addTurns">
-              Añadir turnos
-            </Link>}
+          <Link to="/main/view-turns">
+            Reservas
+          </Link>}
           <Link to="/main/edit-profile">
             Editar perfil
           </Link>
           {(user.role === "admin" || user.role === "superAdmin") &&
-            <Link to="/main/list-users">
-              {user.role === "admin" ? "Consultar Clientes" : "Administrar Usuarios"}
-            </Link>}
-          {user.role === "client" &&
-            <Link to="/main/comment">
-              "Deja tu comentario"
-            </Link>}
-          <Link to="/" onClick={logout}>Cerrar sesion</Link>
-        </>
+          <Link to= "/main/list-users">
+            {user.role === "admin" ? "Consultar Clientes" :"Administrar Usuarios"}
+          </Link>}
+          {user.role === "client"&&
+          <Link to="/main/comment">
+          Deja tu comentario
+          </Link>}
+          <Link to="/" onClick={logout}>Cerrar sesion</Link> 
+          </>
       )}
 
     </div>

@@ -72,6 +72,7 @@
     .full-form-container {
         display: flex;
         justify-content: center;
+        padding-top: 1em;
     }
     .form-button button {
         font-size: 1em;
@@ -83,13 +84,11 @@
         height: 90%;
     }
     .form-background h3 {
-        
         padding-top: .5em;
         font-size: 1.5em;
     }
     .form-input input {
-        width: 70%;
-        
+        width: 70%; 
     }
     .form-input label {
         margin: 0;

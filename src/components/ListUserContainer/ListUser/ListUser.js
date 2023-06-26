@@ -3,7 +3,8 @@ import { db } from "../../../firebase";
 import UserContext from "../../Context/UserContext";
 
 import "./listUser.css";
-import CustomModal from "../../shared/Modal/CustomModal";
+import ConfirmModal from "../../shared/ConfirmModal/ConfirmModal";
+import Modal from "../../shared/Modal/Modal";
 
 const ListUser = () => {
   const { user } = useContext(UserContext);
@@ -11,19 +12,30 @@ const ListUser = () => {
   const [clients, setClients] = useState([]);
   const [users, setUsers] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+  const [modal, setModal] = useState({
+    modalOpen: false,
+    modalTitle: "",
+    modalMessage: "",
+  });
+
+  const closeModal = () => {
+    setModal({ modalOpen: false });
+  };
 
   const getUsers = async () => {
     try {
       const querySnapshot = await db.collection("users").get();
       const data = querySnapshot.docs.map((doc) => ({
         ...doc.data(),
-        id: doc.id
+        id: doc.id,
       }));
       setUsers(data);
-      console.error("Usuarios encontrados");
     } catch (error) {
-      console.log("Error al obtener usuarios:", error);
-      alert("Ocurrió un error al obtener los usuarios");
+      setModal({
+        modalOpen: true,
+        modalTitle: "Error",
+        modalMessage: `Error al obtener los usuarios:${error}`,
+      });
     }
   };
 
@@ -35,10 +47,12 @@ const ListUser = () => {
         .get();
       const data = querySnapshot.docs.map((doc) => doc.data());
       setClients(data);
-      console.log("Clientes encontrados");
     } catch (error) {
-      console.error("Error al obtener clientes:", error);
-      alert("Ocurrió un error al obtener los clientes");
+      setModal({
+        modalOpen: true,
+        modalTitle: "Error",
+        modalMessage: `Error al obtener los clientes: ${error}`,
+      });
     }
   };
 
@@ -71,21 +85,21 @@ const ListUser = () => {
   };
 
   const modifyRole = async (newRole, user) => {
-    console.log(user, newRole);
-  
     try {
       const userRef = db.collection("users").where("email", "==", user.email);
       const querySnapshot = await userRef.get();
-  
+
       querySnapshot.docs.forEach((doc) => {
         doc.ref.update({ role: newRole });
       });
-  
-      console.log("Rol actualizado con éxito");
+
       getUsers();
     } catch (error) {
-      console.error("Error al actualizar el rol del usuario:", error);
-      alert("Ocurrió un error al actualizar el rol del usuario");
+      setModal({
+        modalOpen: true,
+        modalTitle: "Error",
+        modalMessage: `Error al actualizar el rol del usuario : ${error}`,
+      });
     }
   };
 
@@ -93,11 +107,18 @@ const ListUser = () => {
     try {
       const userRef = db.collection("users").doc(user.id);
       await userRef.delete();
-      console.log("Usuario eliminado con éxito");
+      setModal({
+        modalOpen: true,
+        modalTitle: "Aviso",
+        modalMessage: "Usuario eliminado con éxito",
+      });
       getUsers();
     } catch (error) {
-      console.error("Error al eliminar el usuario:", error);
-      alert("Ocurrió un error al eliminar el usuario");
+      setModal({
+        modalOpen: true,
+        modalTitle: "Error",
+        modalMessage: `Error al eliminar el usuario: ${error}`,
+      });
     }
   };
 
@@ -107,7 +128,6 @@ const ListUser = () => {
   }, []);
 
   const filteredList = searchHandler();
-
 
   return (
     <div className="list-container">
@@ -119,61 +139,71 @@ const ListUser = () => {
             value={searchInput}
             onChange={searchInputHandler}
           />
-          <button className="button" onClick={searchHandler}>Buscar</button>
+          <button className="button" onClick={searchHandler}>
+            Buscar
+          </button>
         </div>
-        <table className="listUser-table">
-          {clients.length === 0 || users.length === 0 ? (
-            <p>No hay usuarios registrados</p>
-          ) : (
-            <>
-              <thead>
-                <tr>
-                  <th>Nombre y apellido:</th>
-                  <th>Email:</th>
-                  <th>{user.role === "admin" ? "Teléfono:" : "Rol:"}</th>
-                </tr>
-              </thead>
-              <tbody className="listUser-scrollbar">
-                {searchInput !== "" && filteredList.length === 0 ? (
+        <div className="listUser-table-container">
+          <table className="listUser-table">
+            {clients.length === 0 || users.length === 0 ? (
+              <p>No hay usuarios registrados</p>
+            ) : (
+              <>
+                <thead>
                   <tr>
-                    <td colSpan={3}>No hay coincidencias</td>
+                    <th>Nombre y apellido:</th>
+                    <th>Email:</th>
+                    <th>{user.role === "admin" ? "Teléfono:" : "Rol:"}</th>
+                    {user.role === "superAdmin" && <th></th>}
                   </tr>
-                ) : (
-                  filteredList.map((item) => (
-                    <tr key={item.id}>
-                      <td>{`${item.name} ${item.lastName}`}</td>
-                      <td>{item.email}</td>
-                      <td>
-                        {user.role === "admin" ? item.phone : item.role}
-                      </td>
-                      {user.role === "admin" ? null : (
-                        <td>
-                          <div className="reservation-buttons">
-                            <CustomModal
-                              title={"Modificar rol"}
-                              titleModalButton={"Guardar"}
-                              finalMessage={"Rol modificado con éxito"}
-                              user={item}
-                              modifyRole={modifyRole}
-                            />
-                            <CustomModal
-                              title={"Eliminar usuario"}
-                              titleModalButton={"Eliminar"}
-                              finalMessage={"Usuario eliminado con éxito"}
-                              user={item}
-                              deleteUser={deleteUser}
-                            />
-                          </div>
-                        </td>
-                      )}
+                </thead>
+                <tbody className="listUser-scrollbar">
+                  {searchInput !== "" && filteredList.length === 0 ? (
+                    <tr>
+                      <td colSpan={3}>No hay coincidencias</td>
                     </tr>
-                  ))
-                )}
-              </tbody>
-            </>
-          )}
-        </table>
+                  ) : (
+                    filteredList.map((item) => (
+                      <tr key={item.id}>
+                        <td>{`${item.name} ${item.lastName}`}</td>
+                        <td>{item.email}</td>
+                        <td>{user.role === "admin" ? item.phone : item.role}</td>
+                        {user.role === "admin" ? null : (
+                          <td>
+                            <div className="reservation-buttons">
+                              <ConfirmModal
+                                title={"Modificar rol"}
+                                titleModalButton={"Guardar"}
+                                finalMessage={"Rol modificado con éxito"}
+                                user={item}
+                                modifyRole={modifyRole}
+                              />
+                              <ConfirmModal
+                                title={"Eliminar usuario"}
+                                titleModalButton={"Eliminar"}
+                                finalMessage={"Usuario eliminado con éxito"}
+                                user={item}
+                                deleteUser={deleteUser}
+                              />
+                            </div>
+                          </td>
+                        )}
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </>
+            )}
+          </table>
+        </div>
       </div>
+      {modal.modalOpen && (
+        <Modal
+          title={modal.modalTitle}
+          message={modal.modalMessage}
+          onClose={closeModal}
+        />
+      )}
     </div>
   );
 };

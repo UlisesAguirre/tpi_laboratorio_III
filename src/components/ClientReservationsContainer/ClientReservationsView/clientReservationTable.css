@@ -1,0 +1,30 @@
+.cancel-button {
+  background-color: #ffffff;
+  color: #ff0000;
+  border: 1px solid #ff0000;
+  padding: 5px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  background-color: #ff0000;
+  color: #ffffff;
+}
+.reserve-button {
+  background-color: #ffffff;
+  color: #369829;
+  border: 1px solid #369829;
+  padding: 5px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.reserve-button:hover {
+  background-color: #369829;
+  color: #ffffff;
+}
+
+.reserve-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
