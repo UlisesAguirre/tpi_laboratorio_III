@@ -4,6 +4,7 @@ import { db } from "../../firebase";
 import { ThemeContext } from "../Context/ThemeContext";
 
 import "./comments.css";
+import Modal from "../shared/Modal/Modal";
 
 const Comments = () => {
   const { theme } = useContext(ThemeContext);
@@ -11,6 +12,15 @@ const Comments = () => {
   const [comments, setComments] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [displayedCards, setDisplayedCards] = useState([]);
+  const [modal, setModal] = useState({
+    modalOpen: false,
+    modalTitle: "",
+    modalMessage: "",
+  });
+
+  const closeModal = () => {
+    setModal({ modalOpen: false });
+  };
 
   const getComments = async () => {
     try {
@@ -20,11 +30,12 @@ const Comments = () => {
         .get();
       const data = querySnapshot.docs.map((doc) => doc.data());
       setComments(data);
-      console.log(data)
-      console.log("Comentarios encontrados");
     } catch (error) {
-      console.error("Error al obtener comentarios:", error);
-      alert("Ocurrió un error al obtener los comentarios");
+      setModal({
+        modalOpen: true,
+        modalTitle: "Error",
+        modalMessage: "Ocurrió un error al obtener los comentarios",
+      });
     }
   };
 
@@ -49,7 +60,7 @@ const Comments = () => {
     }
 
     setComments(sortedComments);
-    setActiveIndex(0)
+    setActiveIndex(0);
   };
 
   useEffect(() => {
@@ -100,6 +111,13 @@ const Comments = () => {
           </button>
         </div>
       </div>
+      {modal.modalOpen && (
+        <Modal
+          title={modal.modalTitle}
+          message={modal.modalMessage}
+          onClose={closeModal}
+        />
+      )}
     </div>
   );
 };

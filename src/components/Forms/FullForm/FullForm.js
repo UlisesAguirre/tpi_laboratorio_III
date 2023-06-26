@@ -54,7 +54,11 @@ const FullForm = ({ title, buttonTitle, data, register }) => {
       .get();
 
     if (!querySnapshot.empty) {
-      console.log("El usuario ya esta registrado");
+      setModal({
+        modalOpen: true,
+        modalTitle: "Aviso",
+        modalMessage: "El usuario ya esta registrado",
+      });
       setModal({
         modalOpen: true,
         modalTitle: "Aviso",

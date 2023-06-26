@@ -50,17 +50,7 @@ const FormLogIn = () => {
       } else {
         const client = querySnapshot.docs[0].data();
         if (client.password === input.password) {
-<<<<<<< HEAD
-          login(
-            client.email,
-            client.role,
-            client.name,
-            client.lastName,
-            client.icon
-          );
-=======
           login(client.email, client.role, client.name, client.lastName);
->>>>>>> bb8c4b32b800376c10506fe4d54d6ba9521540e1
           navigate("/main");
         } else {
           setModal({

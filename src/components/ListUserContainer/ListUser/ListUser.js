@@ -27,11 +27,15 @@ const ListUser = () => {
       const querySnapshot = await db.collection("users").get();
       const data = querySnapshot.docs.map((doc) => ({
         ...doc.data(),
-        id: doc.id
+        id: doc.id,
       }));
       setUsers(data);
     } catch (error) {
-      setModal({modalOpen:true,modalTitle:"Error",modalMessage:`Error al obtener los usuarios:${error}`});
+      setModal({
+        modalOpen: true,
+        modalTitle: "Error",
+        modalMessage: `Error al obtener los usuarios:${error}`,
+      });
     }
   };
 
@@ -44,7 +48,11 @@ const ListUser = () => {
       const data = querySnapshot.docs.map((doc) => doc.data());
       setClients(data);
     } catch (error) {
-      setModal({modalOpen:true,modalTitle:"Error",modalMessage:`Error al obtener los clientes: ${error}`});
+      setModal({
+        modalOpen: true,
+        modalTitle: "Error",
+        modalMessage: `Error al obtener los clientes: ${error}`,
+      });
     }
   };
 
@@ -77,19 +85,21 @@ const ListUser = () => {
   };
 
   const modifyRole = async (newRole, user) => {
-    console.log(user, newRole);
-  
     try {
       const userRef = db.collection("users").where("email", "==", user.email);
       const querySnapshot = await userRef.get();
-  
+
       querySnapshot.docs.forEach((doc) => {
         doc.ref.update({ role: newRole });
       });
 
       getUsers();
     } catch (error) {
-      setModal({modalOpen:true,modalTitle:"Error",modalMessage:`Error al actualizar el rol del usuario : ${error}`});
+      setModal({
+        modalOpen: true,
+        modalTitle: "Error",
+        modalMessage: `Error al actualizar el rol del usuario : ${error}`,
+      });
     }
   };
 
@@ -97,10 +107,18 @@ const ListUser = () => {
     try {
       const userRef = db.collection("users").doc(user.id);
       await userRef.delete();
-      setModal({modalOpen:true,modalTitle:"Aviso",modalMessage:"Usuario eliminado con exito"});
+      setModal({
+        modalOpen: true,
+        modalTitle: "Aviso",
+        modalMessage: "Usuario eliminado con exito",
+      });
       getUsers();
     } catch (error) {
-      setModal({modalOpen:true,modalTitle:"Error",modalMessage:`Error al eliminar el usuario: ${error}`});
+      setModal({
+        modalOpen: true,
+        modalTitle: "Error",
+        modalMessage: `Error al eliminar el usuario: ${error}`,
+      });
     }
   };
 
@@ -110,7 +128,6 @@ const ListUser = () => {
   }, []);
 
   const filteredList = searchHandler();
-
 
   return (
     <div className="list-container">
@@ -122,7 +139,9 @@ const ListUser = () => {
             value={searchInput}
             onChange={searchInputHandler}
           />
-          <button className="button" onClick={searchHandler}>Buscar</button>
+          <button className="button" onClick={searchHandler}>
+            Buscar
+          </button>
         </div>
         <table className="listUser-table">
           {clients.length === 0 || users.length === 0 ? (
@@ -146,9 +165,7 @@ const ListUser = () => {
                     <tr key={item.id}>
                       <td>{`${item.name} ${item.lastName}`}</td>
                       <td>{item.email}</td>
-                      <td>
-                        {user.role === "admin" ? item.phone : item.role}
-                      </td>
+                      <td>{user.role === "admin" ? item.phone : item.role}</td>
                       {user.role === "admin" ? null : (
                         <td>
                           <div className="reservation-buttons">
