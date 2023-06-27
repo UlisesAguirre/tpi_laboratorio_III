@@ -16,10 +16,6 @@ const ProfileDataView = ({ user, editProfile }) => {
     modalMessage: "",
   });
 
-  const closeModal = () => {
-    setModal({ modalOpen: false });
-  };
-
   const editProfileHandler = () => {
     editProfile();
   };
@@ -32,8 +28,8 @@ const ProfileDataView = ({ user, editProfile }) => {
       querySnapshot.docs.forEach((doc) => {
         doc.ref.delete();
       });
-      navigate("/");
       logout();
+      navigate("/");
     } catch (error) {
       setModal({
         modalOpen: false,
@@ -80,7 +76,7 @@ const ProfileDataView = ({ user, editProfile }) => {
         <Modal
           title={modal.modalTitle}
           message={modal.modalMessage}
-          onClose={closeModal}
+          onClose={() => setModal({ modalOpen: false })}
         />
       )}
     </div>

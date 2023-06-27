@@ -31,10 +31,6 @@ const FormLogIn = () => {
     modalMessage: "",
   });
 
-  const closeModal = () => {
-    setModal({ modalOpen: false });
-  };
-
   const loguinFirebase = async () => {
     try {
       const querySnapshot = await db
@@ -148,7 +144,7 @@ const FormLogIn = () => {
         <Modal
           title={modal.modalTitle}
           message={modal.modalMessage}
-          onClose={closeModal}
+          onClose={() => setModal({ modalOpen: false })}
         />
       )}
     </div>

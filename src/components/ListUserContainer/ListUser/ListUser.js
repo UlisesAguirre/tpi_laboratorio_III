@@ -18,10 +18,6 @@ const ListUser = () => {
     modalMessage: "",
   });
 
-  const closeModal = () => {
-    setModal({ modalOpen: false });
-  };
-
   const getUsers = async () => {
     try {
       const querySnapshot = await db.collection("users").get();
@@ -201,7 +197,7 @@ const ListUser = () => {
         <Modal
           title={modal.modalTitle}
           message={modal.modalMessage}
-          onClose={closeModal}
+          onClose={() => setModal({ modalOpen: false })}
         />
       )}
     </div>

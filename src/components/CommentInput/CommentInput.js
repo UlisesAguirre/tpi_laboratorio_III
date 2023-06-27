@@ -20,10 +20,6 @@ const CommentInput = () => {
     modalMessage: "",
   });
 
-  const closeModal = () => {
-    setModal({ modalOpen: false });
-  };
-
   const commentHandler = (event) => {
     setComment(event.target.value);
   };
@@ -103,7 +99,7 @@ const CommentInput = () => {
         <Modal
           title={modal.modalTitle}
           message={modal.modalMessage}
-          onClose={closeModal}
+          onClose={() => setModal({ modalOpen: false })}
         />
       )}
     </div>

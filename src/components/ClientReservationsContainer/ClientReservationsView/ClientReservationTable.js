@@ -41,10 +41,6 @@ const ClientReservationTable = ({ listTurns }) => {
     setTurns(sortedTurns);
   }, [listTurns]);
 
-  const closeModal = () => {
-    setModal({ modalOpen: false });
-  };
-
   const handlerReserve = async (idReserve, capacityReserve, clients) => {
     if (clients.includes(user.email)) {
       setModal({
@@ -164,7 +160,7 @@ const ClientReservationTable = ({ listTurns }) => {
         <Modal
           title={modal.modalTitle}
           message={modal.modalMessage}
-          onClose={closeModal}
+          onClose={() => setModal({ modalOpen: false })}
         />
       )}
     </>

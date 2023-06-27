@@ -18,10 +18,6 @@ const Comments = () => {
     modalMessage: "",
   });
 
-  const closeModal = () => {
-    setModal({ modalOpen: false });
-  };
-
   const getComments = async () => {
     try {
       const querySnapshot = await db
@@ -121,7 +117,7 @@ const Comments = () => {
         <Modal
           title={modal.modalTitle}
           message={modal.modalMessage}
-          onClose={closeModal}
+          onClose={() => setModal({ modalOpen: false })}
         />
       )}
     </div>

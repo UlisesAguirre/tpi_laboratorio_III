@@ -1,5 +1,5 @@
 import Input from "../../shared/Input/Input";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { db } from "../../../firebase";
 import UserContext from "../../Context/UserContext";
@@ -40,10 +40,6 @@ const FullForm = ({ title, buttonTitle, data, register }) => {
     modalTitle: "",
     modalMessage: "",
   });
-
-  const closeModal = () => {
-    setModal({ modalOpen: false });
-  };
 
   const sendFirebase = async () => {
     const { confirmPassword, ...data } = input;
@@ -266,7 +262,7 @@ const FullForm = ({ title, buttonTitle, data, register }) => {
         <Modal
           title={modal.modalTitle}
           message={modal.modalMessage}
-          onClose={closeModal}
+          onClose={() => setModal({ modalOpen: false })}
         />
       )}
     </div>
