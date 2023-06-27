@@ -27,8 +27,6 @@ function App() {
   const { user } = useContext(UserContext);
 
   useEffect(() => {
-    /*to avoid wanting to comment this function while you are working
-     on other things*/
     generateTurns();
   }, []);
 

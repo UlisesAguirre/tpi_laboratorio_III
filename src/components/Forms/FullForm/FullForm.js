@@ -1,5 +1,5 @@
 import Input from "../../shared/Input/Input";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { db } from "../../../firebase";
 import UserContext from "../../Context/UserContext";
@@ -57,21 +57,23 @@ const FullForm = ({ title, buttonTitle, data, register }) => {
       setModal({
         modalOpen: true,
         modalTitle: "Aviso",
-        modalMessage: "El usuario ya esta registrado",
-      });
-      setModal({
-        modalOpen: true,
-        modalTitle: "Aviso",
         modalMessage: "Ya existe un usuario con este email",
       });
     } else {
-      await db.collection("users").doc().set(dataWithRole);
-      setModal({
-        modalOpen: true,
-        modalTitle: "Registrado",
-        modalMessage: "Se ha registrado exitosamente!",
-      });
-      navigate("/login");
+      await db
+        .collection("users")
+        .doc()
+        .set(dataWithRole)
+        .then(() => {
+          setModal({
+            modalOpen: true,
+            modalTitle: "Registrado",
+            modalMessage: "Se ha registrado exitosamente!",
+          });
+          setTimeout(() => {
+            navigate("/login");
+          }, 2000);
+        });
     }
   };
 
@@ -93,11 +95,6 @@ const FullForm = ({ title, buttonTitle, data, register }) => {
         dataWithRole.name,
         dataWithRole.lastName
       );
-      setModal({
-        modalOpen: true,
-        modalTitle: "Actualizado",
-        modalMessage: "Usuario actualizado",
-      });
     } catch (error) {
       setModal({
         modalOpen: true,
@@ -149,13 +146,16 @@ const FullForm = ({ title, buttonTitle, data, register }) => {
           confirmPassword: "",
         });
       } else {
-        modifiedFirebase();
-        setModal({
-          modalOpen: true,
-          modalTitle: "Actualizado",
-          modalMessage: "Se ha actualizado exitosamente el usuario!",
-        });
-        navigate("/main");
+        modifiedFirebase().then(()=>{
+          setModal({
+            modalOpen: true,
+            modalTitle: "Actualizado",
+            modalMessage: "Se ha actualizado exitosamente el usuario!",
+          });
+          setTimeout(() => {
+            navigate("/main");
+          }, 2000);
+        })
       }
     }
   };

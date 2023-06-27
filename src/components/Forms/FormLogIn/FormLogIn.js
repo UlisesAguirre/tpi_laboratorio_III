@@ -13,7 +13,7 @@ import Modal from "../../shared/Modal/Modal";
 const FormLogIn = () => {
   const { theme } = useContext(ThemeContext);
 
-  const { user, login, logout } = useContext(UserContext);
+  const { login } = useContext(UserContext);
 
   const navigate = useNavigate();
   const [input, setInput] = useState({

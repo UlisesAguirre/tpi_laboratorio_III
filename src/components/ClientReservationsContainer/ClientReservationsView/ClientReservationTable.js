@@ -13,15 +13,31 @@ const ClientReservationTable = ({ listTurns }) => {
   });
   useEffect(() => {
     let turnsToShow = listTurns;
+    const timeSlots = ["12-14", "14-16", "20-22", "22-24"];
     const currentDate = new Date();
     turnsToShow = turnsToShow.filter(
       (turn) => new Date(turn.date) >= currentDate
     );
-    const sortedTurns = [...turnsToShow].sort((a, b) => {
+    const sortedTurns = turnsToShow.sort((a, b) => {
       const dateA = new Date(a.date);
       const dateB = new Date(b.date);
-      return dateA - dateB;
+
+      if (dateA < dateB) {
+        return -1;
+      }
+      if (dateA > dateB) {
+        return 1;
+      }
+
+      const hourA = a.hour;
+      const hourB = b.hour;
+
+      const indexA = timeSlots.indexOf(hourA);
+      const indexB = timeSlots.indexOf(hourB);
+
+      return indexA - indexB;
     });
+
     setTurns(sortedTurns);
   }, [listTurns]);
 
