@@ -1,7 +1,7 @@
 import React from "react";
 import "./input.css"
 
-const InputRegister = ({ inputName, placeholder, type, name, event, value, onBlur, validInput, errorMessage }) => {
+const InputRegister = ({ inputName, placeholder, type, name, event, value, onBlur, validInput, errorMessage}) => {
 
   return (
     <div className="input-base-container">

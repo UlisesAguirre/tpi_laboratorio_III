@@ -27,6 +27,15 @@
     padding: 0 0 1em;
 }
 
+.search-container h2 {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    color: var(--primary-color);
+    font-size: 1.3em;
+    padding-right: 1em;
+}
+
 .search-container p {
     height: 100%;
     font-size: 1.2em;

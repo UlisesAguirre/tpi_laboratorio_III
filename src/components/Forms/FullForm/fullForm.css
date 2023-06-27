@@ -25,6 +25,11 @@
     align-items: center;
 }
 
+.form-input-hidden {
+    visibility: hidden;
+    width: 1%;
+}
+
 .form-input label{
     margin-top: 35px;
     font-size: 1em;

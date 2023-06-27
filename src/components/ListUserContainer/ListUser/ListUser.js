@@ -56,7 +56,7 @@ const ListUser = () => {
     }
   };
 
-  const searchHandler = () => {
+  const search = () => {
     const input = searchInput.toLowerCase().trim();
     let filteredList = [];
 
@@ -127,21 +127,19 @@ const ListUser = () => {
     getClients();
   }, []);
 
-  const filteredList = searchHandler();
+  const filteredList = search();
 
   return (
     <div className="list-container">
       <h2>{user.role === "admin" ? "Clientes:" : "Usuarios:"}</h2>
       <div className="listUser-container">
         <div className="search-container">
+          <h2>Buscar:</h2>
           <input
             type="text"
             value={searchInput}
             onChange={searchInputHandler}
           />
-          <button className="button" onClick={searchHandler}>
-            Buscar
-          </button>
         </div>
         <div className="listUser-table-container">
           <table className="listUser-table">

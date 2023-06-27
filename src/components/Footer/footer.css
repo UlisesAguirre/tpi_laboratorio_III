@@ -29,7 +29,7 @@
 }
 
 .social-media a:hover {
-    color: var(--primary-color);
+    color: var(--secondary-color);
     transition: .5s;
 }
 
