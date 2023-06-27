@@ -35,15 +35,10 @@ function App() {
   //do not touch if you dont have authorization
   const generateTurns = async () => {
     const currentDate = new Date();
-    const endDate = new Date();
-    endDate.setDate(currentDate.getDate() + 13);
-
     const querySnapshot = await db
       .collection("turns")
       .where("date", ">=", currentDate.toISOString())
-      .where("date", "<=", endDate.toISOString())
       .get();
-
     if (!querySnapshot.empty) {
       return;
     }
@@ -76,7 +71,7 @@ function App() {
           available: true,
         };
 
-        await db.collection("turns").add(newTurn);
+         await db.collection("turns").add(newTurn);
       }
     }
   };
