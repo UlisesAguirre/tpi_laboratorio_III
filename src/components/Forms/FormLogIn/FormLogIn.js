@@ -69,7 +69,13 @@ const FormLogIn = () => {
     }
   };
   const handlerChangeInput = (e) => {
-    setInput({ ...input, [e.target.name]: e.target.value });
+    if (e.target.name === "email") {
+      setInput({ ...input, [e.target.name]: e.target.value.toLowerCase()});
+    }else{
+      setInput({ ...input, [e.target.name]: e.target.value });
+    }
+    console.log(input)
+    
   };
   const handlerBlurInput = (e) => {
     const eventTarget = e.target.name;
@@ -104,6 +110,7 @@ const FormLogIn = () => {
             placeholder={"example@gmail.com"}
             type={"email"}
             name={"email"}
+            value={input.email}
             event={handlerChangeInput}
             onBlur={handlerBlurInput}
             validInput={validInput}
