@@ -70,8 +70,6 @@ const FormLogIn = () => {
     }else{
       setInput({ ...input, [e.target.name]: e.target.value });
     }
-    console.log(input)
-    
   };
   const handlerBlurInput = (e) => {
     const eventTarget = e.target.name;
