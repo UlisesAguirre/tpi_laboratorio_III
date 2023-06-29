@@ -7,10 +7,12 @@ import { useNavigate } from "react-router-dom";
 
 import "./commentInput.css";
 import Modal from "../shared/Modal/Modal";
+import { ThemeContext } from "../Context/ThemeContext";
 
 const CommentInput = () => {
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
+  const { theme } = useContext(ThemeContext);
 
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState("");
@@ -68,7 +70,7 @@ const CommentInput = () => {
       <Main />
       <div className='comment-container'>
         <h2>Deja tu comentario:</h2>
-        <div className='comment-background'>
+        <div className={`comment-background ${theme}`}>
           <div className='rating-container'>
             <p>Califica tu experiencia</p>
             <StarRating setRating={setRating} />
