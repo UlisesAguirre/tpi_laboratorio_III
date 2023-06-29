@@ -65,8 +65,8 @@ const TurnsView = ({ listTurns }) => {
     setSelectedTurnId(id);
   };
 
-  const handleConfirmDelete = () => {
-    db.collection("turns")
+  const handleConfirmDelete = async() => {
+     await db.collection("turns")
       .doc(selectedTurnId)
       .update({ available: false })
       .then(() => {

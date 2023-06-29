@@ -1,31 +1,31 @@
-import ConfirmModal from "../../shared/ConfirmModal/ConfirmModal";
-import { db } from "../../../firebase";
+
 
 import "./profileDataView.css";
 import { useContext, useState } from "react";
 import UserContext from "../../Context/UserContext";
 import { useNavigate } from "react-router-dom";
 import Modal from "../../shared/Modal/Modal";
+import ConfirmModal from "../../shared/ConfirmModal/ConfirmModal";
+import { db } from "../../../firebase";
 
-const ProfileDataView = ({ user, editProfile }) => {
-  const { logout } = useContext(UserContext);
-  const navigate = useNavigate();
+const ProfileDataView = ({ userData, editProfile }) => {
+  const { logout, user: userLog } = useContext(UserContext);
   const [modal, setModal] = useState({
     modalOpen: false,
     modalTitle: "",
     modalMessage: "",
   });
-
+  const [confirmModalOpen, setConfirmModalOpen] = useState(false);
+  const navigate = useNavigate();
+  
   const editProfileHandler = () => {
     editProfile();
   };
-
-  const deleteUser = async (user) => {
+  
+  const handleConfirmDeleteUser = async () => {
     try {
-      const userRef = db.collection("users").where("email", "==", user.email);
-      const querySnapshot = await userRef.get();
-
-      querySnapshot.docs.forEach((doc) => {
+      const userToDelete = await db.collection("users").where("email", "==", userLog.email).get();
+      userToDelete.docs.forEach((doc) => {
         doc.ref.delete();
       });
       logout();
@@ -45,31 +45,33 @@ const ProfileDataView = ({ user, editProfile }) => {
       <div className="data-container-background">
         <div className="data-container">
           <h3>Nombre:</h3>
-          <p>{user.name}</p>
+          <p>{userData.name}</p>
         </div>
         <div className="data-container">
           <h3>Apellido:</h3>
-          <p>{user.lastName}</p>
+          <p>{userData.lastName}</p>
         </div>
         <div className="data-container">
           <h3>Numero de telefono:</h3>
-          <p>{user.phone}</p>
+          <p>{userData.phone}</p>
         </div>
         <div className="data-container">
           <h3>Email:</h3>
-          <p>{user.email}</p>
+          <p>{userData.email}</p>
         </div>
         <div className="button-data-container">
           <button onClick={editProfileHandler} className="button">
             Editar
           </button>
-          <ConfirmModal
-            title={"Eliminar"}
-            titleModalButton={"Eliminar"}
-            finalMessage={"Usuario eliminado"}
-            user={user}
-            deleteUser={deleteUser}
-          />
+          <button className="button" onClick={() => setConfirmModalOpen(true)}>Eliminar usuario</button>
+          {confirmModalOpen && (
+            <ConfirmModal
+              title="Eliminar usuario"
+              message="¿Estás seguro de que deseas eliminar tu cuenta?"
+              onConfirm={handleConfirmDeleteUser}
+              onCancel={() => setConfirmModalOpen(false)}
+            />
+          )}
         </div>
       </div>
       {modal.modalOpen && (

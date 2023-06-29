@@ -57,7 +57,7 @@ const EditProfile = ({ edit }) => {
             register={false}
           />
         ) : (
-          <ProfileDataView user={userLog} editProfile={editProfileHandler} />
+          <ProfileDataView userData={userLog} editProfile={editProfileHandler} />
         )}
       </div>
       {modal.modalOpen && (
