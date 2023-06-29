@@ -2,9 +2,12 @@ import React, { useContext, useState, useMemo } from "react";
 import UserContext from "../../Context/UserContext";
 import { db } from "../../../firebase";
 import Modal from "../../shared/Modal/Modal";
+import { ThemeContext } from "../../Context/ThemeContext";
+
 import "./clientReservationTable.css";
 
 const ClientReservationTable = ({ listTurns }) => {
+  const {theme} = useContext(ThemeContext)
   const { user } = useContext(UserContext);
   const [modal, setModal] = useState({
     modalOpen: false,
@@ -102,7 +105,7 @@ const ClientReservationTable = ({ listTurns }) => {
     <div className="table-turns-containeer">
       <h2>Reservas: </h2>
       <div className="table-container">
-        <div className="background-turns-container">
+        <div className={`background-turns-container ${theme}`}>
           <div className="client-turns-container">
             <table className="turns-table">
               {!turns.length ? (
