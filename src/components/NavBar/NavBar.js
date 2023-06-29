@@ -14,7 +14,6 @@ const NavBar = () => {
             <Link to="/" className="link"><li className={theme}>Inicio</li></Link>
             <Link to="/about-us" className="link"><li className={theme}>Sobre nosotros</li></Link>
             <Link to="/comments" className="link"><li className={theme}>Nuestros clientes</li></Link>
-            <Link to="/" className="link"><li className={theme}>Contacto</li></Link>
         </ul>
     </div>
   )

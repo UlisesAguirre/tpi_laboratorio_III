@@ -122,11 +122,6 @@ const FormLogIn = () => {
             validInput={validInput}
             errorMessage={"Este campo es requerido"}
           />
-          <p>
-            <Link to="/register" className="button-register">
-              Olvidaste tu contraseña?
-            </Link>
-          </p>
           <div className="form-button">
             <button className="button" onClick={handleSubmit}>
               Iniciar sesión

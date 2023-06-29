@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import UserContext from "../../Context/UserContext";
 import { db } from "../../../firebase";
-import "./clientReservationTable.css";
 import Modal from "../../shared/Modal/Modal";
+import "./clientReservationTable.css";
 const ClientReservationTable = ({ listTurns }) => {
   const [turns, setTurns] = useState([]);
   const { user } = useContext(UserContext);
@@ -98,63 +98,68 @@ const ClientReservationTable = ({ listTurns }) => {
       });
   };
   return (
-    <>
+    <div className="table-turns-containeer">
+      <h2>Reservas: </h2>
       <div className="table-container">
-        <table className="turns-table">
-          {!turns.length ? (
-            <p>No hay turnos todavía, añade algunos.</p>
-          ) : (
-            <>
-              <thead>
-                <tr>
-                  <th>Fecha</th>
-                  <th>Día</th>
-                  <th>Horario</th>
-                  <th>Cantidad disponible</th>
-                  <th>Disponibilidad</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {turns.map((e) => (
-                  <tr key={e.id}>
-                    <td>{e.date}</td>
-                    <td>{e.day}</td>
-                    <td>{e.hour}</td>
-                    <td>{e.capacity}</td>
-                    <td>
-                      {e.available ? "Turno disponible" : "Turno no disponible"}
-                    </td>
-                    <td>
-                      {e.clients.includes(user.email) ? (
-                        <button
-                          className="cancel-button"
-                          onClick={() =>
-                            handlerCancelReserve(e.id, e.capacity, e.clients)
-                          }
-                        >
-                          Cancelar reserva
-                        </button>
-                      ) : (
-                        <button
-                          className="reserve-button"
-                          disabled={!e.available || e.capacity === 0}
-                          onClick={() =>
-                            handlerReserve(e.id, e.capacity, e.clients)
-                          }
-                        >
-                          {e.clients.includes(user.email)
-                            ? "Reservado"
-                            : "Reservar"}
-                        </button>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </>
-          )}
-        </table>
+        <div className="background-turns-container">
+          <div className="client-turns-container">
+            <table className="turns-table">
+              {!turns.length ? (
+                <p>No hay turnos todavía, añade algunos.</p>
+              ) : (
+                <>
+                  <thead>
+                    <tr>
+                      <th>Fecha</th>
+                      <th>Día</th>
+                      <th>Horario</th>
+                      <th>Cantidad disponible</th>
+                      <th>Disponibilidad</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {turns.map((e) => (
+                      <tr key={e.id}>
+                        <td>{e.date}</td>
+                        <td>{e.day}</td>
+                        <td>{e.hour}</td>
+                        <td>{e.capacity}</td>
+                        <td>
+                          {e.available ? "Turno disponible" : "Turno no disponible"}
+                        </td>
+                        <td>
+                          {e.clients.includes(user.email) ? (
+                            <button
+                              className="button"
+                              onClick={() =>
+                                handlerCancelReserve(e.id, e.capacity, e.clients)
+                              }
+                            >
+                              Cancelar reserva
+                            </button>
+                          ) : (
+                            <button
+                              className="button"
+                              disabled={!e.available || e.capacity === 0}
+                              onClick={() =>
+                                handlerReserve(e.id, e.capacity, e.clients)
+                              }
+                            >
+                              {e.clients.includes(user.email)
+                                ? "Reservado"
+                                : "Reservar"}
+                            </button>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </>
+              )}
+            </table>
+          </div>
+        </div>
       </div>
       {modal.modalOpen && (
         <Modal
@@ -163,7 +168,7 @@ const ClientReservationTable = ({ listTurns }) => {
           onClose={() => setModal({ modalOpen: false })}
         />
       )}
-    </>
+    </div>
   );
 };
 

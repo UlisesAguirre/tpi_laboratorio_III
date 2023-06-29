@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import editIcon from "../../../assets/img/edit-icon.png";
 import deleteIcon from "../../../assets/img/delete-icon.png";
 import confirmIcon from "../../../assets/img/confirm.png";
@@ -7,9 +7,10 @@ import "./turnsView.css";
 import { db } from "../../../firebase";
 import Modal from "../../shared/Modal/Modal";
 import ConfirmModal from "../../shared/ConfirmModal/ConfirmModal";
-
+import { ThemeContext } from "../../Context/ThemeContext";
 
 const TurnsView = ({ listTurns }) => {
+  const {theme} = useContext(ThemeContext)
   const [turns, setTurns] = useState([]);
   const [showAllTurns, setShowAllTurns] = useState(false);
   const [editEnable, setEditEnable] = useState(false);
@@ -122,97 +123,100 @@ const TurnsView = ({ listTurns }) => {
     setCapacity(event.target.value);
   };
   return (
-    <>
-      <div className="table-container">
-        <button onClick={toggleShowAllTurns}>
+    <div className="table-turns-containeer">
+      <h2>Reservas: </h2>
+      <div className={`table-container-turns ${theme}`}>
+        <button className="button" onClick={toggleShowAllTurns}>
           {showAllTurns
             ? "Mostrar próximos turnos"
             : "Mostrar todo el historial de reservas"}
         </button>
-        <table className="turns-table">
-          {!turns.length ? (
-            <p>No hay turnos todavía, añade algunos.</p>
-          ) : (
-            <>
-              <thead>
-                <tr>
-                  <th>Fecha</th>
-                  <th>Día</th>
-                  <th>Horario</th>
-                  <th>Cantidad disponible</th>
-                  <th>Clientes anotados</th>
-                  <th>Disponibilidad</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {turns.map((e) => (
-                  <tr key={e.id}>
-                    <td>{e.date}</td>
-                    <td>{e.day}</td>
-                    <td>{e.hour}</td>
-                    <td>
-                      {editEnable === e.id ? (
-                        <div className="input-container">
-                          <input
-                            type="number"
-                            name="capacity"
-                            value={capacity}
-                            onChange={handlerChangeCapacity}
-                          />
-                          <img
-                            src={confirmIcon}
-                            alt="Editar"
-                            onClick={() => handlerEdit(e.id, e.clients)}
-                          />
-                          <img
-                            src={cancelIcon}
-                            alt="Cancelar"
-                            onClick={() => setEditEnable(false)}
-                          />
-                        </div>
-                      ) : (
+        <div className="turns-view-container">
+          <table className="turns-table-turns">
+            {!turns.length ? (
+              <p>No hay turnos todavía, añade algunos.</p>
+            ) : (
+              <>
+                <thead>
+                  <tr>
+                    <th>Fecha</th>
+                    <th>Día</th>
+                    <th>Horario</th>
+                    <th>Cantidad disponible</th>
+                    <th>Clientes anotados</th>
+                    <th>Disponibilidad</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {turns.map((e) => (
+                    <tr key={e.id}>
+                      <td>{e.date}</td>
+                      <td>{e.day}</td>
+                      <td>{e.hour}</td>
+                      <td>
+                        {editEnable === e.id ? (
+                          <div className="input-container-turns">
+                            <input
+                              type="number"
+                              name="capacity"
+                              value={capacity}
+                              onChange={handlerChangeCapacity}
+                            />
+                            <img
+                              src={confirmIcon}
+                              alt="Editar"
+                              onClick={() => handlerEdit(e.id, e.clients)}
+                            />
+                            <img
+                              src={cancelIcon}
+                              alt="Cancelar"
+                              onClick={() => setEditEnable(false)}
+                            />
+                          </div>
+                        ) : (
+                          <>
+                            {e.capacity}
+                            <img
+                              src={editIcon}
+                              alt="Editar turno"
+                              onClick={() => setEditEnable(e.id)}
+                            />
+                          </>
+                        )}
+                      </td>
+                      <td>
+                        {" "}
+                        <select>
+                          <option selected>Ver clientes</option>
+                          {e.clients.map((client) => (
+                            <option key={client} value={client}>
+                              {client}
+                            </option>
+                          ))}
+                        </select>
+                      </td>
+                      <td>
+                        {e.available ? "Turno disponible" : "Turno no disponible"}
+                      </td>
+                      {e.available && (
                         <>
-                          {e.capacity}
-                          <img
-                            src={editIcon}
-                            alt="Editar turno"
-                            onClick={() => setEditEnable(e.id)}
-                          />
+                          <td>
+                            <img
+                              src={deleteIcon}
+                              alt="Eliminar turno"
+                              onClick={() => deleteTurn(e.id)}
+                            />
+                          </td>
                         </>
                       )}
-                    </td>
-                    <td>
-                      {" "}
-                      <select>
-                        <option selected>Ver clientes</option>
-                        {e.clients.map((client) => (
-                          <option key={client} value={client}>
-                            {client}
-                          </option>
-                        ))}
-                      </select>
-                    </td>
-                    <td>
-                      {e.available ? "Turno disponible" : "Turno no disponible"}
-                    </td>
-                    {e.available && (
-                      <>
-                        <td>
-                          <img
-                            src={deleteIcon}
-                            alt="Eliminar turno"
-                            onClick={() => deleteTurn(e.id)}
-                          />
-                        </td>
-                      </>
-                    )}
-                  </tr>
-                ))}
-              </tbody>
-            </>
-          )}
-        </table>
+                    </tr>
+                  ))}
+                </tbody>
+              </>
+            )}
+          </table>
+        </div>
       </div>
       {confirmModalOpen && (
         <ConfirmModal
@@ -229,7 +233,7 @@ const TurnsView = ({ listTurns }) => {
           onClose={() => setModal({ modalOpen: false })}
         />
       )}
-    </>
+    </div>
   );
 };
 

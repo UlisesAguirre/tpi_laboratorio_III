@@ -7,8 +7,11 @@ import { useNavigate } from "react-router-dom";
 import Modal from "../../shared/Modal/Modal";
 import ConfirmModal from "../../shared/ConfirmModal/ConfirmModal";
 import { db } from "../../../firebase";
+import { ThemeContext } from "../../Context/ThemeContext";
 
 const ProfileDataView = ({ userData, editProfile }) => {
+  
+  const {theme} = useContext(ThemeContext)
   const { logout, user: userLog } = useContext(UserContext);
   const [modal, setModal] = useState({
     modalOpen: false,
@@ -42,7 +45,7 @@ const ProfileDataView = ({ userData, editProfile }) => {
   return (
     <div className="profileDataView-container">
       <h2>Mi perfil:</h2>
-      <div className="data-container-background">
+      <div className={`data-container-background ${theme}`}>
         <div className="data-container">
           <h3>Nombre:</h3>
           <p>{userData.name}</p>
