@@ -5,8 +5,11 @@ import UserContext from "../../Context/UserContext";
 import "./listUser.css";
 import ConfirmModal from "../../shared/ConfirmModal/ConfirmModal";
 import Modal from "../../shared/Modal/Modal";
+import { ThemeContext } from "../../Context/ThemeContext";
 
 const ListUser = () => {
+  const { theme } = useContext(ThemeContext)
+
   const { user } = useContext(UserContext);
 
   const [clients, setClients] = useState([]);
@@ -132,7 +135,7 @@ const ListUser = () => {
   return (
     <div className="list-container">
       <h2>{user.role === "admin" ? "Clientes:" : "Usuarios:"}</h2>
-      <div className="listUser-container">
+      <div className={`listUser-container ${theme}`}>
         <div className="search-container">
           <h2>Buscar:</h2>
           <input

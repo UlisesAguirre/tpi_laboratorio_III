@@ -78,6 +78,10 @@
     color: var(--third-color);
 }
 
+.listUser-table th {
+    padding: 8px;
+}
+
 .listUser-scrollbar {
     max-height: 50vh;
     overflow-y: auto;

@@ -28,3 +28,55 @@
   opacity: 0.4;
   cursor: not-allowed;
 }
+
+
+.table-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.turns-table {
+  width: 100%;
+  table-layout: fixed;
+  background-color: var(--third-color);
+  padding: 10em;
+}
+
+.client-turns-container{
+  overflow-y: auto;
+  height: 70vh;
+  overflow-x: hidden;
+}
+
+.background-turns-container {
+  background-color: var(--third-color);
+  padding: 2em 1em;
+  border-radius: 1.5em;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
+  height: max-content;
+}
+
+.turns-table th,
+.turns-table td {
+  padding: 8px;
+  white-space: nowrap;
+}
+
+.turns-table thead {
+  position: sticky;
+  top: 0;
+  font-weight: bold;
+  color: var(--third-color);
+  background-color: var(--primary-color);
+}
+
+.turns-table img {
+  margin-left: 4px;
+  width: 15px;
+}
+
+input {
+  width: 100px;
+}

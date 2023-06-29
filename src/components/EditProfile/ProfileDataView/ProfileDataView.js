@@ -6,8 +6,10 @@ import { useContext, useState } from "react";
 import UserContext from "../../Context/UserContext";
 import { useNavigate } from "react-router-dom";
 import Modal from "../../shared/Modal/Modal";
+import { ThemeContext } from "../../Context/ThemeContext";
 
 const ProfileDataView = ({ user, editProfile }) => {
+  const {theme} = useContext(ThemeContext)
   const { logout } = useContext(UserContext);
   const navigate = useNavigate();
   const [modal, setModal] = useState({
@@ -46,7 +48,7 @@ const ProfileDataView = ({ user, editProfile }) => {
   return (
     <div className="profileDataView-container">
       <h2>Mi perfil:</h2>
-      <div className="data-container-background">
+      <div className={`data-container-background ${theme}`}>
         <div className="data-container">
           <h3>Nombre:</h3>
           <p>{user.name}</p>
