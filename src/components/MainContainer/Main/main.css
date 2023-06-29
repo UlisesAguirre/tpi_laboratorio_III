@@ -12,7 +12,9 @@
 .img-user-container {
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 .user-icon {
@@ -38,3 +40,24 @@
     color: var(--primary-color);
     text-decoration: underline;
 }
+/* Estilos para dispositivos con ancho máximo de 320px */
+@media screen and (min-width: 320px) and (max-width: 640px) {
+    .clientMenu-container {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        padding: .4em 0;
+    }
+    .img-user-container {
+        display: none;
+    }
+    .clientMenu-container p {
+        height: 100%;
+    }
+    .clientMenu-container a {
+        font-size: .6em;
+    }
+    .user-icon {
+        width: 3em;
+    }
+  }

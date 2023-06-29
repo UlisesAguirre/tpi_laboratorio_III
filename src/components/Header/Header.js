@@ -22,7 +22,7 @@ const Header = () => {
           </>
         ) :
           <div className="hello-container">
-            <Link to="/main">¡Hola!<h3>{user.name}</h3></Link>
+            <Link to="/main"><p>Menu:</p><h3>{user.name}</h3></Link>
           </div>
         }
       </div>

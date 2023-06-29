@@ -23,6 +23,7 @@
     border-bottom: 1px solid var(--secondary-color);
     margin-bottom: 1em;
     text-align: center;
+    font-weight: bold;
   }
   
   .custom-modal p {
@@ -37,4 +38,9 @@
   .custom-modal button {
     margin-top: 2em;
   }
-  
+/* Estilos para dispositivos con ancho máximo de 320px */
+@media screen and (min-width: 320px) and (max-width: 640px) {
+  .custom-modal {
+    width: 70%;
+  }
+}

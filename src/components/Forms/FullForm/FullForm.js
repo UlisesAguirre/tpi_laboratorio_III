@@ -23,16 +23,16 @@ const FullForm = ({ title, buttonTitle, data, register }) => {
     lastName: register ? "" : data.lastName,
     phone: register ? "" : data.phone,
     email: register ? "" : data.email,
-    password: "",
-    confirmPassword: "",
+    password: register ? "" : data.password,
+    confirmPassword: register ? "" : data.password
   });
   const [validInput, setValidInput] = useState({
     name: register ? null : regex.name.test(data.name),
     lastName: register ? null : regex.lastName.test(data.lastName),
     phone: register ? null : regex.phone.test(data.phone),
     email: register ? null : regex.email.test(data.email),
-    password: null,
-    confirmPassword: null,
+    password: register ? null : regex.password.test(data.password),
+    confirmPassword: register ? null : regex.password.test(data.password),
   });
 
   const [modal, setModal] = useState({
@@ -161,7 +161,7 @@ const FullForm = ({ title, buttonTitle, data, register }) => {
   };
 
   return (
-    <div>
+    <div className="full-form-container">
       <div className="form-background">
         <h3 className="form-title">{title}</h3>
         <form className="form">
@@ -206,45 +206,45 @@ const FullForm = ({ title, buttonTitle, data, register }) => {
               }
             />
           </div>
-          <div className="form-input">
-            <Input
-              inputName={"Email"}
-              name={"email"}
-              placeholder={register ? "example@gmail.com" : data.email}
-              type={"email"}
-              value={input.email}
-              event={handlerChangeInput}
-              onBlur={handlerBlurInput}
-              validInput={validInput}
-              errorMessage={
-                "Email invalido: respete el formato(example@gmail.com)"
-              }
-            />
-            <Input
-              inputName={"Contraseña"}
-              name={"password"}
-              placeholder={"*************"}
-              type={"password"}
-              input={input.password}
-              event={handlerChangeInput}
-              onBlur={handlerBlurInput}
-              validInput={validInput}
-              errorMessage={
-                "La contraseña debe contener al menos una minuscula,una mayuscula, un digito y una lonigtud minima de 8 caracteres"
-              }
-            />
-            <Input
-              inputName={"Repetir contraseña"}
-              name={"confirmPassword"}
-              placeholder={"*************"}
-              type={"password"}
-              input={input.confirmPassword}
-              event={handlerChangeInput}
-              onBlur={handlerBlurInput}
-              validInput={validInput}
-              errorMessage={"Las contraseñas no coinciden"}
-            />
-          </div>
+            <div className={register? "form-input" : "form-input-hidden" }>
+              <Input
+                inputName={"Email"}
+                name={"email"}
+                placeholder={register ? "example@gmail.com" : data.email}
+                type={"email"}
+                value={input.email}
+                event={handlerChangeInput}
+                onBlur={handlerBlurInput}
+                validInput={validInput}
+                errorMessage={
+                  "Email invalido: respete el formato(example@gmail.com)"
+                }
+              />
+              <Input
+                inputName={"Contraseña"}
+                name={"password"}
+                placeholder={"*************"}
+                type={"password"}
+                input={input.password}
+                event={handlerChangeInput}
+                onBlur={handlerBlurInput}
+                validInput={validInput}
+                errorMessage={
+                  "La contraseña debe contener al menos una minuscula,una mayuscula, un digito y una lonigtud minima de 8 caracteres"
+                }
+              />
+              <Input
+                inputName={"Repetir contraseña"}
+                name={"confirmPassword"}
+                placeholder={"*************"}
+                type={"password"}
+                input={input.confirmPassword}
+                event={handlerChangeInput}
+                onBlur={handlerBlurInput}
+                validInput={validInput}
+                errorMessage={"Las contraseñas no coinciden"}
+              />
+            </div>
         </form>
         <div className="form-button">
           <button className="button" onClick={handleSubmit}>

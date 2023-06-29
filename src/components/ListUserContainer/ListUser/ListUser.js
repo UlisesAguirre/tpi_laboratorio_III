@@ -5,8 +5,11 @@ import UserContext from "../../Context/UserContext";
 import "./listUser.css";
 import ConfirmModal from "../../shared/ConfirmModal/ConfirmModal";
 import Modal from "../../shared/Modal/Modal";
+import { ThemeContext } from "../../Context/ThemeContext";
 
 const ListUser = () => {
+  const { theme } = useContext(ThemeContext)
+
   const { user } = useContext(UserContext);
 
   const [clients, setClients] = useState([]);
@@ -56,7 +59,7 @@ const ListUser = () => {
     }
   };
 
-  const searchHandler = () => {
+  const search = () => {
     const input = searchInput.toLowerCase().trim();
     let filteredList = [];
 
@@ -110,7 +113,7 @@ const ListUser = () => {
       setModal({
         modalOpen: true,
         modalTitle: "Aviso",
-        modalMessage: "Usuario eliminado con exito",
+        modalMessage: "Usuario eliminado con éxito",
       });
       getUsers();
     } catch (error) {
@@ -127,72 +130,73 @@ const ListUser = () => {
     getClients();
   }, []);
 
-  const filteredList = searchHandler();
+  const filteredList = search();
 
   return (
     <div className="list-container">
       <h2>{user.role === "admin" ? "Clientes:" : "Usuarios:"}</h2>
-      <div className="listUser-container">
+      <div className={`listUser-container ${theme}`}>
         <div className="search-container">
+          <h2>Buscar:</h2>
           <input
             type="text"
             value={searchInput}
             onChange={searchInputHandler}
           />
-          <button className="button" onClick={searchHandler}>
-            Buscar
-          </button>
         </div>
-        <table className="listUser-table">
-          {clients.length === 0 || users.length === 0 ? (
-            <p>No hay usuarios registrados</p>
-          ) : (
-            <>
-              <thead>
-                <tr>
-                  <th>Nombre y apellido:</th>
-                  <th>Email:</th>
-                  <th>{user.role === "admin" ? "Teléfono:" : "Rol:"}</th>
-                </tr>
-              </thead>
-              <tbody className="listUser-scrollbar">
-                {searchInput !== "" && filteredList.length === 0 ? (
+        <div className="listUser-table-container">
+          <table className="listUser-table">
+            {clients.length === 0 || users.length === 0 ? (
+              <p>No hay usuarios registrados</p>
+            ) : (
+              <>
+                <thead>
                   <tr>
-                    <td colSpan={3}>No hay coincidencias</td>
+                    <th>Nombre y apellido:</th>
+                    <th>Email:</th>
+                    <th>{user.role === "admin" ? "Teléfono:" : "Rol:"}</th>
+                    {user.role === "superAdmin" && <th></th>}
                   </tr>
-                ) : (
-                  filteredList.map((item) => (
-                    <tr key={item.id}>
-                      <td>{`${item.name} ${item.lastName}`}</td>
-                      <td>{item.email}</td>
-                      <td>{user.role === "admin" ? item.phone : item.role}</td>
-                      {user.role === "admin" ? null : (
-                        <td>
-                          <div className="reservation-buttons">
-                            <ConfirmModal
-                              title={"Modificar rol"}
-                              titleModalButton={"Guardar"}
-                              finalMessage={"Rol modificado con éxito"}
-                              user={item}
-                              modifyRole={modifyRole}
-                            />
-                            <ConfirmModal
-                              title={"Eliminar usuario"}
-                              titleModalButton={"Eliminar"}
-                              finalMessage={"Usuario eliminado con éxito"}
-                              user={item}
-                              deleteUser={deleteUser}
-                            />
-                          </div>
-                        </td>
-                      )}
+                </thead>
+                <tbody className="listUser-scrollbar">
+                  {searchInput !== "" && filteredList.length === 0 ? (
+                    <tr>
+                      <td colSpan={3}>No hay coincidencias</td>
                     </tr>
-                  ))
-                )}
-              </tbody>
-            </>
-          )}
-        </table>
+                  ) : (
+                    filteredList.map((item) => (
+                      <tr key={item.id}>
+                        <td>{`${item.name} ${item.lastName}`}</td>
+                        <td>{item.email}</td>
+                        <td>{user.role === "admin" ? item.phone : item.role}</td>
+                        {user.role === "admin" ? null : (
+                          <td>
+                            <div className="reservation-buttons">
+                              <ConfirmModal
+                                title={"Modificar rol"}
+                                titleModalButton={"Guardar"}
+                                finalMessage={"Rol modificado con éxito"}
+                                user={item}
+                                modifyRole={modifyRole}
+                              />
+                              <ConfirmModal
+                                title={"Eliminar usuario"}
+                                titleModalButton={"Eliminar"}
+                                finalMessage={"Usuario eliminado con éxito"}
+                                user={item}
+                                deleteUser={deleteUser}
+                              />
+                            </div>
+                          </td>
+                        )}
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </>
+            )}
+          </table>
+        </div>
       </div>
       {modal.modalOpen && (
         <Modal

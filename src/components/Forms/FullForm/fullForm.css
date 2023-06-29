@@ -25,6 +25,11 @@
     align-items: center;
 }
 
+.form-input-hidden {
+    visibility: hidden;
+    width: 1%;
+}
+
 .form-input label{
     margin-top: 35px;
     font-size: 1em;
@@ -67,3 +72,30 @@
 .form-button a:hover{
     color: var(--secondary-color);
 }
+/* Estilos para dispositivos con ancho máximo de 320px */
+@media screen and (min-width: 320px) and (max-width: 640px) {
+    .full-form-container {
+        display: flex;
+        justify-content: center;
+        padding-top: 1em;
+    }
+    .form-button button {
+        font-size: 1em;
+        width: max-content;
+        height: max-content;
+    }
+    .form-background {
+        width: 90%;
+        height: 90%;
+    }
+    .form-background h3 {
+        padding-top: .5em;
+        font-size: 1.5em;
+    }
+    .form-input input {
+        width: 70%; 
+    }
+    .form-input label {
+        margin: 0;
+    }
+  }

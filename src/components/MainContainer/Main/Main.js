@@ -6,16 +6,16 @@ import "./main.css"
 
 const Main = () => {
 
-  const {user, logout} = useContext(UserContext);
+  const { user, logout } = useContext(UserContext);
 
   return (
     <div className="clientMenu-container">
-      {user == null? null: (
+      {user == null ? null : (
         <>
           <div className="img-user-container">
-          <img className="user-icon" src={user.icon} alt="" />
+            <img className="user-icon" src={user.icon} alt="" />
+            <p>{user.name}</p>
           </div>
-          <p>{user.name}</p>
           {user.role === "client" &&
           <Link to="/main/reservations">
              Reservas 
@@ -39,7 +39,7 @@ const Main = () => {
           <Link to="/" onClick={logout}>Cerrar sesion</Link> 
           </>
       )}
-        
+
     </div>
   )
 }

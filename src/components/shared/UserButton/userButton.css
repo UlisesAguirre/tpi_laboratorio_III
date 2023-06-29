@@ -33,3 +33,9 @@
     color: var(--dark-mode);
     transition: .5s;
 }
+/* Estilos para dispositivos con ancho máximo de 320px */
+@media screen and (min-width: 320px) and (max-width: 640px) {
+    .button {
+        font-size: .7em;
+    }
+  }

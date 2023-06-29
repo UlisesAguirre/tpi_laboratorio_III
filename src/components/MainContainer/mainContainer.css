@@ -6,4 +6,11 @@
     width: 100%;
     height: 41em;
 }
+/* Estilos para dispositivos con ancho máximo de 320px */
+@media screen and (min-width: 320px) and (max-width: 640px) {
+    .client-container {
+        flex-direction: column;
+        height: 70vh;
+    }
+  }
 

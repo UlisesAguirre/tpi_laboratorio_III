@@ -38,6 +38,9 @@ a.link {
   width: 100%;
   height: 100%;
 }
-
-
-
+/* Estilos para dispositivos con ancho máximo de 320px */
+@media screen and (min-width: 320px) and (max-width: 640px) {
+    .navBar-list {
+        font-size: .4em;
+    }
+  }
