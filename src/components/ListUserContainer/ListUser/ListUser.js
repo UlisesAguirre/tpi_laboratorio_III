@@ -3,8 +3,10 @@ import { db } from "../../../firebase";
 import UserContext from "../../Context/UserContext";
 
 import "./listUser.css";
-import ConfirmModal from "../../shared/ConfirmModal/ConfirmModal";
+
 import Modal from "../../shared/Modal/Modal";
+import SelectModal from "../../shared/SelectModal/SelectModal";
+import ConfirmModal from "../../shared/ConfirmModal/ConfirmModal";
 import { ThemeContext } from "../../Context/ThemeContext";
 
 const ListUser = () => {
@@ -20,10 +22,8 @@ const ListUser = () => {
     modalTitle: "",
     modalMessage: "",
   });
-
-  const closeModal = () => {
-    setModal({ modalOpen: false });
-  };
+  const [userToDelete, setUserToDelete] = useState(null);
+  const [confirmModalOpen, setConfirmModalOpen] = useState(false);
 
   const getUsers = async () => {
     try {
@@ -106,10 +106,9 @@ const ListUser = () => {
     }
   };
 
-  const deleteUser = async (user) => {
+  const deleteUser = async (item) => {
     try {
-      const userRef = db.collection("users").doc(user.id);
-      await userRef.delete();
+      await db.collection("users").doc(item).delete();
       setModal({
         modalOpen: true,
         modalTitle: "Aviso",
@@ -123,6 +122,7 @@ const ListUser = () => {
         modalMessage: `Error al eliminar el usuario: ${error}`,
       });
     }
+    setConfirmModalOpen(false);
   };
 
   useEffect(() => {
@@ -168,24 +168,38 @@ const ListUser = () => {
                       <tr key={item.id}>
                         <td>{`${item.name} ${item.lastName}`}</td>
                         <td>{item.email}</td>
-                        <td>{user.role === "admin" ? item.phone : item.role}</td>
+                        <td>
+                          {user.role === "admin" ? item.phone : item.role}
+                        </td>
                         {user.role === "admin" ? null : (
                           <td>
                             <div className="reservation-buttons">
-                              <ConfirmModal
+                              <SelectModal
                                 title={"Modificar rol"}
                                 titleModalButton={"Guardar"}
                                 finalMessage={"Rol modificado con éxito"}
                                 user={item}
                                 modifyRole={modifyRole}
                               />
-                              <ConfirmModal
-                                title={"Eliminar usuario"}
-                                titleModalButton={"Eliminar"}
-                                finalMessage={"Usuario eliminado con éxito"}
-                                user={item}
-                                deleteUser={deleteUser}
-                              />
+                              <div>
+                                <button
+                                  className="button"
+                                  onClick={() => {
+                                    setUserToDelete(item.id);
+                                    setConfirmModalOpen(true);
+                                  }}
+                                >
+                                  Eliminar usuario
+                                </button>
+                                {confirmModalOpen && (
+                                  <ConfirmModal
+                                    title="Eliminar usuario"
+                                    message="¿Estás seguro de que deseas eliminar tu cuenta?"
+                                    onConfirm={() => deleteUser(userToDelete)}
+                                    onCancel={() => setConfirmModalOpen(false)}
+                                  />
+                                )}
+                              </div>
                             </div>
                           </td>
                         )}
@@ -202,7 +216,7 @@ const ListUser = () => {
         <Modal
           title={modal.modalTitle}
           message={modal.modalMessage}
-          onClose={closeModal}
+          onClose={() => setModal({ modalOpen: false })}
         />
       )}
     </div>

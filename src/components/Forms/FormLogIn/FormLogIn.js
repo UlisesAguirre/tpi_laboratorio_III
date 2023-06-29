@@ -13,7 +13,7 @@ import Modal from "../../shared/Modal/Modal";
 const FormLogIn = () => {
   const { theme } = useContext(ThemeContext);
 
-  const { user, login, logout } = useContext(UserContext);
+  const { login } = useContext(UserContext);
 
   const navigate = useNavigate();
   const [input, setInput] = useState({
@@ -30,10 +30,6 @@ const FormLogIn = () => {
     modalTitle: "",
     modalMessage: "",
   });
-
-  const closeModal = () => {
-    setModal({ modalOpen: false });
-  };
 
   const loguinFirebase = async () => {
     try {
@@ -69,7 +65,13 @@ const FormLogIn = () => {
     }
   };
   const handlerChangeInput = (e) => {
-    setInput({ ...input, [e.target.name]: e.target.value });
+    if (e.target.name === "email") {
+      setInput({ ...input, [e.target.name]: e.target.value.toLowerCase()});
+    }else{
+      setInput({ ...input, [e.target.name]: e.target.value });
+    }
+    console.log(input)
+    
   };
   const handlerBlurInput = (e) => {
     const eventTarget = e.target.name;
@@ -104,6 +106,7 @@ const FormLogIn = () => {
             placeholder={"example@gmail.com"}
             type={"email"}
             name={"email"}
+            value={input.email}
             event={handlerChangeInput}
             onBlur={handlerBlurInput}
             validInput={validInput}
@@ -136,7 +139,7 @@ const FormLogIn = () => {
         <Modal
           title={modal.modalTitle}
           message={modal.modalMessage}
-          onClose={closeModal}
+          onClose={() => setModal({ modalOpen: false })}
         />
       )}
     </div>

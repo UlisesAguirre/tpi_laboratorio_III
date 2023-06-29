@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import { ThemeContext } from "../../Context/ThemeContext";
-import "./confirmModal.css";
+import "./selectModal.css";
 
-const ConfirmModal = ({ title, titleModalButton, finalMessage, user, modifyRole, deleteUser }) => {
+const SelectModal = ({ title, titleModalButton, finalMessage, user, modifyRole, deleteUser }) => {
   const { theme } = useContext(ThemeContext)
 
   const [isOpen, setIsOpen] = useState(false);
@@ -23,9 +23,7 @@ const ConfirmModal = ({ title, titleModalButton, finalMessage, user, modifyRole,
   };
 
   const eventModal = () => {
-    { title === "Modificar rol" && modifyRole(newRole, user) }
-    { title === "Eliminar usuario" && deleteUser(user) }
-    { title === "Eliminar" && deleteUser(user) }
+    modifyRole(newRole, user)
     setIsOpen(false);
     setMessage(true);
   };
@@ -41,14 +39,12 @@ const ConfirmModal = ({ title, titleModalButton, finalMessage, user, modifyRole,
         <div className="custom-modal-overlay">
           <div className={`custom-modal ${theme}`}>
             <h3>{title}</h3>
-            {title === "Modificar rol" ? (
               <select name="" id="" onChange={roleHandler}>
                 <option value="">Seleccionar</option>
                 <option value="client">client</option>
                 <option value="admin">admin</option>
                 <option value="superAdmin">superAdmin</option>
               </select>
-            ) : null}
             <div className="button-modal-container">
               <button onClick={closeModal} className="button">Cancelar</button>
               <button onClick={eventModal} className="button">{titleModalButton}</button>
@@ -70,4 +66,4 @@ const ConfirmModal = ({ title, titleModalButton, finalMessage, user, modifyRole,
   );
 };
 
-export default ConfirmModal;
+export default SelectModal;

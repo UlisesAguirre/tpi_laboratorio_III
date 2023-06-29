@@ -24,10 +24,6 @@ const EditProfile = ({ edit }) => {
     getByEmailFirebase(user.email);
   }, [user.email]);
 
-  const closeModal = () => {
-    setModal({ modalOpen: false });
-  };
-
   const editProfileHandler = () => {
     setEditProfile(true);
   };
@@ -61,14 +57,14 @@ const EditProfile = ({ edit }) => {
             register={false}
           />
         ) : (
-          <ProfileDataView user={userLog} editProfile={editProfileHandler} />
+          <ProfileDataView userData={userLog} editProfile={editProfileHandler} />
         )}
       </div>
       {modal.modalOpen && (
         <Modal
           title={modal.modalTitle}
           message={modal.modalMessage}
-          onClose={closeModal}
+          onClose={() => setModal({ modalOpen: false })}
         />
       )}
     </div>

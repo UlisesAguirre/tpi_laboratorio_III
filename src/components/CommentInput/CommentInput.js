@@ -20,10 +20,6 @@ const CommentInput = () => {
     modalMessage: "",
   });
 
-  const closeModal = () => {
-    setModal({ modalOpen: false });
-  };
-
   const commentHandler = (event) => {
     setComment(event.target.value);
   };
@@ -54,31 +50,58 @@ const CommentInput = () => {
     };
 
     try {
-      const docRef = await db.collection("comments").add(commentData);
-      console.log("Comment added with ID: ", docRef.id);
-      alert("Comentario enviado correctamente")
-      navigate("/main")
+      await db
+        .collection("comments")
+        .add(commentData)
+        .then(() => {
+          setModal({
+            modalOpen: true,
+            modalTitle: "Enviado",
+            modalMessage: "Comentario enviado exitosamente!",
+          });
+          setTimeout(() => {
+            navigate("/main");
+          }, 2000);
+        });
     } catch (error) {
-      console.error("Error adding comment: ", error);
+      setModal({
+        modalOpen: true,
+        modalTitle: "Error",
+        modalMessage: `Error al enviar el comentario:${error}`,
+      });
     }
   };
 
   return (
     <div className="client-container">
       <Main />
-      <div className='comment-container'>
+      <div className="comment-container">
         <h2>Deja tu comentario:</h2>
-        <div className='comment-background'>
-          <div className='rating-container'>
+        <div className="comment-background">
+          <div className="rating-container">
             <p>Califica tu experiencia</p>
             <StarRating setRating={setRating} />
           </div>
-          <textarea cols="30" rows="10" onChange={commentHandler} placeholder='Comparte detalles sobre tu estadia en Pizzeria Paradiso :)' />
-          <div className='button-comment-container'>
-            <button className='button' onClick={sendComment}>Enviar</button>
+          <textarea
+            cols="30"
+            rows="10"
+            onChange={commentHandler}
+            placeholder="Comparte detalles sobre tu estadia en Pizzeria Paradiso :)"
+          />
+          <div className="button-comment-container">
+            <button className="button" onClick={sendComment}>
+              Enviar
+            </button>
           </div>
         </div>
       </div>
+      {modal.modalOpen && (
+        <Modal
+          title={modal.modalTitle}
+          message={modal.modalMessage}
+          onClose={() => setModal({ modalOpen: false })}
+        />
+      )}
     </div>
   );
 };

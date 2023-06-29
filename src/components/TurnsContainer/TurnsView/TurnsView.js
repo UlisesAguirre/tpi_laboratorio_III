@@ -6,6 +6,7 @@ import cancelIcon from "../../../assets/img/cancel.png";
 import "./turnsView.css";
 import { db } from "../../../firebase";
 import Modal from "../../shared/Modal/Modal";
+import ConfirmModal from "../../shared/ConfirmModal/ConfirmModal";
 import { ThemeContext } from "../../Context/ThemeContext";
 
 const TurnsView = ({ listTurns }) => {
@@ -19,8 +20,12 @@ const TurnsView = ({ listTurns }) => {
     modalTitle: "",
     modalMessage: "",
   });
+  const [confirmModalOpen, setConfirmModalOpen] = useState(false);
+  const [selectedTurnId, setSelectedTurnId] = useState(null);
 
   useEffect(() => {
+    const timeSlots = ["12-14", "14-16", "20-22", "22-24"];
+
     let turnsToShow = listTurns;
 
     if (!showAllTurns) {
@@ -30,10 +35,24 @@ const TurnsView = ({ listTurns }) => {
       );
     }
 
-    const sortedTurns = [...turnsToShow].sort((a, b) => {
+    const sortedTurns = turnsToShow.sort((a, b) => {
       const dateA = new Date(a.date);
       const dateB = new Date(b.date);
-      return dateA - dateB;
+
+      if (dateA < dateB) {
+        return -1;
+      }
+      if (dateA > dateB) {
+        return 1;
+      }
+
+      const hourA = a.hour;
+      const hourB = b.hour;
+
+      const indexA = timeSlots.indexOf(hourA);
+      const indexB = timeSlots.indexOf(hourB);
+
+      return indexA - indexB;
     });
 
     setTurns(sortedTurns);
@@ -43,33 +62,30 @@ const TurnsView = ({ listTurns }) => {
     setShowAllTurns(!showAllTurns);
   };
 
-  const closeModal = () => {
-    setModal({ modalOpen: false });
+  const deleteTurn = (id) => {
+    setConfirmModalOpen(true);
+    setSelectedTurnId(id);
   };
 
-  const deleteTurn = (id) => {
-    const confirmDelete = window.confirm(
-      "¿Estás seguro de que deseas eliminar el turno?"
-    );
-    if (confirmDelete) {
-      db.collection("turns")
-        .doc(id)
-        .update({ available: false })
-        .then(() => {
-          setModal({
-            modalOpen: true,
-            modalTitle: "Turno eliminado",
-            modalMessage: "Turno eliminado con éxito.",
-          });
-        })
-        .catch((error) => {
-          setModal({
-            modalOpen: true,
-            modalTitle: "Error",
-            modalMessage: `Error al eliminar el turno:${error} `,
-          });
+  const handleConfirmDelete = async() => {
+     await db.collection("turns")
+      .doc(selectedTurnId)
+      .update({ available: false })
+      .then(() => {
+        setModal({
+          modalOpen: true,
+          modalTitle: "Turno eliminado",
+          modalMessage: "Turno eliminado con éxito.",
         });
-    }
+      })
+      .catch((error) => {
+        setModal({
+          modalOpen: true,
+          modalTitle: "Error",
+          modalMessage: `Error al eliminar el turno:${error} `,
+        });
+      });
+      setConfirmModalOpen(false);
   };
 
   const handlerEdit = async (id, clients) => {
@@ -202,11 +218,19 @@ const TurnsView = ({ listTurns }) => {
           </table>
         </div>
       </div>
+      {confirmModalOpen && (
+        <ConfirmModal
+          title="Eliminar Turno"
+          message="¿Estás seguro de que deseas eliminar el turno?"
+          onConfirm={() => handleConfirmDelete()}
+          onCancel={() => setConfirmModalOpen(false)}
+        />
+      )}
       {modal.modalOpen && (
         <Modal
           title={modal.modalTitle}
           message={modal.modalMessage}
-          onClose={closeModal}
+          onClose={() => setModal({ modalOpen: false })}
         />
       )}
     </div>
