@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import editIcon from "../../../assets/img/edit-icon.png";
 import deleteIcon from "../../../assets/img/delete-icon.png";
 import confirmIcon from "../../../assets/img/confirm.png";
@@ -10,7 +10,7 @@ import ConfirmModal from "../../shared/ConfirmModal/ConfirmModal";
 import { ThemeContext } from "../../Context/ThemeContext";
 
 const TurnsView = ({ listTurns }) => {
-  const {theme} = useContext(ThemeContext)
+  const { theme } = useContext(ThemeContext);
   const [turns, setTurns] = useState([]);
   const [showAllTurns, setShowAllTurns] = useState(false);
   const [editEnable, setEditEnable] = useState(false);
@@ -23,9 +23,8 @@ const TurnsView = ({ listTurns }) => {
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   const [selectedTurnId, setSelectedTurnId] = useState(null);
 
-  useEffect(() => {
+  const filteredAndSortedTurns = useMemo(() => {
     const timeSlots = ["12-14", "14-16", "20-22", "22-24"];
-
     let turnsToShow = listTurns;
 
     if (!showAllTurns) {
@@ -55,8 +54,12 @@ const TurnsView = ({ listTurns }) => {
       return indexA - indexB;
     });
 
-    setTurns(sortedTurns);
+    return sortedTurns;
   }, [listTurns, showAllTurns]);
+
+  useEffect(() => {
+    setTurns(filteredAndSortedTurns);
+  }, [filteredAndSortedTurns]);
 
   const toggleShowAllTurns = () => {
     setShowAllTurns(!showAllTurns);
@@ -67,8 +70,19 @@ const TurnsView = ({ listTurns }) => {
     setSelectedTurnId(id);
   };
 
-  const handleConfirmDelete = async() => {
-     await db.collection("turns")
+  const editTurn = (id) => {
+    setModal({
+      modalOpen: true,
+      modalTitle: "Aviso",
+      modalMessage:
+        "Al editar la capacidad del turno si este ya tiene reservas, el numero se vera afectado por la cantidad de clientes ya inscriptos.",
+    });
+    setEditEnable(id)
+  };
+
+  const handleConfirmDelete = async () => {
+    await db
+      .collection("turns")
       .doc(selectedTurnId)
       .update({ available: false })
       .then(() => {
@@ -85,7 +99,7 @@ const TurnsView = ({ listTurns }) => {
           modalMessage: `Error al eliminar el turno:${error} `,
         });
       });
-      setConfirmModalOpen(false);
+    setConfirmModalOpen(false);
   };
 
   const handlerEdit = async (id, clients) => {
@@ -180,7 +194,7 @@ const TurnsView = ({ listTurns }) => {
                             <img
                               src={editIcon}
                               alt="Editar turno"
-                              onClick={() => setEditEnable(e.id)}
+                              onClick={() => editTurn(e.id)}
                             />
                           </>
                         )}
@@ -197,7 +211,9 @@ const TurnsView = ({ listTurns }) => {
                         </select>
                       </td>
                       <td>
-                        {e.available ? "Turno disponible" : "Turno no disponible"}
+                        {e.available
+                          ? "Turno disponible"
+                          : "Turno no disponible"}
                       </td>
                       {e.available && (
                         <>
