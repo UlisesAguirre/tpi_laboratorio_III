@@ -6,7 +6,8 @@ import cancelIcon from "../../../assets/img/cancel.png";
 import "./turnsView.css";
 import { db } from "../../../firebase";
 import Modal from "../../shared/Modal/Modal";
-import ConfirmModal from "../../shared/ConfirmModalReutilizable/ConfirmModal";
+import ConfirmModal from "../../shared/ConfirmModal/ConfirmModal";
+
 
 const TurnsView = ({ listTurns }) => {
   const [turns, setTurns] = useState([]);
