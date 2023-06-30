@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import useGetData from "../CustomsHook/useGetData";
 import Main from "../MainContainer/Main/Main";
-import AdminReservationTable from "./TurnsView/AdminReservationTable";
+import AdminReservationTable from "./AdminReservationTable/AdminReservationTable";
 import Modal from "../shared/Modal/Modal";
 import "./adminReservationsContainer.css";
+
 
 const AdminReservationsContainer = () => {
   const { data: turns, loading, error } = useGetData("turns");
