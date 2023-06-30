@@ -60,7 +60,6 @@ function App() {
           const existingTurnSnapshot = await db
             .collection("turns")
             .where("date", "==", currentDate.toISOString().split("T")[0])
-            .where("hour", "==", timeSlot)
             .get();
   
           if (existingTurnSnapshot.empty) {
