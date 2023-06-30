@@ -1,25 +1,29 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect,lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "./components/Context/ThemeContext";
 import { db } from "./firebase";
 import UserContext from "./components/Context/UserContext";
 import Header from "./components/Header/Header";
 import NavBar from "./components/NavBar/NavBar";
-import MainContainer from "./components/MainContainer/MainContainer";
 import Landing from "./components/Landing/Landing";
-import FormLogIn from "./components/Forms/FormLogIn/FormLogIn";
-import FormRegisterContainer from "./components/Forms/FormRegisterContainer/FormRegisterContainer";
-import AboutUs from "./components/AboutUs/AboutUs";
-import Comments from "./components/Comments/Comments";
 import Footer from "./components/Footer/Footer";
-import EditProfile from "./components/EditProfile/EditProfile";
 import ThemeButton from "./components/ThemeButton/ThemeButton";
-import CommentInput from "./components/CommentInput/CommentInput";
-import ListUserContainer from "./components/ListUserContainer/ListUserContainer";
-import ClientReservationsContainer from "./components/ClientReservationsContainer/ClientReservationsContainer";
-import AdminReservationsContainer from "./components/AdminReservationsContainer/AdminReservationsContainer";
 import NotFound from "./components/NotFound/NotFound";
 import "./App.css";
+
+const MainContainer = lazy(() => import('./components/MainContainer/MainContainer'))
+const FormLogIn = lazy(() => import('./components/Forms/FormLogIn/FormLogIn'))
+const FormRegisterContainer = lazy(() => import('./components/Forms/FormRegisterContainer/FormRegisterContainer'))
+const AboutUs = lazy(() => import('./components/AboutUs/AboutUs'))
+const Comments = lazy(() => import('./components/Comments/Comments'))
+const EditProfile = lazy(() => import('./components/EditProfile/EditProfile'))
+const CommentInput = lazy(() => import('./components/CommentInput/CommentInput'))
+const ListUserContainer = lazy(() => import('./components/ListUserContainer/ListUserContainer'))
+const ClientReservationsContainer = lazy(() => import('./components/ClientReservationsContainer/ClientReservationsContainer'))
+const AdminReservationsContainer = lazy(() => import('./components/AdminReservationsContainer/AdminReservationsContainer'))
+
+
+
 
 function App() {
   const { user } = useContext(UserContext);
@@ -74,6 +78,7 @@ function App() {
       <ThemeProvider>
         <Header />
         <NavBar />
+        <Suspense fallback={"Cargando..."}>
         <Routes>
           {user?.role ? (
             <>
@@ -115,6 +120,7 @@ function App() {
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </Suspense>
         <ThemeButton />
         <Footer />
       </ThemeProvider>
