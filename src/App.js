@@ -37,39 +37,45 @@ function App() {
       .collection("turns")
       .where("date", ">=", currentDate.toISOString())
       .get();
-    if (!querySnapshot.empty) {
-      return;
-    }
-
-    const daysOfWeek = [
-      "Domingo",
-      "Lunes",
-      "Martes",
-      "Miércoles",
-      "Jueves",
-      "Viernes",
-      "Sábado",
-    ];
-    const timeSlots = ["12-14", "14-16", "20-22", "22-24"];
-
-    for (let i = 0; i < 14; i++) {
-      const currentDate = new Date();
-      currentDate.setDate(currentDate.getDate() + i);
-
-      const dayOfWeek = daysOfWeek[currentDate.getDay()];
-
-      for (const timeSlot of timeSlots) {
-        const newTurn = {
-          //conversion taken from gpt chat
-          date: currentDate.toISOString().split("T")[0],
-          day: dayOfWeek,
-          hour: timeSlot,
-          clients: [],
-          capacity: 20,
-          available: true,
-        };
-
-         await db.collection("turns").add(newTurn);
+  
+    if (querySnapshot.empty) {
+      const daysOfWeek = [
+        "Domingo",
+        "Lunes",
+        "Martes",
+        "Miércoles",
+        "Jueves",
+        "Viernes",
+        "Sábado",
+      ];
+      const timeSlots = ["12-14", "14-16", "20-22", "22-24"];
+  
+      for (let i = 0; i < 14; i++) {
+        const currentDate = new Date();
+        currentDate.setDate(currentDate.getDate() + i);
+  
+        const dayOfWeek = daysOfWeek[currentDate.getDay()];
+  
+        for (const timeSlot of timeSlots) {
+          const existingTurnSnapshot = await db
+            .collection("turns")
+            .where("date", "==", currentDate.toISOString().split("T")[0])
+            .where("hour", "==", timeSlot)
+            .get();
+  
+          if (existingTurnSnapshot.empty) {
+            const newTurn = {
+              date: currentDate.toISOString().split("T")[0],
+              day: dayOfWeek,
+              hour: timeSlot,
+              clients: [],
+              capacity: 20,
+              available: true,
+            };
+  
+            await db.collection("turns").add(newTurn);
+          }
+        }
       }
     }
   };
