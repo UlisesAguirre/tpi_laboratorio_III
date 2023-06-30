@@ -6,8 +6,9 @@ import Modal from "../../shared/Modal/Modal";
 import "./clientReservationTable.css";
 
 const ClientReservationTable = ({ listTurns }) => {
-  const {theme} = useContext(ThemeContext)
+  const { theme } = useContext(ThemeContext);
   const { user } = useContext(UserContext);
+
   const [modal, setModal] = useState({
     modalOpen: false,
     modalTitle: "",
@@ -17,8 +18,17 @@ const ClientReservationTable = ({ listTurns }) => {
   const turns = useMemo(() => {
     let turnsToShow = listTurns;
     const timeSlots = ["12-14", "14-16", "20-22", "22-24"];
-    const currentDate = new Date();
-    turnsToShow = turnsToShow.filter((turn) => new Date(turn.date) >= currentDate);
+    const currentDate = new Date().toISOString().split("T")[0];
+    const currentHour = new Date().getHours();
+    turnsToShow = turnsToShow.filter((turn) => {
+      const turnDate = new Date(turn.date).toISOString().split("T")[0];
+      const turnHour = parseInt(turn.hour.split("-")[0]);
+      return (
+        (turnDate === currentDate && turnHour > currentHour) ||
+        turnDate > currentDate
+      );
+    });
+
     const sortedTurns = turnsToShow.sort((a, b) => {
       const dateA = new Date(a.date);
       const dateB = new Date(b.date);
@@ -41,7 +51,7 @@ const ClientReservationTable = ({ listTurns }) => {
 
     return sortedTurns;
   }, [listTurns]);
-  
+
   const handlerReserve = async (idReserve, capacityReserve, clients) => {
     if (clients.includes(user.email)) {
       setModal({
@@ -51,6 +61,7 @@ const ClientReservationTable = ({ listTurns }) => {
       });
       return;
     }
+
     const updatedClients = [...clients, user.email];
     await db
       .collection("turns")
@@ -106,10 +117,10 @@ const ClientReservationTable = ({ listTurns }) => {
       <div className="table-container">
         <div className={`background-turns-container ${theme}`}>
           <div className="client-turns-container">
-            <table className="turns-table">
-              {!turns.length ? (
-                <p>Cargando...</p>
-              ) : (
+            {!turns.length ? (
+              <p>Cargando...</p>
+            ) : (
+              <table className="turns-table">
                 <>
                   <thead>
                     <tr>
@@ -129,14 +140,20 @@ const ClientReservationTable = ({ listTurns }) => {
                         <td>{e.hour}</td>
                         <td>{e.capacity}</td>
                         <td>
-                          {e.available ? "Turno disponible" : "Turno no disponible"}
+                          {e.available
+                            ? "Turno disponible"
+                            : "Turno no disponible"}
                         </td>
                         <td>
                           {e.clients.includes(user.email) ? (
                             <button
                               className="button"
                               onClick={() =>
-                                handlerCancelReserve(e.id, e.capacity, e.clients)
+                                handlerCancelReserve(
+                                  e.id,
+                                  e.capacity,
+                                  e.clients
+                                )
                               }
                             >
                               Cancelar reserva
@@ -159,8 +176,8 @@ const ClientReservationTable = ({ listTurns }) => {
                     ))}
                   </tbody>
                 </>
-              )}
-            </table>
+              </table>
+            )}
           </div>
         </div>
       </div>

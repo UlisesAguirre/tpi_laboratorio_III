@@ -1,9 +1,5 @@
 import "./starRating.css"
 
-//mode = true; para renderizar comentario hecho
-//mode = false; para renderizar a la hora de comentar la calificación
-//rate: valor de la calificacion (1-5) 
-
 const StarRating = ({ rate, mode, setRating}) => {
 
     const showRating = () => {
@@ -12,14 +8,12 @@ const StarRating = ({ rate, mode, setRating}) => {
 
         for (let i = 1; i <= 5; i++) {
             if (i <= rate) {
-                stars.push(<span className="colored-stars">★</span>)
+              stars.push(<span key={i} className="colored-stars">★</span>);
             } else {
-                stars.push(<span className="stars">★</span>)
+              stars.push(<span key={i} className="stars">★</span>);
             }
-        }
-
+          }
         return stars;
-
     }
 
     const ratingHandler = (event) => {

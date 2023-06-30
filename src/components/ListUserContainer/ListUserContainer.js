@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
-import ListUser from "./ListUser/ListUser";
 import UserContext from "../Context/UserContext";
-
-import "./listUserContainer.css";
+import ListUser from "./ListUser/ListUser";
 import Main from "../MainContainer/Main/Main";
+import "./listUserContainer.css";
 
 const ListUserContainer = () => {
   const { user } = useContext(UserContext);
+
   return (
     <div className="client-container">
       <Main />

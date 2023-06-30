@@ -120,73 +120,69 @@ const ListUser = () => {
           />
         </div>
         <div className="listUser-table-container">
-          <table className="listUser-table">
-            {loading ? (
-              <p>Cargando...</p>
-            ) : clients.length === 0 || users.length === 0 ? (
-              <p>No hay usuarios registrados</p>
-            ) : (
-              <>
-                <thead>
+          {loading ? (
+            <p>Cargando...</p>
+          ) : clients.length === 0 || users.length === 0 ? (
+            <p>No hay usuarios registrados</p>
+          ) : (
+            <table className="listUser-table">
+              <thead>
+                <tr>
+                  <th>Nombre y apellido:</th>
+                  <th>Email:</th>
+                  <th>{user.role === "admin" ? "Teléfono:" : "Rol:"}</th>
+                  {user.role === "superAdmin" && <th></th>}
+                </tr>
+              </thead>
+              <tbody className="listUser-scrollbar">
+                {searchInput !== "" && filteredList.length === 0 ? (
                   <tr>
-                    <th>Nombre y apellido:</th>
-                    <th>Email:</th>
-                    <th>{user.role === "admin" ? "Teléfono:" : "Rol:"}</th>
-                    {user.role === "superAdmin" && <th></th>}
+                    <td colSpan={3}>No hay coincidencias</td>
                   </tr>
-                </thead>
-                <tbody className="listUser-scrollbar">
-                  {searchInput !== "" && filteredList.length === 0 ? (
-                    <tr>
-                      <td colSpan={3}>No hay coincidencias</td>
-                    </tr>
-                  ) : (
-                    filteredList.map((item) => (
-                      <tr key={item.id}>
-                        <td>{`${item.name} ${item.lastName}`}</td>
-                        <td>{item.email}</td>
+                ) : (
+                  filteredList.map((item) => (
+                    <tr key={item.id}>
+                      <td>{`${item.name} ${item.lastName}`}</td>
+                      <td>{item.email}</td>
+                      <td>{user.role === "admin" ? item.phone : item.role}</td>
+                      {user.role === "admin" ? null : (
                         <td>
-                          {user.role === "admin" ? item.phone : item.role}
-                        </td>
-                        {user.role === "admin" ? null : (
-                          <td>
-                            <div className="reservation-buttons">
-                              <SelectModal
-                                title={"Modificar rol"}
-                                titleModalButton={"Guardar"}
-                                finalMessage={"Rol modificado con éxito"}
-                                user={item}
-                                modifyRole={modifyRole}
-                              />
-                              <div>
-                                <button
-                                  className="button"
-                                  onClick={() => {
-                                    setUserToDelete(item.id);
-                                    setConfirmModalOpen(true);
-                                  }}
-                                >
-                                  Eliminar usuario
-                                </button>
-                                {confirmModalOpen && (
-                                  <ConfirmModal
-                                    title="Eliminar usuario"
-                                    message="¿Estás seguro de que deseas eliminar tu cuenta?"
-                                    onConfirm={() => deleteUser(userToDelete)}
-                                    onCancel={() => setConfirmModalOpen(false)}
-                                  />
-                                )}
-                              </div>
+                          <div className="reservation-buttons">
+                            <SelectModal
+                              title={"Modificar rol"}
+                              titleModalButton={"Guardar"}
+                              finalMessage={"Rol modificado con éxito"}
+                              user={item}
+                              modifyRole={modifyRole}
+                            />
+                            <div>
+                              <button
+                                className="button"
+                                onClick={() => {
+                                  setUserToDelete(item.id);
+                                  setConfirmModalOpen(true);
+                                }}
+                              >
+                                Eliminar usuario
+                              </button>
+                              {confirmModalOpen && (
+                                <ConfirmModal
+                                  title="Eliminar usuario"
+                                  message="¿Estás seguro de que deseas eliminar tu cuenta?"
+                                  onConfirm={() => deleteUser(userToDelete)}
+                                  onCancel={() => setConfirmModalOpen(false)}
+                                />
+                              )}
                             </div>
-                          </td>
-                        )}
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </>
-            )}
-          </table>
+                          </div>
+                        </td>
+                      )}
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
       {modal.modalOpen && (

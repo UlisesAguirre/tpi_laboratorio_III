@@ -1,10 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import './firebase'
 import { BrowserRouter } from 'react-router-dom';
 import { UserProvider } from './components/Context/UserContext';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import './firebase'
+import './index.css';
 
 //import Bootstrap
 import 'bootstrap/dist/css/bootstrap.css';

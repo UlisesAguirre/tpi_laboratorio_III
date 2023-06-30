@@ -1,11 +1,15 @@
+import { useContext, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
+import { ThemeProvider } from "./components/Context/ThemeContext";
+import { db } from "./firebase";
+import UserContext from "./components/Context/UserContext";
 import Header from "./components/Header/Header";
 import NavBar from "./components/NavBar/NavBar";
+import MainContainer from "./components/MainContainer/MainContainer";
 import Landing from "./components/Landing/Landing";
 import FormLogIn from "./components/Forms/FormLogIn/FormLogIn";
 import FormRegisterContainer from "./components/Forms/FormRegisterContainer/FormRegisterContainer";
 import AboutUs from "./components/AboutUs/AboutUs";
-import MainContainer from "./components/MainContainer/MainContainer";
 import Comments from "./components/Comments/Comments";
 import Footer from "./components/Footer/Footer";
 import EditProfile from "./components/EditProfile/EditProfile";
@@ -13,19 +17,12 @@ import ThemeButton from "./components/ThemeButton/ThemeButton";
 import CommentInput from "./components/CommentInput/CommentInput";
 import ListUserContainer from "./components/ListUserContainer/ListUserContainer";
 import ClientReservationsContainer from "./components/ClientReservationsContainer/ClientReservationsContainer";
-import TurnsContainer from "./components/TurnsContainer/TurnsContainer";
-import { ThemeProvider } from "./components/Context/ThemeContext";
-import { useContext } from "react";
-import UserContext from "./components/Context/UserContext";
-
-import "./App.css";
-import { useEffect } from "react";
-import { db } from "./firebase";
+import AdminReservationsContainer from "./components/AdminReservationsContainer/AdminReservationsContainer";
 import NotFound from "./components/NotFound/NotFound";
+import "./App.css";
 
 function App() {
   const { user } = useContext(UserContext);
-
   useEffect(() => {
     generateTurns();
   }, []);
@@ -35,7 +32,7 @@ function App() {
     const currentDate = new Date();
     const querySnapshot = await db
       .collection("turns")
-      .where("date", ">=", currentDate.toISOString().split("T")[0],)
+      .where("date", ">=", currentDate.toISOString().split("T")[0])
       .get();
     if (!querySnapshot.empty) {
       return;
@@ -60,7 +57,6 @@ function App() {
 
       for (const timeSlot of timeSlots) {
         const newTurn = {
-          //conversion taken from gpt chat
           date: currentDate.toISOString().split("T")[0],
           day: dayOfWeek,
           hour: timeSlot,
@@ -69,7 +65,7 @@ function App() {
           available: true,
         };
 
-         await db.collection("turns").add(newTurn);
+        await db.collection("turns").add(newTurn);
       }
     }
   };
@@ -79,20 +75,13 @@ function App() {
         <Header />
         <NavBar />
         <Routes>
-          {user != null ? (
+          {user?.role ? (
             <>
-              <Route path="/main" element={<MainContainer />} />
-              <Route
-                path="/main/reservations"
-                element={<ClientReservationsContainer />}
-              />
-              <Route path="/main/view-Turns" element={<TurnsContainer />} />
-              <Route path="/main/list-users" element={<ListUserContainer />} />
-              <Route
-                path="/main/edit-profile"
-                element={<EditProfile edit={false} />}
-              />
-              <Route path="/main/comment" element={<CommentInput />} />
+             <Route path="/main" element={<MainContainer />} />
+            <Route
+              path="/main/edit-profile"
+              element={<EditProfile edit={false} />}
+            />
             </>
           ) : (
             <>
@@ -100,6 +89,27 @@ function App() {
               <Route path="/register" element={<FormRegisterContainer />} />
             </>
           )}
+
+          {user?.role === "client" && (
+            <>
+             
+              <Route
+                path="/main/reservations"
+                element={<ClientReservationsContainer />}
+              />
+              <Route path="/main/comment" element={<CommentInput />} />
+            </>
+          )}
+          {user?.role === "admin" && (
+            <Route
+              path="/main/admin/reservations"
+              element={<AdminReservationsContainer />}
+            />
+          )}
+          {(user?.role === "admin" || user?.role === "superAdmin") && (
+            <Route path="/main/list-users" element={<ListUserContainer />} />
+          )}
+
           <Route path="/" element={<Landing />} />
           <Route path="/comments" element={<Comments />} />
           <Route path="/about-us" element={<AboutUs />} />
