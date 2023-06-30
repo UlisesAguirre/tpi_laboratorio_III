@@ -117,10 +117,10 @@ const ClientReservationTable = ({ listTurns }) => {
       <div className="table-container">
         <div className={`background-turns-container ${theme}`}>
           <div className="client-turns-container">
-            <table className="turns-table">
-              {!turns.length ? (
-                <p>Cargando...</p>
-              ) : (
+            {!turns.length ? (
+              <p>Cargando...</p>
+            ) : (
+              <table className="turns-table">
                 <>
                   <thead>
                     <tr>
@@ -176,8 +176,8 @@ const ClientReservationTable = ({ listTurns }) => {
                     ))}
                   </tbody>
                 </>
-              )}
-            </table>
+              </table>
+            )}
           </div>
         </div>
       </div>

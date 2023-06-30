@@ -23,7 +23,6 @@ import "./App.css";
 
 function App() {
   const { user } = useContext(UserContext);
-  console.log(user)
   useEffect(() => {
     generateTurns();
   }, []);
@@ -58,7 +57,6 @@ function App() {
 
       for (const timeSlot of timeSlots) {
         const newTurn = {
-          //conversion taken from gpt chat
           date: currentDate.toISOString().split("T")[0],
           day: dayOfWeek,
           hour: timeSlot,
