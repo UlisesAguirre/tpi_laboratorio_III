@@ -28,10 +28,16 @@ const AdminReservationTable = ({ listTurns }) => {
     let turnsToShow = listTurns;
 
     if (!showAllTurns) {
-      const currentDate = new Date();
-      turnsToShow = turnsToShow.filter(
-        (turn) => new Date(turn.date) >= currentDate
-      );
+      const currentDate = new Date().toISOString().split("T")[0];
+      const currentHour = new Date().getHours();
+      turnsToShow = turnsToShow.filter((turn) => {
+        const turnDate = new Date(turn.date).toISOString().split("T")[0];
+        const turnHour = parseInt(turn.hour.split("-")[0]);
+        return (
+          (turnDate === currentDate && turnHour > currentHour) ||
+          turnDate > currentDate
+        );
+      });
     }
 
     const sortedTurns = turnsToShow.sort((a, b) => {

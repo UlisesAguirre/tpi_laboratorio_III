@@ -18,12 +18,17 @@ const ClientReservationTable = ({ listTurns }) => {
   const turns = useMemo(() => {
     let turnsToShow = listTurns;
     const timeSlots = ["12-14", "14-16", "20-22", "22-24"];
-    const currentDate = new Date();
+    const currentDate = new Date().toISOString().split("T")[0];
+    const currentHour = new Date().getHours();
+    turnsToShow = turnsToShow.filter((turn) => {
+      const turnDate = new Date(turn.date).toISOString().split("T")[0];
+      const turnHour = parseInt(turn.hour.split("-")[0]);
+      return (
+        (turnDate === currentDate && turnHour > currentHour) ||
+        turnDate > currentDate
+      );
+    });
 
-    turnsToShow = turnsToShow.filter(
-      (turn) => new Date(turn.date) >= currentDate
-    );
-    
     const sortedTurns = turnsToShow.sort((a, b) => {
       const dateA = new Date(a.date);
       const dateB = new Date(b.date);

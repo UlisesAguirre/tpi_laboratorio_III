@@ -23,7 +23,7 @@ import "./App.css";
 
 function App() {
   const { user } = useContext(UserContext);
-
+  console.log(user)
   useEffect(() => {
     generateTurns();
   }, []);
@@ -77,20 +77,13 @@ function App() {
         <Header />
         <NavBar />
         <Routes>
-          {user != null ? (
+          {user?.role ? (
             <>
-              <Route path="/main" element={<MainContainer />} />
-              <Route
-                path="/main/reservations"
-                element={<ClientReservationsContainer />}
-              />
-              <Route path="/main/admin/reservations" element={<AdminReservationsContainer />} />
-              <Route path="/main/list-users" element={<ListUserContainer />} />
-              <Route
-                path="/main/edit-profile"
-                element={<EditProfile edit={false} />}
-              />
-              <Route path="/main/comment" element={<CommentInput />} />
+             <Route path="/main" element={<MainContainer />} />
+            <Route
+              path="/main/edit-profile"
+              element={<EditProfile edit={false} />}
+            />
             </>
           ) : (
             <>
@@ -98,6 +91,27 @@ function App() {
               <Route path="/register" element={<FormRegisterContainer />} />
             </>
           )}
+
+          {user?.role === "client" && (
+            <>
+             
+              <Route
+                path="/main/reservations"
+                element={<ClientReservationsContainer />}
+              />
+              <Route path="/main/comment" element={<CommentInput />} />
+            </>
+          )}
+          {user?.role === "admin" && (
+            <Route
+              path="/main/admin/reservations"
+              element={<AdminReservationsContainer />}
+            />
+          )}
+          {(user?.role === "admin" || user?.role === "superAdmin") && (
+            <Route path="/main/list-users" element={<ListUserContainer />} />
+          )}
+
           <Route path="/" element={<Landing />} />
           <Route path="/comments" element={<Comments />} />
           <Route path="/about-us" element={<AboutUs />} />
