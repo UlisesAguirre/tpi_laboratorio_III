@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
+import { db } from "../../../firebase";
+import { ThemeContext } from "../../Context/ThemeContext";
+import Modal from "../../shared/Modal/Modal";
+import ConfirmModal from "../../shared/ConfirmModal/ConfirmModal";
 import editIcon from "../../../assets/img/edit-icon.png";
 import deleteIcon from "../../../assets/img/delete-icon.png";
 import confirmIcon from "../../../assets/img/confirm.png";
 import cancelIcon from "../../../assets/img/cancel.png";
 import "./turnsView.css";
-import { db } from "../../../firebase";
-import Modal from "../../shared/Modal/Modal";
-import ConfirmModal from "../../shared/ConfirmModal/ConfirmModal";
-import { ThemeContext } from "../../Context/ThemeContext";
 
 const TurnsView = ({ listTurns }) => {
   const { theme } = useContext(ThemeContext);
@@ -75,7 +75,7 @@ const TurnsView = ({ listTurns }) => {
       modalOpen: true,
       modalTitle: "Aviso",
       modalMessage:
-        "Al editar la capacidad del turno si este ya tiene reservas, el numero se vera afectado por la cantidad de clientes ya inscriptos.",
+        "La capacidad se vera afectada por los clientes ya inscriptos",
     });
     setEditEnable(id)
   };
@@ -148,7 +148,7 @@ const TurnsView = ({ listTurns }) => {
         <div className="turns-view-container">
           <table className="turns-table-turns">
             {!turns.length ? (
-              <p>No hay turnos todavía, añade algunos.</p>
+              <p>Cargando...</p>
             ) : (
               <>
                 <thead>

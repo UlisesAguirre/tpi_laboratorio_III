@@ -1,21 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
 import { db } from "../../../firebase";
 import UserContext from "../../Context/UserContext";
-
-import "./listUser.css";
-
+import { ThemeContext } from "../../Context/ThemeContext";
 import Modal from "../../shared/Modal/Modal";
 import SelectModal from "../../shared/SelectModal/SelectModal";
 import ConfirmModal from "../../shared/ConfirmModal/ConfirmModal";
-import { ThemeContext } from "../../Context/ThemeContext";
+import useGetData from "../../CustomsHook/useGetData";
+import "./listUser.css";
 
 const ListUser = () => {
-  const { theme } = useContext(ThemeContext)
-
+  const { theme } = useContext(ThemeContext);
   const { user } = useContext(UserContext);
+  const { data: users, loading, error } = useGetData("users");
 
   const [clients, setClients] = useState([]);
-  const [users, setUsers] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [modal, setModal] = useState({
     modalOpen: false,
@@ -25,39 +23,25 @@ const ListUser = () => {
   const [userToDelete, setUserToDelete] = useState(null);
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
 
-  const getUsers = async () => {
-    try {
-      const querySnapshot = await db.collection("users").get();
-      const data = querySnapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      setUsers(data);
-    } catch (error) {
-      setModal({
-        modalOpen: true,
-        modalTitle: "Error",
-        modalMessage: `Error al obtener los usuarios:${error}`,
-      });
-    }
-  };
+  useEffect(() => {
+    const getClients = () => {
+      if (!loading) {
+        const onlyClients = users.filter((user) => user.role === "client");
+        setClients(onlyClients);
+      }
+    };
+    getClients();
+  }, [loading, users]);
 
-  const getClients = async () => {
-    try {
-      const querySnapshot = await db
-        .collection("users")
-        .where("role", "==", "client")
-        .get();
-      const data = querySnapshot.docs.map((doc) => doc.data());
-      setClients(data);
-    } catch (error) {
+  useEffect(() => {
+    if (error) {
       setModal({
         modalOpen: true,
         modalTitle: "Error",
-        modalMessage: `Error al obtener los clientes: ${error}`,
+        modalMessage: "Error al obtener los usuarios",
       });
     }
-  };
+  }, [error]);
 
   const search = () => {
     const input = searchInput.toLowerCase().trim();
@@ -95,8 +79,6 @@ const ListUser = () => {
       querySnapshot.docs.forEach((doc) => {
         doc.ref.update({ role: newRole });
       });
-
-      getUsers();
     } catch (error) {
       setModal({
         modalOpen: true,
@@ -114,7 +96,6 @@ const ListUser = () => {
         modalTitle: "Aviso",
         modalMessage: "Usuario eliminado con éxito",
       });
-      getUsers();
     } catch (error) {
       setModal({
         modalOpen: true,
@@ -124,12 +105,6 @@ const ListUser = () => {
     }
     setConfirmModalOpen(false);
   };
-
-  useEffect(() => {
-    getUsers();
-    getClients();
-  }, []);
-
   const filteredList = search();
 
   return (
@@ -146,7 +121,9 @@ const ListUser = () => {
         </div>
         <div className="listUser-table-container">
           <table className="listUser-table">
-            {clients.length === 0 || users.length === 0 ? (
+            {loading ? (
+              <p>Cargando...</p>
+            ) : clients.length === 0 || users.length === 0 ? (
               <p>No hay usuarios registrados</p>
             ) : (
               <>
