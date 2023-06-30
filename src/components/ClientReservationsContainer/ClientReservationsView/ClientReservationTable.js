@@ -1,9 +1,8 @@
 import React, { useContext, useState, useMemo } from "react";
-import UserContext from "../../Context/UserContext";
 import { db } from "../../../firebase";
-import Modal from "../../shared/Modal/Modal";
+import UserContext from "../../Context/UserContext";
 import { ThemeContext } from "../../Context/ThemeContext";
-
+import Modal from "../../shared/Modal/Modal";
 import "./clientReservationTable.css";
 
 const ClientReservationTable = ({ listTurns }) => {
@@ -109,7 +108,7 @@ const ClientReservationTable = ({ listTurns }) => {
           <div className="client-turns-container">
             <table className="turns-table">
               {!turns.length ? (
-                <p>No hay turnos todavía, añade algunos.</p>
+                <p>Cargando...</p>
               ) : (
                 <>
                   <thead>

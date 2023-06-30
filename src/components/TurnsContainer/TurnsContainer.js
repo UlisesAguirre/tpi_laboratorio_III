@@ -1,30 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { db } from "../../firebase";
 import Main from "../MainContainer/Main/Main";
-import "./turnsContainer.css";
 import TurnsView from "./TurnsView/TurnsView";
+import useGetData from "../CustomsHook/useGetData";
+import "./turnsContainer.css";
+import Modal from "../shared/Modal/Modal";
 
 const TurnsContainer = () => {
-  const [turns, setTurns] = useState([]);
-
-  const getTurns = async () => {
-    await db.collection("turns").onSnapshot((querySnapshot) => {
-      const data = [];
-      querySnapshot.forEach((doc) => {
-        data.push({ ...doc.data(), id: doc.id });
-      });
-      setTurns(data);
-    });
-  };
-
+  
+  const { data: turns, loading, error } = useGetData("turns");
+  const [modalOpen, setModalOpen] = useState(false);
   useEffect(() => {
-    getTurns();
-  }, []);
+    if (error) {
+      setModalOpen(true);
+    }
+  }, [error]);
 
   return (
     <div className="client-container">
       <Main />
-      <TurnsView listTurns={turns} />
+      {loading?<p>Cargando...</p>:<TurnsView listTurns={turns} />}
+      {modalOpen && (
+        <Modal
+          title={"Error"}
+          message={`Error al obtener los turnos ${error}`}
+          onClose={() => setModalOpen(false)}
+        />
+      )}
     </div>
   );
 };
