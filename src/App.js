@@ -1,11 +1,15 @@
+import { useContext, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
+import { ThemeProvider } from "./components/Context/ThemeContext";
+import { db } from "./firebase";
+import UserContext from "./components/Context/UserContext";
 import Header from "./components/Header/Header";
 import NavBar from "./components/NavBar/NavBar";
+import MainContainer from "./components/MainContainer/MainContainer";
 import Landing from "./components/Landing/Landing";
 import FormLogIn from "./components/Forms/FormLogIn/FormLogIn";
 import FormRegisterContainer from "./components/Forms/FormRegisterContainer/FormRegisterContainer";
 import AboutUs from "./components/AboutUs/AboutUs";
-import MainContainer from "./components/MainContainer/MainContainer";
 import Comments from "./components/Comments/Comments";
 import Footer from "./components/Footer/Footer";
 import EditProfile from "./components/EditProfile/EditProfile";
@@ -13,15 +17,9 @@ import ThemeButton from "./components/ThemeButton/ThemeButton";
 import CommentInput from "./components/CommentInput/CommentInput";
 import ListUserContainer from "./components/ListUserContainer/ListUserContainer";
 import ClientReservationsContainer from "./components/ClientReservationsContainer/ClientReservationsContainer";
-import TurnsContainer from "./components/TurnsContainer/TurnsContainer";
-import { ThemeProvider } from "./components/Context/ThemeContext";
-import { useContext } from "react";
-import UserContext from "./components/Context/UserContext";
-
-import "./App.css";
-import { useEffect } from "react";
-import { db } from "./firebase";
+import AdminReservationsContainer from "./components/AdminReservationsContainer/AdminReservationsContainer";
 import NotFound from "./components/NotFound/NotFound";
+import "./App.css";
 
 function App() {
   const { user } = useContext(UserContext);
@@ -35,7 +33,7 @@ function App() {
     const currentDate = new Date();
     const querySnapshot = await db
       .collection("turns")
-      .where("date", ">=", currentDate.toISOString().split("T")[0],)
+      .where("date", ">=", currentDate.toISOString().split("T")[0])
       .get();
     if (!querySnapshot.empty) {
       return;
@@ -69,7 +67,7 @@ function App() {
           available: true,
         };
 
-         await db.collection("turns").add(newTurn);
+        await db.collection("turns").add(newTurn);
       }
     }
   };
@@ -86,7 +84,7 @@ function App() {
                 path="/main/reservations"
                 element={<ClientReservationsContainer />}
               />
-              <Route path="/main/view-Turns" element={<TurnsContainer />} />
+              <Route path="/main/admin/reservations" element={<AdminReservationsContainer />} />
               <Route path="/main/list-users" element={<ListUserContainer />} />
               <Route
                 path="/main/edit-profile"

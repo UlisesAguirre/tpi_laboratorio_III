@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import iconUser from "../../assets/img/user.png"
+
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {

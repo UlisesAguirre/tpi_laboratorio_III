@@ -1,11 +1,9 @@
 import React, { useContext } from 'react'
-import logo from "../../assets/img/not-found.png"
 import { ThemeContext } from '../Context/ThemeContext'
-
+import logo from "../../assets/img/not-found.png"
 import "./notFound.css"
 
 const NotFound = () => {
-
   const {theme} = useContext(ThemeContext);
 
   return (

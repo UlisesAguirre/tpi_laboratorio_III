@@ -1,14 +1,13 @@
 
+import { Link } from "react-router-dom"
 import { useContext } from "react"
-import logo from "../../assets/img/logo-restaurant.png"
 import UserButton from "../shared/UserButton/UserButton"
 import UserContext from "../Context/UserContext"
-import { Link } from "react-router-dom"
-
+import logo from "../../assets/img/logo-restaurant.png"
 import "./header.css"
 
-const Header = () => {
 
+const Header = () => {
   const { user } = useContext(UserContext);
 
   return (

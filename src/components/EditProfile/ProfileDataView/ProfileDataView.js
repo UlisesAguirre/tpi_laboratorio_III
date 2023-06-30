@@ -1,33 +1,34 @@
-
-
-import "./profileDataView.css";
 import { useContext, useState } from "react";
-import UserContext from "../../Context/UserContext";
 import { useNavigate } from "react-router-dom";
-import Modal from "../../shared/Modal/Modal";
-import ConfirmModal from "../../shared/ConfirmModal/ConfirmModal";
 import { db } from "../../../firebase";
+import UserContext from "../../Context/UserContext";
 import { ThemeContext } from "../../Context/ThemeContext";
+import ConfirmModal from "../../shared/ConfirmModal/ConfirmModal";
+import Modal from "../../shared/Modal/Modal";
+import "./profileDataView.css";
 
 const ProfileDataView = ({ userData, editProfile }) => {
-  
-  const {theme} = useContext(ThemeContext)
+  const navigate = useNavigate();
+  const { theme } = useContext(ThemeContext);
   const { logout, user: userLog } = useContext(UserContext);
+
   const [modal, setModal] = useState({
     modalOpen: false,
     modalTitle: "",
     modalMessage: "",
   });
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
-  const navigate = useNavigate();
-  
+
   const editProfileHandler = () => {
     editProfile();
   };
-  
+
   const handleConfirmDeleteUser = async () => {
     try {
-      const userToDelete = await db.collection("users").where("email", "==", userLog.email).get();
+      const userToDelete = await db
+        .collection("users")
+        .where("email", "==", userLog.email)
+        .get();
       userToDelete.docs.forEach((doc) => {
         doc.ref.delete();
       });
@@ -66,7 +67,9 @@ const ProfileDataView = ({ userData, editProfile }) => {
           <button onClick={editProfileHandler} className="button">
             Editar
           </button>
-          <button className="button" onClick={() => setConfirmModalOpen(true)}>Eliminar usuario</button>
+          <button className="button" onClick={() => setConfirmModalOpen(true)}>
+            Eliminar usuario
+          </button>
           {confirmModalOpen && (
             <ConfirmModal
               title="Eliminar usuario"

@@ -1,8 +1,12 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInstagram, faFacebook, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faInstagram,
+  faFacebook,
+  faWhatsapp,
+} from "@fortawesome/free-brands-svg-icons";
 
-import "./footer.css"
-import { Link } from 'react-router-dom';
+import "./footer.css";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -15,23 +19,29 @@ const Footer = () => {
         <div className="social-media-container">
           <h2>Seguinos en nuestras redes:</h2>
           <div className="social-media">
-            <Link><FontAwesomeIcon icon={faInstagram} /></Link>
-            <Link><FontAwesomeIcon icon={faFacebook} /></Link>
-            <Link><FontAwesomeIcon icon={faWhatsapp} /></Link>
+            <Link>
+              <FontAwesomeIcon icon={faInstagram} />
+            </Link>
+            <Link>
+              <FontAwesomeIcon icon={faFacebook} />
+            </Link>
+            <Link>
+              <FontAwesomeIcon icon={faWhatsapp} />
+            </Link>
           </div>
         </div>
-        <div className='business-hours-container'>
+        <div className="business-hours-container">
           <h2>Horarios de atención:</h2>
           <p>Todos los dias:</p>
           <p>12 a 16 hs</p>
           <p>20 a 00 hs</p>
         </div>
       </div>
-      <div className='copyright'>
+      <div className="copyright">
         <p>Daguiga Reservation System - &copy; 2023 All rights reserved. </p>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

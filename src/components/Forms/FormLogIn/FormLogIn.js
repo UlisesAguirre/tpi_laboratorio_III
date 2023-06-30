@@ -1,26 +1,21 @@
+import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { db } from "../../../firebase";
-import { useContext } from "react";
 import { ThemeContext } from "../../Context/ThemeContext";
-
-import Input from "../../shared/Input/Input";
-import { useState } from "react";
 import UserContext from "../../Context/UserContext";
-
-import "./formLogIn.css";
+import Input from "../../shared/Input/Input";
 import Modal from "../../shared/Modal/Modal";
+import "./formLogIn.css";
 
 const FormLogIn = () => {
+  const navigate = useNavigate();
   const { theme } = useContext(ThemeContext);
-
   const { login } = useContext(UserContext);
 
-  const navigate = useNavigate();
   const [input, setInput] = useState({
     email: "",
     password: "",
   });
-
   const [validInput, setValidInput] = useState({
     email: null,
     password: null,
@@ -66,8 +61,8 @@ const FormLogIn = () => {
   };
   const handlerChangeInput = (e) => {
     if (e.target.name === "email") {
-      setInput({ ...input, [e.target.name]: e.target.value.toLowerCase()});
-    }else{
+      setInput({ ...input, [e.target.name]: e.target.value.toLowerCase() });
+    } else {
       setInput({ ...input, [e.target.name]: e.target.value });
     }
   };
@@ -80,7 +75,6 @@ const FormLogIn = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const validationInputs = Object.values(validInput).some((valid) => !valid);
 
     if (validationInputs) {

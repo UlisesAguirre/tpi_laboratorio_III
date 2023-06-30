@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { db } from "../../firebase";
 
-const useGetData = (collection) => {
-    
+const useGetData = (collection) => {  
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");

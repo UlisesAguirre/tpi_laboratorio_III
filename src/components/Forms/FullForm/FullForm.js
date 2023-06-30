@@ -1,16 +1,14 @@
-import Input from "../../shared/Input/Input";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { db } from "../../../firebase";
 import UserContext from "../../Context/UserContext";
-
-import "./fullForm.css";
+import Input from "../../shared/Input/Input";
 import Modal from "../../shared/Modal/Modal";
+import "./fullForm.css";
 
 const FullForm = ({ title, buttonTitle, data, register }) => {
-  const { user, login } = useContext(UserContext);
-
   const navigate = useNavigate();
+  const { user, login } = useContext(UserContext);
   const regex = {
     name: /^[a-zA-Z]{3,}$/,
     lastName: /^[a-zA-Z]{3,}$/,
@@ -18,13 +16,14 @@ const FullForm = ({ title, buttonTitle, data, register }) => {
     email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
     password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
   };
+
   const [input, setInput] = useState({
     name: register ? "" : data.name,
     lastName: register ? "" : data.lastName,
     phone: register ? "" : data.phone,
     email: register ? "" : data.email,
     password: register ? "" : data.password,
-    confirmPassword: register ? "" : data.password
+    confirmPassword: register ? "" : data.password,
   });
   const [validInput, setValidInput] = useState({
     name: register ? null : regex.name.test(data.name),
@@ -34,7 +33,6 @@ const FullForm = ({ title, buttonTitle, data, register }) => {
     password: register ? null : regex.password.test(data.password),
     confirmPassword: register ? null : regex.password.test(data.password),
   });
-
   const [modal, setModal] = useState({
     modalOpen: false,
     modalTitle: "",
@@ -142,7 +140,7 @@ const FullForm = ({ title, buttonTitle, data, register }) => {
           confirmPassword: "",
         });
       } else {
-        modifiedFirebase().then(()=>{
+        modifiedFirebase().then(() => {
           setModal({
             modalOpen: true,
             modalTitle: "Actualizado",
@@ -151,7 +149,7 @@ const FullForm = ({ title, buttonTitle, data, register }) => {
           setTimeout(() => {
             navigate("/main");
           }, 2000);
-        })
+        });
       }
     }
   };
@@ -202,45 +200,45 @@ const FullForm = ({ title, buttonTitle, data, register }) => {
               }
             />
           </div>
-            <div className={register? "form-input" : "form-input-hidden" }>
-              <Input
-                inputName={"Email"}
-                name={"email"}
-                placeholder={register ? "example@gmail.com" : data.email}
-                type={"email"}
-                value={input.email}
-                event={handlerChangeInput}
-                onBlur={handlerBlurInput}
-                validInput={validInput}
-                errorMessage={
-                  "Email invalido: respete el formato(example@gmail.com)"
-                }
-              />
-              <Input
-                inputName={"Contraseña"}
-                name={"password"}
-                placeholder={"*************"}
-                type={"password"}
-                input={input.password}
-                event={handlerChangeInput}
-                onBlur={handlerBlurInput}
-                validInput={validInput}
-                errorMessage={
-                  "La contraseña debe contener al menos una minuscula,una mayuscula, un digito y una lonigtud minima de 8 caracteres"
-                }
-              />
-              <Input
-                inputName={"Repetir contraseña"}
-                name={"confirmPassword"}
-                placeholder={"*************"}
-                type={"password"}
-                input={input.confirmPassword}
-                event={handlerChangeInput}
-                onBlur={handlerBlurInput}
-                validInput={validInput}
-                errorMessage={"Las contraseñas no coinciden"}
-              />
-            </div>
+          <div className={register ? "form-input" : "form-input-hidden"}>
+            <Input
+              inputName={"Email"}
+              name={"email"}
+              placeholder={register ? "example@gmail.com" : data.email}
+              type={"email"}
+              value={input.email}
+              event={handlerChangeInput}
+              onBlur={handlerBlurInput}
+              validInput={validInput}
+              errorMessage={
+                "Email invalido: respete el formato(example@gmail.com)"
+              }
+            />
+            <Input
+              inputName={"Contraseña"}
+              name={"password"}
+              placeholder={"*************"}
+              type={"password"}
+              input={input.password}
+              event={handlerChangeInput}
+              onBlur={handlerBlurInput}
+              validInput={validInput}
+              errorMessage={
+                "La contraseña debe contener al menos una minuscula,una mayuscula, un digito y una lonigtud minima de 8 caracteres"
+              }
+            />
+            <Input
+              inputName={"Repetir contraseña"}
+              name={"confirmPassword"}
+              placeholder={"*************"}
+              type={"password"}
+              input={input.confirmPassword}
+              event={handlerChangeInput}
+              onBlur={handlerBlurInput}
+              validInput={validInput}
+              errorMessage={"Las contraseñas no coinciden"}
+            />
+          </div>
         </form>
         <div className="form-button">
           <button className="button" onClick={handleSubmit}>

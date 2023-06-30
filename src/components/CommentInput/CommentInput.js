@@ -1,13 +1,12 @@
 import { useContext, useState } from "react";
-import Main from "../MainContainer/Main/Main";
-import StarRating from "../shared/StarRating/StarRating";
-import UserContext from "../Context/UserContext";
-import { db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
-
-import "./commentInput.css";
-import Modal from "../shared/Modal/Modal";
+import { db } from "../../firebase";
+import UserContext from "../Context/UserContext";
 import { ThemeContext } from "../Context/ThemeContext";
+import Main from "../MainContainer/Main/Main";
+import Modal from "../shared/Modal/Modal";
+import StarRating from "../shared/StarRating/StarRating";
+import "./commentInput.css";
 
 const CommentInput = () => {
   const navigate = useNavigate();
@@ -80,7 +79,7 @@ const CommentInput = () => {
       <div className="comment-container">
         <h2>Deja tu comentario:</h2>
         <div className={`comment-background ${theme}`}>
-          <div className='rating-container'>
+          <div className="rating-container">
             <p>Califica tu experiencia</p>
             <StarRating setRating={setRating} />
           </div>

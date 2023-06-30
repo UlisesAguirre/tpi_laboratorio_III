@@ -1,10 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import ComentCard from "./ComentCard/ComentCard";
 import { db } from "../../firebase";
 import { ThemeContext } from "../Context/ThemeContext";
-
-import "./comments.css";
+import ComentCard from "./ComentCard/ComentCard";
 import Modal from "../shared/Modal/Modal";
+import "./comments.css";
 
 const Comments = () => {
   const { theme } = useContext(ThemeContext);
@@ -96,7 +95,7 @@ const Comments = () => {
             </button>
           )}
           <div className="comment-card-box">
-            {displayedCards.map((c, index) => (
+            {displayedCards.map((c,index) => (
               <ComentCard
                 key={index}
                 name={c.name}
@@ -106,7 +105,7 @@ const Comments = () => {
               />
             ))}
           </div>
-          {activeIndex + 2 == comments.length - 1 ? null : (
+          {activeIndex + 2 === comments.length - 1 ? null : (
             <button className="circle-button" onClick={handleNextClick}>
               &gt;
             </button>

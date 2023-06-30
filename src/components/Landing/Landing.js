@@ -1,21 +1,14 @@
-
-import DescriptionRestaurant from "./DescriptionRestaurant/DescriptionRestaurant"
-
-import "./landing.css"
-
-
-//Ejemplo comentario cliente
-
+import DescriptionRestaurant from "./DescriptionRestaurant/DescriptionRestaurant";
+import "./landing.css";
 
 const Landing = () => {
-
   return (
     <div>
-      <div className="fixed-main">  
-        <DescriptionRestaurant/>
+      <div className="fixed-main">
+        <DescriptionRestaurant />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Landing
+export default Landing;

@@ -1,5 +1,4 @@
 import aboutUsImg from "../../../assets/img/about-us.webp"
-
 import "./descriptionAboutUs.css"
 
 const DescriptionAboutUs = () => {

@@ -7,9 +7,9 @@ import editIcon from "../../../assets/img/edit-icon.png";
 import deleteIcon from "../../../assets/img/delete-icon.png";
 import confirmIcon from "../../../assets/img/confirm.png";
 import cancelIcon from "../../../assets/img/cancel.png";
-import "./turnsView.css";
+import "./adminReservationTable.css";
 
-const TurnsView = ({ listTurns }) => {
+const AdminReservationTable = ({ listTurns }) => {
   const { theme } = useContext(ThemeContext);
   const [turns, setTurns] = useState([]);
   const [showAllTurns, setShowAllTurns] = useState(false);
@@ -77,7 +77,7 @@ const TurnsView = ({ listTurns }) => {
       modalMessage:
         "La capacidad se vera afectada por los clientes ya inscriptos",
     });
-    setEditEnable(id)
+    setEditEnable(id);
   };
 
   const handleConfirmDelete = async () => {
@@ -146,10 +146,12 @@ const TurnsView = ({ listTurns }) => {
             : "Mostrar todo el historial de reservas"}
         </button>
         <div className="turns-view-container">
-          <table className="turns-table-turns">
-            {!turns.length ? (
+          {!turns.length ? (
+            <div>
               <p>Cargando...</p>
-            ) : (
+            </div>
+          ) : (
+            <table className="turns-table-turns">
               <>
                 <thead>
                   <tr>
@@ -202,7 +204,7 @@ const TurnsView = ({ listTurns }) => {
                       <td>
                         {" "}
                         <select>
-                          <option selected>Ver clientes</option>
+                          <option defaultValue>Ver clientes</option>
                           {e.clients.map((client) => (
                             <option key={client} value={client}>
                               {client}
@@ -230,8 +232,8 @@ const TurnsView = ({ listTurns }) => {
                   ))}
                 </tbody>
               </>
-            )}
-          </table>
+            </table>
+          )}
         </div>
       </div>
       {confirmModalOpen && (
@@ -253,4 +255,4 @@ const TurnsView = ({ listTurns }) => {
   );
 };
 
-export default TurnsView;
+export default AdminReservationTable;

@@ -1,32 +1,26 @@
-import Main from "../MainContainer/Main/Main";
-
-import "./editProfile.css";
-import ProfileDataView from "./ProfileDataView/ProfileDataView";
 import { useContext, useEffect, useState } from "react";
-import UserContext from "../Context/UserContext";
 import { db } from "../../firebase";
+import UserContext from "../Context/UserContext";
+import Main from "../MainContainer/Main/Main";
 import FullForm from "../Forms/FullForm/FullForm";
+import ProfileDataView from "./ProfileDataView/ProfileDataView";
 import Modal from "../shared/Modal/Modal";
+import "./editProfile.css";
 
 const EditProfile = ({ edit }) => {
+  const { user } = useContext(UserContext);
+
   const [editProfile, setEditProfile] = useState(edit);
   const [modal, setModal] = useState({
     modalOpen: false,
     modalTitle: "",
     modalMessage: "",
   });
-
   const [userLog, setUserLog] = useState([]);
-
-  const { user } = useContext(UserContext);
 
   useEffect(() => {
     getByEmailFirebase(user.email);
   }, [user.email]);
-
-  const editProfileHandler = () => {
-    setEditProfile(true);
-  };
 
   const getByEmailFirebase = async (email) => {
     try {
@@ -44,6 +38,10 @@ const EditProfile = ({ edit }) => {
     }
   };
 
+  const editProfileHandler = () => {
+    setEditProfile(true);
+  };
+
   return (
     <div className="client-container">
       <Main />
@@ -57,7 +55,10 @@ const EditProfile = ({ edit }) => {
             register={false}
           />
         ) : (
-          <ProfileDataView userData={userLog} editProfile={editProfileHandler} />
+          <ProfileDataView
+            userData={userLog}
+            editProfile={editProfileHandler}
+          />
         )}
       </div>
       {modal.modalOpen && (

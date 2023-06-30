@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import Main from "../MainContainer/Main/Main";
-import TurnsView from "./TurnsView/TurnsView";
 import useGetData from "../CustomsHook/useGetData";
-import "./turnsContainer.css";
+import Main from "../MainContainer/Main/Main";
+import AdminReservationTable from "./TurnsView/AdminReservationTable";
 import Modal from "../shared/Modal/Modal";
+import "./adminReservationsContainer.css";
 
-const TurnsContainer = () => {
-  
+const AdminReservationsContainer = () => {
   const { data: turns, loading, error } = useGetData("turns");
+
   const [modalOpen, setModalOpen] = useState(false);
+
   useEffect(() => {
     if (error) {
       setModalOpen(true);
@@ -18,7 +19,7 @@ const TurnsContainer = () => {
   return (
     <div className="client-container">
       <Main />
-      {loading?<p>Cargando...</p>:<TurnsView listTurns={turns} />}
+      {loading ? <p>Cargando...</p> : <AdminReservationTable listTurns={turns} />}
       {modalOpen && (
         <Modal
           title={"Error"}
@@ -30,4 +31,4 @@ const TurnsContainer = () => {
   );
 };
 
-export default TurnsContainer;
+export default AdminReservationsContainer;
