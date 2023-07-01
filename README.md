@@ -7,7 +7,7 @@ https://incredible-taiyaki-bfc83e.netlify.app/
 
 ![QR-Deploy](src/assets/img/deploy-qr.png)
 
-## Customer Screens:
+### Customer Screens:
 
 #### Reservation: 
 Allows customers to make reservations, leave comments, and ratings.
@@ -20,7 +20,7 @@ Displays available reservation slots for the next 14 days.
 Provides a list of customers and their details.
 #### Reservation List: 
 Displays a list of reservations, allowing admins to modify reservation capacity or delete reservations.
-### Customer Details: 
+#### Customer Details: 
 Shows information about customers who have signed up for a specific reservation.
 
 ### Superadmin Screens:
