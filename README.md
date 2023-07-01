@@ -5,7 +5,7 @@ The application consists of different screens and user roles that allow customer
     
 https://incredible-taiyaki-bfc83e.netlify.app/
 
-![QR-Deploy](src/assets/imgdeploy-qr.png)
+![QR-Deploy](src/assets/img/deploy-qr.png)
 
 ## Customer Screens:
 
