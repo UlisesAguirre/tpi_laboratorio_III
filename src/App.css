@@ -21,6 +21,10 @@ body {
   color: #000;
 }
 
+.light h4 {
+  color: #000;
+}
+
 .dark {
   background-color: rgba(0, 0, 0, .6) ;
   color: antiquewhite;

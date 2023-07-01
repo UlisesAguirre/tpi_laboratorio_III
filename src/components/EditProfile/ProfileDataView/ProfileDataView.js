@@ -48,19 +48,19 @@ const ProfileDataView = ({ userData, editProfile }) => {
       <h2>Mi perfil:</h2>
       <div className={`data-container-background ${theme}`}>
         <div className="data-container">
-          <h3>Nombre:</h3>
+          <h4>Nombre:</h4>
           <p>{userData.name}</p>
         </div>
         <div className="data-container">
-          <h3>Apellido:</h3>
+          <h4>Apellido:</h4>
           <p>{userData.lastName}</p>
         </div>
         <div className="data-container">
-          <h3>Numero de telefono:</h3>
+          <h4>Numero de telefono:</h4>
           <p>{userData.phone}</p>
         </div>
         <div className="data-container">
-          <h3>Email:</h3>
+          <h4>Email:</h4>
           <p>{userData.email}</p>
         </div>
         <div className="button-data-container">

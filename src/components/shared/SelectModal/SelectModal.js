@@ -9,6 +9,8 @@ const SelectModal = ({
   user,
   modifyRole,
 }) => {
+
+  console.log(user)
   const { theme } = useContext(ThemeContext);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -47,7 +49,7 @@ const SelectModal = ({
           <div className={`custom-modal ${theme}`}>
             <h3>{title}</h3>
             <select name="" id="" onChange={roleHandler}>
-              <option value="">Seleccionar</option>
+              <option value={user.role}>Seleccionar</option>
               <option value="client">client</option>
               <option value="admin">admin</option>
               <option value="superAdmin">superAdmin</option>
