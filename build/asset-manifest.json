@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/tpi_laboratorio_III/static/css/main.d8da573f.css",
+    "main.js": "/tpi_laboratorio_III/static/js/main.28f71e7b.js",
+    "static/media/logo-restaurant.png": "/tpi_laboratorio_III/static/media/logo-restaurant.9c0fe5af34587861d850.png",
+    "static/media/pizzeria.png": "/tpi_laboratorio_III/static/media/pizzeria.04b05d63f92fa89c324b.png",
+    "static/media/client-page.png": "/tpi_laboratorio_III/static/media/client-page.da214a344469f3781d24.png",
+    "static/media/user.png": "/tpi_laboratorio_III/static/media/user.a9d3018de4494a5b2982.png",
+    "static/media/about-us.webp": "/tpi_laboratorio_III/static/media/about-us.cdfcd65f06f81f05edf3.webp",
+    "static/media/not-found.png": "/tpi_laboratorio_III/static/media/not-found.f4e54f4eddf6a09b3c4a.png",
+    "static/media/confirm.png": "/tpi_laboratorio_III/static/media/confirm.c0134643077b88a7b9cd.png",
+    "static/media/cancel.png": "/tpi_laboratorio_III/static/media/cancel.804dbf0b50b0c3a72ac6.png",
+    "index.html": "/tpi_laboratorio_III/index.html",
+    "main.d8da573f.css.map": "/tpi_laboratorio_III/static/css/main.d8da573f.css.map",
+    "main.28f71e7b.js.map": "/tpi_laboratorio_III/static/js/main.28f71e7b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d8da573f.css",
+    "static/js/main.28f71e7b.js"
+  ]
+}

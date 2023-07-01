@@ -1,6 +1,7 @@
 {
   "name": "restaurant-reservations",
   "version": "0.1.0",
+  "homepage": "http://ulisesaguirre.github.io/tpi_laboratorio_III",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
