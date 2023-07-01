@@ -11,7 +11,7 @@ https://incredible-taiyaki-bfc83e.netlify.app/
 
 #### Reservation: 
 Allows customers to make reservations, leave comments, and ratings.
-### Upcoming Reservations: 
+#### Upcoming Reservations: 
 Displays available reservation slots for the next 14 days.
 
 ### Admin Screens:
